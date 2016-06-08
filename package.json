@@ -1,7 +1,7 @@
 {
   "name": "ember-changeset-validations",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Validations for ember-changeset",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,11 +11,13 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/poteto/ember-changeset-validations",
+  "bugs": "https://github.com/poteto/ember-changeset-validations/issues",
+  "homepage": "https://github.com/poteto/ember-changeset-validations",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "Lauren Tan <arr@sugarpirate.com>",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
@@ -31,7 +33,6 @@
     "ember-cli-release": "0.2.8",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.5.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
@@ -40,12 +41,18 @@
     "loader.js": "^4.0.1"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "changeset",
+    "validations"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.6"
+    "ember-cli-babel": "^5.1.6",
+    "ember-changeset": "0.3.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "after": [
+      "ember-changeset"
+    ]
   }
 }
