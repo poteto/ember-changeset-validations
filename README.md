@@ -4,6 +4,14 @@
 
 Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to use changesets.
 
+To install:
+
+```
+ember install ember-changeset-validations
+```
+
+This will also install `ember-changeset`.
+
 ## Usage
 
 This addon updates the `changeset` helper by taking in a Validation object as a 2nd argument (instead of a validator function). This means that you can very easily compose validations and decouple the validation from the underlying model.
