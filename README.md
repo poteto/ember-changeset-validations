@@ -102,11 +102,32 @@ Validates the length of a `String` or an `Array`.
 
 **[⬆️ back to top](#validator-api)**
 
+#### `number`
+
+Validates various properties of a number.
+
+```js
+{
+  propertyName: validateNumber({ is: 16 }), // exactly 16
+  propertyName: validateNumber({ allowBlank: true }), // can be blank
+  propertyName: validateNumber({ integer: true }), // must be an integer
+  propertyName: validateNumber({ lt: 10 }), // less than 10
+  propertyName: validateNumber({ lte: 10 }), // less than or equal to 10
+  propertyName: validateNumber({ gt: 5 }), // greater than 5
+  propertyName: validateNumber({ gte: 10 }), // greater than or equal to 5
+  propertyName: validateNumber({ positive: true }), // must be a positive number
+  propertyName: validateNumber({ odd: true }), // must be an odd number
+  propertyName: validateNumber({ even: true }), // must be an even number
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
 #### TODO
 
 - [x] Presence
 - [x] Length
-- [ ] Number
+- [x] Number
 - [ ] Format
 - [ ] Inclusion
 - [ ] Exclusion
