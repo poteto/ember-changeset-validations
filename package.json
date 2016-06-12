@@ -46,7 +46,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
-    "ember-changeset": "0.6.0"
+    "ember-changeset": "0.6.1"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
