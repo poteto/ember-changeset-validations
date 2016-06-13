@@ -123,14 +123,40 @@ Validates various properties of a number.
 
 **[⬆️ back to top](#validator-api)**
 
+#### `inclusion`
+
+Validates that a value is a member of some list or range.
+
+```js
+{
+  propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
+  propertyName: validateInclusion({ range: [18, 60 }), // must be between 18 and 60
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
+#### `exclusion`
+
+Validates that a value is a not member of some list or range.
+
+```js
+{
+  propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
+  propertyName: validateExclusion({ range: [18, 60 }), // must not be between 18 and 60
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
 #### TODO
 
 - [x] Presence
 - [x] Length
 - [x] Number
 - [ ] Format
-- [ ] Inclusion
-- [ ] Exclusion
+- [x] Inclusion
+- [x] Exclusion
 
 ## Writing your own validators
 
