@@ -10,9 +10,9 @@ import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 const {
   isPresent,
   isEmpty,
-  typeOf,
-  keys
+  typeOf
 } = Ember;
+const { keys } = Object;
 
 function _isNumber(value) {
   return typeOf(value) === 'number' && !isNaN(value);
