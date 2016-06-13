@@ -149,14 +149,21 @@ Validates that a value is a not member of some list or range.
 
 **[⬆️ back to top](#validator-api)**
 
-#### TODO
+#### `format`
 
-- [x] Presence
-- [x] Length
-- [x] Number
-- [ ] Format
-- [x] Inclusion
-- [x] Exclusion
+Validates a `String` based on a regular expression.
+
+```js
+{
+  propertyName: validateFormat({ allowBlank: true }), // can be blank
+  propertyName: validateFormat({ type: 'email' }), // built-in email format
+  propertyName: validateFormat({ type: 'phone' }), // built-in phone format
+  propertyName: validateFormat({ type: 'url' }), // built-in URL format
+  propertyName: validateFormat({ regex: \w{6,30} }), // custom regular expression
+}
+```
+
+**[⬆️ back to top](#validator-api)**
 
 ## Writing your own validators
 
