@@ -7,7 +7,7 @@ const { Helper: { helper } } = Ember;
 
 export function changeset([model, validationMap]) {
   if (isObject(validationMap)) {
-    return new Changeset(model, lookupValidator(validationMap));
+    return new Changeset(model, lookupValidator(validationMap), validationMap);
   }
 
   return new Changeset(model, validationMap);
