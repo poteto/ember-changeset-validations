@@ -22,12 +22,12 @@ test('it rejects non-numbers', function(assert) {
   assert.equal(validator(key, '7'), true);
 });
 
-test('it accepts an `integer` option', function(assert) {
+test('it rejects empty strings', function(assert) {
   let key = 'age';
-  let options = { integer: true };
+  let options = {};
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '8.5'), buildMessage(key, 'notAnInteger', options));
+  assert.equal(validator(key, ''), buildMessage(key, 'notANumber'));
   assert.equal(validator(key, '7'), true);
 });
 
