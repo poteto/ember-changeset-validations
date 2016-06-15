@@ -55,6 +55,10 @@ export default function validateNumber(opts = {}) {
       return true;
     }
 
+    if (typeof(value) === 'string' && isEmpty(value)) {
+      return buildMessage(key, 'notANumber');
+    }
+
     if(!_isNumber(numValue)) {
       return buildMessage(key, 'notANumber', value);
     }
