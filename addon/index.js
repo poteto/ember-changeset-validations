@@ -9,7 +9,7 @@ const {
 } = Ember;
 
 export default function lookupValidator(validationMap = {}) {
-  return (key, newValue, oldValue, changes) => {
+  return ({ key, newValue, oldValue, changes }) => {
     let validator = validationMap[key];
 
     if (isEmpty(validator)) {
