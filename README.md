@@ -14,7 +14,7 @@ This will also install `ember-changeset`.
 
 ## Usage
 
-This addon updates the `changeset` helper by taking in a Validation object as a 2nd argument (instead of a validator function). This means that you can very easily compose validations and decouple the validation from the underlying model.
+This addon updates the `changeset` helper by taking in a validation map as a 2nd argument (instead of a validator function). This means that you can very easily compose validations and decouple the validation from the underlying model.
 
 ```hbs
 {{! application/template.hbs}}
@@ -31,12 +31,18 @@ This addon updates the `changeset` helper by taking in a Validation object as a 
 }}
 ```
 
-A Validation object is just a POJO. Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
+A validation map is just a POJO. Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
 
 ```js
 // validations/employee.js
-import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
+import {
+  validatePresence,
+  validateLength,
+  validateConfirmation,
+  validateFormat
+} from 'ember-changeset-validations/validators';
 import validateCustom from '../validators/custom'; // local validator
+import validatePasswordStrength from '../validators/password-strength'; // local validator
 
 export default {
   firstName: [
@@ -44,7 +50,13 @@ export default {
     validateLength({ min: 4 })
   ],
   lastName: validatePresence(true),
-  age: validateCustom({ foo: 'bar' })
+  age: validateCustom({ foo: 'bar' }),
+  email: validateFormat({ type: 'email' }),
+  password: [
+    validateLength({ min: 8 }),
+    validatePasswordStrength({ minScore: 80 })
+  ],
+  passwordConfirmation: validateConfirmation({ on: 'password' })
 };
 ```
 
@@ -96,7 +108,7 @@ Validates the length of a `String` or an `Array`.
   propertyName: validateLength({ max: 8 }), // up to 8
   propertyName: validateLength({ min: 1, max: 8 }), // between 1 and 8 (inclusive)
   propertyName: validateLength({ is: 16 }), // exactly 16
-  propertyName: validateLength({ allowBlank: true }), // can be blank
+  propertyName: validateLength({ allowBlank: true }) // can be blank
 }
 ```
 
@@ -117,7 +129,7 @@ Validates various properties of a number.
   propertyName: validateNumber({ gte: 10 }), // greater than or equal to 5
   propertyName: validateNumber({ positive: true }), // must be a positive number
   propertyName: validateNumber({ odd: true }), // must be an odd number
-  propertyName: validateNumber({ even: true }), // must be an even number
+  propertyName: validateNumber({ even: true }) // must be an even number
 }
 ```
 
@@ -130,7 +142,7 @@ Validates that a value is a member of some list or range.
 ```js
 {
   propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
-  propertyName: validateInclusion({ range: [18, 60 }), // must be between 18 and 60
+  propertyName: validateInclusion({ range: [18, 60 }) // must be between 18 and 60
 }
 ```
 
@@ -143,7 +155,7 @@ Validates that a value is a not member of some list or range.
 ```js
 {
   propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
-  propertyName: validateExclusion({ range: [18, 60 }), // must not be between 18 and 60
+  propertyName: validateExclusion({ range: [18, 60 }) // must not be between 18 and 60
 }
 ```
 
@@ -159,7 +171,19 @@ Validates a `String` based on a regular expression.
   propertyName: validateFormat({ type: 'email' }), // built-in email format
   propertyName: validateFormat({ type: 'phone' }), // built-in phone format
   propertyName: validateFormat({ type: 'url' }), // built-in URL format
-  propertyName: validateFormat({ regex: \w{6,30} }), // custom regular expression
+  propertyName: validateFormat({ regex: \w{6,30} }) // custom regular expression
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
+#### `confirmation`
+
+Validates that a field has the same value as another.
+
+```js
+{
+  propertyName: validateConfirmation({ on: 'password' }) // must match 'password'
 }
 ```
 
@@ -169,14 +193,14 @@ Validates a `String` based on a regular expression.
 
 Adding your own validator is super simple – there are no Base classes to extend! **Validators are just functions**. All you need to do is to create a function with the correct signature.
 
-`ember-changeset-validations` expects a function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue` and `oldValue`. The outer function accepts options for the validator.
+`ember-changeset-validations` expects a function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
 
 For example:
 
 ```js
 // validators/custom.js
 export default function validateCustom({ min, max } = {}) {
-  return (key, newValue, oldValue) => {
+  return (key, newValue, oldValue, changes) => {
     // validation logic
     // return `true` if valid || error message string if invalid
   }
@@ -193,6 +217,40 @@ export default {
   firstName: validateCustom({ min: 4, max: 8 }),
   lastName: validateCustom({ min: 1 })
 };
+```
+
+## Validation composition
+
+Because validation maps are POJOs, composing them couldn't be simpler:
+
+```js
+// validations/user.js
+import {
+  validatePresence,
+  validateLength
+} from 'ember-changeset-validations/validators';
+
+export default {
+  firstName: validatePresence(true),
+  lastName: validatePresence(true)
+};
+```
+
+You can easily import other validations and combine them using `Ember.assign` or `Ember.merge`.
+
+```js
+// validations/adult.js
+import Ember from 'ember';
+import UserValidations from './user';
+import { validateNumber } from 'ember-changeset-validations/validators';
+
+const { assign } = Ember;
+
+export const AdultValidations = {
+  age: validateNumber({ gt: 18 })
+};
+
+export default assign({}, UserValidations, AdultValidations);
 ```
 
 ## Custom validation messages
