@@ -11,9 +11,9 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "https://github.com/poteto/ember-changeset-validations",
-  "bugs": "https://github.com/poteto/ember-changeset-validations/issues",
-  "homepage": "https://github.com/poteto/ember-changeset-validations",
+  "repository": "https://github.com/DockYard/ember-changeset-validations",
+  "bugs": "https://github.com/DockYard/ember-changeset-validations/issues",
+  "homepage": "https://github.com/DockYard/ember-changeset-validations",
   "engines": {
     "node": ">= 0.10.0"
   },
