@@ -1,6 +1,6 @@
 {
   "name": "ember-changeset-validations",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "Validations for ember-changeset",
   "directories": {
     "doc": "doc",
