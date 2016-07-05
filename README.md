@@ -85,6 +85,8 @@ export default Component.extend({
 
 ## Validator API
 
+All validators take a [custom message option](#custom-validation-messages)
+
 #### `presence`
 
 Validates presence/absence of a value.
@@ -93,6 +95,7 @@ Validates presence/absence of a value.
 {
   propertyName: validatePresence(true), // must be present
   propertyName: validatePresence(false) // must be blank
+  propertyName: validatePresence({ presence: true }) // alternative option syntax
 }
 ```
 
@@ -255,7 +258,21 @@ export default assign({}, UserValidations, AdultValidations);
 
 ## Custom validation messages
 
-This is not yet supported, but is very high on the roadmap.
+Each validator that is a part of this library can utilize a `message` property on the `options` object passed to the validator. That `message` property can either be a string or a function.
+
+If `message` is a string, you can put particular placeholders into it that will be automatically replaced. For example:
+
+```js
+{
+  propertyName: validatePresence({presence: true, message: '{description} should be present'})
+}
+```
+
+`{description}` is a hardcoded placeholder that will be replaced with a normalized version of the property name being validated. Any other placeholder will map to properties of the `options` object you pass to the validator.
+
+Message can also accept a function with the signature `(key, type, value, context)`. Key is the property name being validated. Type is the type of validation being performed (in the case of validators such as `number` or `length`, there can be a couple of different ones.) Value is the actual value being validated. Context maps to the `options` object you passed to the validator.
+
+If `message` is a function, it must return the error message as a string.
 
 ## Installation
 

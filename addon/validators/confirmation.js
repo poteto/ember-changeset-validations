@@ -7,9 +7,11 @@ const {
   isEqual
 } = Ember;
 
-export default function validateConfirmation({ on }) {
+export default function validateConfirmation(options = {}) {
+  let { on } = options;
+
   return (key, newValue, _oldValue, changes) => {
     return isPresent(newValue) && isEqual(get(changes, on), newValue) ||
-      buildMessage(key, 'confirmation', { on });
+      buildMessage(key, 'confirmation', newValue, options);
   };
 }

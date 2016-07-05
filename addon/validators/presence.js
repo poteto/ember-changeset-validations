@@ -21,12 +21,20 @@ function _isPresent(value) {
   return isPresent(value);
 }
 
+function _testPresence(key, value, presence, context = {}) {
+  if (presence) {
+    return _isPresent(value) || buildMessage(key, 'present', value, context);
+  } else {
+    return isBlank(value) || buildMessage(key, 'blank', value, context);
+  }
+}
+
 export default function validatePresence(opts) {
   return (key, value) => {
-    if (opts) {
-      return _isPresent(value) || buildMessage(key, 'present');
-    } else {
-      return isBlank(value) || buildMessage(key, 'blank');
+    if (typeof opts === 'boolean') {
+      return _testPresence(key, value, opts);
     }
+
+    return _testPresence(key, value, opts.presence, opts);
   };
 }
