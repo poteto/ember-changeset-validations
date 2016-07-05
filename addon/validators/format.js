@@ -15,7 +15,9 @@ const regularExpressions = {
   url: /(?:([A-Za-z]+):)?(\/{0,3})[a-zA-Z0-9][a-zA-Z-0-9]*(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-{}]*[\w@?^=%&amp;\/~+#-{}])??/
 };
 
-export default function validateFormat({ allowBlank, type, regex } = {}) {
+export default function validateFormat(options = {}) {
+  let { allowBlank, type, regex } = options;
+
   return (key, value) => {
     if (allowBlank && isEmpty(value)) {
       return true;
@@ -27,9 +29,9 @@ export default function validateFormat({ allowBlank, type, regex } = {}) {
 
     if (regex && !regex.test(value)) {
       if (type) {
-        return buildMessage(key, type);
+        return buildMessage(key, type, value, options);
       }
-      return buildMessage(key, 'invalid');
+      return buildMessage(key, 'invalid', value, options);
     }
 
     return true;

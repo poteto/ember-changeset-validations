@@ -15,7 +15,9 @@ const {
   typeOf
 } = Ember;
 
-export default function validateLength({ allowBlank, is, min, max } = {}) {
+export default function validateLength(options = {}) {
+  let { allowBlank, is, min, max } = options;
+
   return (key, value) => {
     let length = get(value, 'length');
 
@@ -24,23 +26,23 @@ export default function validateLength({ allowBlank, is, min, max } = {}) {
     }
 
     if (isNone(value)) {
-      return buildMessage(key, 'invalid', value);
+      return buildMessage(key, 'invalid', value, options);
     }
 
     if (isPresent(is) && typeOf(is) === 'number') {
-      return length === is || buildMessage(key, 'wrongLength', { is });
+      return length === is || buildMessage(key, 'wrongLength', value, options);
     }
 
     if (isPresent(min) && isPresent(max)) {
-      return (length >= min && length <= max) || buildMessage(key, 'between', { min, max });
+      return (length >= min && length <= max) || buildMessage(key, 'between', value, options);
     }
 
     if (isPresent(min) && isEmpty(max)) {
-      return length >= min || buildMessage(key, 'tooShort', { min });
+      return length >= min || buildMessage(key, 'tooShort', value, options);
     }
 
     if (isPresent(max) && isEmpty(min)) {
-      return length <= max || buildMessage(key, 'tooLong', { max });
+      return length <= max || buildMessage(key, 'tooLong', value, options);
     }
 
     return true;
