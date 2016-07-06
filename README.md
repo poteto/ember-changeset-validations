@@ -175,6 +175,7 @@ Validates a `String` based on a regular expression.
   propertyName: validateFormat({ type: 'phone' }), // built-in phone format
   propertyName: validateFormat({ type: 'url' }), // built-in URL format
   propertyName: validateFormat({ regex: \w{6,30} }) // custom regular expression
+  propertyName: validateFormat({ type: 'email', inverse: true }) // passes if the value doesn't match the given format
 }
 ```
 

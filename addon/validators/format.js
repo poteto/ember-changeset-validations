@@ -7,7 +7,7 @@
 import Ember from 'ember';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 
-const { isEmpty } = Ember;
+const { isEmpty, assert, typeOf } = Ember;
 
 const regularExpressions = {
   email: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
@@ -16,7 +16,9 @@ const regularExpressions = {
 };
 
 export default function validateFormat(options = {}) {
-  let { allowBlank, type, regex } = options;
+  let { allowBlank, type, regex, inverse = false } = options;
+
+  assert('inverse options should be a boolean', typeOf(inverse) === 'boolean');
 
   return (key, value) => {
     if (allowBlank && isEmpty(value)) {
@@ -27,8 +29,8 @@ export default function validateFormat(options = {}) {
       regex = regularExpressions[type];
     }
 
-    if (regex && !regex.test(value)) {
-      if (type) {
+    if (regex && (regex.test(value) === inverse)) {
+      if (type && !inverse) {
         return buildMessage(key, type, value, options);
       }
       return buildMessage(key, 'invalid', value, options);
