@@ -38,6 +38,24 @@ test('it accepts a `regex` option', function(assert) {
   assert.equal(validator(key, 'fail'), buildMessage(key, 'invalid'));
 });
 
+test('it accepts an `inverse` option with defined regex', function(assert) {
+  let key = 'email';
+  let options = { type: 'email', inverse: true };
+  let validator = validateFormat(options);
+
+  assert.equal(validator(key, 'test@example.com'), buildMessage(key, 'invalid'), 'email fails format test');
+  assert.equal(validator(key, 'notanemail'), true, 'non-email passes format test');
+});
+
+test('it accepts an `inverse` option with custom regex', function(assert) {
+  let key = 'custom';
+  let options = { regex: /^customregex$/, inverse: true };
+  let validator = validateFormat(options);
+
+  assert.equal(validator(key, 'customregex'), buildMessage(key, 'invalid'), 'matching regex fails format test');
+  assert.equal(validator(key, 'notmatching'), true, 'non-matching regex passes format test');
+});
+
 test('it can output custom message string', function(assert) {
   let key = 'URL';
   let options = { type: 'url', message: '{description} should be of type {type}' };
