@@ -19,13 +19,13 @@ This addon updates the `changeset` helper by taking in a validation map as a 2nd
 ```hbs
 {{! application/template.hbs}}
 {{dummy-form
-    changeset=(changeset user employeeValidations)
+    changeset=(changeset user EmployeeValidations)
     submit=(action "submit")
     rollback=(action "rollback")
 }}
 
 {{dummy-form
-    changeset=(changeset user adminValidations)
+    changeset=(changeset user AdminValidations)
     submit=(action "submit")
     rollback=(action "rollback")
 }}
@@ -64,20 +64,20 @@ Then, you can use the POJO as a property on your Component or Controller and use
 
 ```js
 import Ember from 'ember';
-import employeeValidations from '../validations/employee';
-import adminValidations from '../validations/admin';
+import EmployeeValidations from '../validations/employee';
+import AdminValidations from '../validations/admin';
 
 const { Component } = Ember;
 
 export default Component.extend({
-  employeeValidations,
-  adminValidations
+  EmployeeValidations,
+  AdminValidations
 });
 ```
 
 ```hbs
 {{dummy-form
-    changeset=(changeset user employeeValidations)
+    changeset=(changeset user EmployeeValidations)
     submit=(action "submit")
     rollback=(action "rollback")
 }}
@@ -145,7 +145,7 @@ Validates that a value is a member of some list or range.
 ```js
 {
   propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
-  propertyName: validateInclusion({ range: [18, 60 }) // must be between 18 and 60
+  propertyName: validateInclusion({ range: [18, 60] }) // must be between 18 and 60
 }
 ```
 
@@ -158,7 +158,7 @@ Validates that a value is a not member of some list or range.
 ```js
 {
   propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
-  propertyName: validateExclusion({ range: [18, 60 }) // must not be between 18 and 60
+  propertyName: validateExclusion({ range: [18, 60] }) // must not be between 18 and 60
 }
 ```
 
@@ -174,7 +174,7 @@ Validates a `String` based on a regular expression.
   propertyName: validateFormat({ type: 'email' }), // built-in email format
   propertyName: validateFormat({ type: 'phone' }), // built-in phone format
   propertyName: validateFormat({ type: 'url' }), // built-in URL format
-  propertyName: validateFormat({ regex: \w{6,30} }) // custom regular expression
+  propertyName: validateFormat({ regex: /\w{6,30}/ }) // custom regular expression
   propertyName: validateFormat({ type: 'email', inverse: true }) // passes if the value doesn't match the given format
 }
 ```
@@ -265,7 +265,7 @@ If `message` is a string, you can put particular placeholders into it that will 
 
 ```js
 {
-  propertyName: validatePresence({presence: true, message: '{description} should be present'})
+  propertyName: validatePresence({ presence: true, message: '{description} should be present' })
 }
 ```
 
