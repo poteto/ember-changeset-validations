@@ -197,7 +197,9 @@ Validates that a field has the same value as another.
 
 Adding your own validator is super simple – there are no Base classes to extend! **Validators are just functions**. All you need to do is to create a function with the correct signature.
 
-`ember-changeset-validations` expects a function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
+`ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
+
+### Synchronous validators
 
 For example:
 
@@ -211,15 +213,40 @@ export default function validateCustom({ min, max } = {}) {
 }
 ```
 
+### Asynchronous validators
+
+In addition to conforming to the function signature above, your validator function should return a Promise that resolves with `true` (if valid), or an error message string if invalid.
+
+For example:
+
+```js
+export default function validateUniqueness(opts) {
+  return (key, newValue, oldValue, changes) => {
+    return new Ember.RSVP.Promise((resolve) => {
+      // validation logic
+      // return `true` if valid || error message string if invalid
+    });
+  };
+}
+```
+
+### Using custom validators
+
 That's it! Then, you can use your custom validator like so:
 
 ```js
 // validations/custom.js
+import { validateLength } from 'ember-changeset-validations/validators';
+import validateUniqueness from '../validators/unique';
 import validateCustom from '../validators/custom';
 
 export default {
   firstName: validateCustom({ min: 4, max: 8 }),
-  lastName: validateCustom({ min: 1 })
+  lastName: validateCustom({ min: 1 }),
+  email: [
+    validateFormat({ type: 'email'}),
+    validateUniqueness()
+  ]
 };
 ```
 
