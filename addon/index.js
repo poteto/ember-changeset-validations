@@ -1,11 +1,11 @@
 import Ember from 'ember';
+import wrapInArray from 'ember-changeset-validations/utils/wrap';
+import handleMultipleValidations from 'ember-changeset-validations/utils/handle-multiple-validations';
+import isPromise from 'ember-changeset/utils/is-promise';
 
 const {
-  A: emberArray,
   isEmpty,
-  isArray,
-  get,
-  typeOf
+  isArray
 } = Ember;
 
 export default function lookupValidator(validationMap = {}) {
@@ -13,17 +13,15 @@ export default function lookupValidator(validationMap = {}) {
     let validator = validationMap[key];
 
     if (isEmpty(validator)) {
-      return;
+      return true;
     }
 
     if (isArray(validator)) {
-      let validations = emberArray(validator
-        .map((subValidator) => subValidator(key, newValue, oldValue, changes)))
-        .reject((validation) => typeOf(validation) === 'boolean' && validation);
-
-      return get(validations, 'length') === 0 || validations;
+      return handleMultipleValidations(validator, { key, newValue, oldValue, changes });
     }
 
-    return [validator(key, newValue, oldValue, changes)];
+    let validation = validator(key, newValue, oldValue, changes);
+
+    return isPromise(validation) ? validation.then(wrapInArray) : [validation];
   };
 }

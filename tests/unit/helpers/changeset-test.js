@@ -3,7 +3,17 @@ import { changeset } from 'dummy/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
 
-const { Object: EmberObject } = Ember;
+const {
+  Object: EmberObject,
+  RSVP: { resolve },
+  run
+} = Ember;
+
+function validateUnique() {
+  return (_key, newValue) => {
+    return resolve(newValue !== 'foo@bar.com' || 'is already taken');
+  };
+}
 
 module('Unit | Helper | changeset');
 
@@ -37,4 +47,37 @@ test('it composes validations', function(assert) {
   changesetInstance.set('firstName', 'Jim');
   changesetInstance.set('lastName', 'Bob');
   assert.ok(changesetInstance.get('isValid'), 'should be valid after setting valid first and last names');
+});
+
+test('it works with async validators', function(assert) {
+  let done = assert.async();
+  let User = EmberObject.extend({
+    username: null,
+    email: null
+  });
+  let user = User.create();
+  let userValidations = {
+    email: validateUnique(),
+    username: [
+      validateUnique(),
+      validateLength({ min: 2 })
+    ]
+  };
+  let changesetInstance = changeset([user, userValidations]);
+
+  run(() => changesetInstance.set('email', 'foo@bar.com'));
+  run(() => {
+    let expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
+    assert.deepEqual(changesetInstance.get('error.email'), expectedError, 'email should error');
+  });
+  run(() => changesetInstance.set('username', 'jimbob'));
+  run(() => {
+    assert.deepEqual(changesetInstance.get('change.username'), 'jimbob', 'should set username');
+  });
+  run(() => changesetInstance.set('username', 'foo@bar.com'));
+  run(() => {
+    let expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
+    assert.deepEqual(changesetInstance.get('error.username'), expectedError, 'username should error');
+    done();
+  });
 });
