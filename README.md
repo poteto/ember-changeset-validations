@@ -197,6 +197,12 @@ Validates that a field has the same value as another.
 
 Adding your own validator is super simple – there are no Base classes to extend! **Validators are just functions**. All you need to do is to create a function with the correct signature.
 
+Create a new validator using the blueprint:
+
+```
+ember generate validator <name>
+```
+
 `ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
 
 ### Synchronous validators

@@ -50,3 +50,4 @@ install:
 
 script:
   - ember try $EMBER_TRY_SCENARIO test --skip-cleanup
+  - npm run nodetest
