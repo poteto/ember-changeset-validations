@@ -250,6 +250,28 @@ export default {
 };
 ```
 
+### Testing
+
+Since validators are higher order functions that return functions, testing is straightforward and requires no additional setup:
+
+```js
+import validateUniqueness from 'path/to/validators/uniqueness';
+import { module, test } from 'qunit';
+
+module('Unit | Validator | uniqueness');
+
+test('it does something', function(assert) {
+  let key = 'email';
+  let options = { /* ... */ };
+  let validator = validateUniqueness(options);
+
+  assert.equal(validator(key, undefined), /* ... */);
+  assert.equal(validator(key, null), /* ... */);
+  assert.equal(validator(key, ''), /* ... */);
+  assert.equal(validator(key, 'foo@bar.com'), /* ... */);
+});
+```
+
 ## Validation composition
 
 Because validation maps are POJOs, composing them couldn't be simpler:
