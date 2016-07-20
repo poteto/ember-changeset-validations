@@ -10,7 +10,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each",
-    "nodetest": "mocha node-tests --recursive"
+    "nodetest": "mocha node-test --recursive"
   },
   "repository": "https://github.com/DockYard/ember-changeset-validations",
   "bugs": "https://github.com/DockYard/ember-changeset-validations/issues",
