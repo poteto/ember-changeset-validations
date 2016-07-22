@@ -52,6 +52,8 @@ test('it accepts an `allowBlank` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 'a'), true);
+  assert.equal(validator(key, null), true);
+  assert.equal(validator(key, undefined), true);
 });
 
 test('it can output custom message string', function(assert) {

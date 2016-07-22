@@ -19,8 +19,6 @@ export default function validateLength(options = {}) {
   let { allowBlank, is, min, max } = options;
 
   return (key, value) => {
-    let length = get(value, 'length');
-
     if (allowBlank && isEmpty(value)) {
       return true;
     }
@@ -28,6 +26,8 @@ export default function validateLength(options = {}) {
     if (isNone(value)) {
       return buildMessage(key, 'invalid', value, options);
     }
+
+    let length = get(value, 'length');
 
     if (isPresent(is) && typeOf(is) === 'number') {
       return length === is || buildMessage(key, 'wrongLength', value, options);
