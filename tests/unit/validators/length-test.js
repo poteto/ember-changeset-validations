@@ -1,4 +1,4 @@
-import validateLength from 'dummy/validators/length';
+import validateLength from 'ember-changeset-validations/validators/length';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 

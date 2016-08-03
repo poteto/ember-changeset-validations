@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { changeset } from 'dummy/helpers/changeset';
+import { changeset } from 'ember-changeset-validations/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
 

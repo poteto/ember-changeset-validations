@@ -1,4 +1,4 @@
-import validateNumber from 'dummy/validators/number';
+import validateNumber from 'ember-changeset-validations/validators/number';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
