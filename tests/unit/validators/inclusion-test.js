@@ -1,4 +1,4 @@
-import validateInclusion from 'dummy/validators/inclusion';
+import validateInclusion from 'ember-changeset-validations/validators/inclusion';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 

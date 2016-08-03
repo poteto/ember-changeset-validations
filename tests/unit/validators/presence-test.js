@@ -1,4 +1,4 @@
-import validatePresence from 'dummy/validators/presence';
+import validatePresence from 'ember-changeset-validations/validators/presence';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 

@@ -2,7 +2,7 @@ import {
   default as buildMessage,
   formatDescription,
   formatMessage
-} from 'dummy/utils/validation-errors';
+} from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | validation errors');

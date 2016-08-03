@@ -1,4 +1,4 @@
-import validateConfirmation from 'dummy/validators/confirmation';
+import validateConfirmation from 'ember-changeset-validations/validators/confirmation';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
