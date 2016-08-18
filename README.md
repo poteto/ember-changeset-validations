@@ -83,6 +83,32 @@ export default Component.extend({
 }}
 ```
 
+When creating the `Changeset` programmatically instead of using the `changeset` helper, you will have to apply the `lookupValidator` function to convert the POJO to a validator function as expected by `Changeset`:
+
+```js
+import Ember from 'ember';
+import EmployeeValidations from '../validations/employee';
+import lookupValidator from 'ember-changeset-validations';
+
+const { Component } = Ember;
+
+export default Component.extend({
+  init() {
+    this._super(...arguments);
+    let model = get(this, 'model');
+    this.changeset = new Changeset(model, lookupValidator(EmployeeValidations), EmployeeValidations);
+  }
+});
+```
+
+```hbs
+{{dummy-form
+    changeset=changeset
+    submit=(action "submit")
+    rollback=(action "rollback")
+}}
+```
+
 ## Validator API
 
 All validators take a [custom message option](#custom-validation-messages)
