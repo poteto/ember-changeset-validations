@@ -111,7 +111,7 @@ export default Component.extend({
 
 ## Validator API
 
-All validators take a [custom message option](#custom-validation-messages)
+All validators take a [custom message option](#custom-validation-messages).
 
 #### `presence`
 
@@ -355,6 +355,80 @@ If `message` is a string, you can put particular placeholders into it that will 
 Message can also accept a function with the signature `(key, type, value, context)`. Key is the property name being validated. Type is the type of validation being performed (in the case of validators such as `number` or `length`, there can be a couple of different ones.) Value is the actual value being validated. Context maps to the `options` object you passed to the validator.
 
 If `message` is a function, it must return the error message as a string.
+
+## Overriding validation messages
+
+If you need to be able to override the entire validation message object, simply create a module at `app/validations/messages.js`, exporting a POJO with the following keys:
+
+```js
+// app/validations/messages.js
+export default {
+  inclusion: // '{description} is not included in the list',
+  exclusion: // '{description} is reserved',
+  invalid: // '{description} is invalid',
+  confirmation: // "{description} doesn't match {on}",
+  accepted: // '{description} must be accepted',
+  empty: // "{description} can't be empty",
+  blank: // '{description} must be blank',
+  present: // "{description} can't be blank",
+  collection: // '{description} must be a collection',
+  singular: // "{description} can't be a collection",
+  tooLong: // '{description} is too long (maximum is {max} characters)',
+  tooShort: // '{description} is too short (minimum is {min} characters)',
+  between: // '{description} must be between {min} and {max} characters',
+  before: // '{description} must be before {before}',
+  onOrBefore: // '{description} must be on or before {onOrBefore}',
+  after: // '{description} must be after {after}',
+  onOrAfter: // '{description} must be on or after {onOrAfter}',
+  wrongDateFormat: // '{description} must be in the format of {format}',
+  wrongLength: // '{description} is the wrong length (should be {is} characters)',
+  notANumber: // '{description} must be a number',
+  notAnInteger: // '{description} must be an integer',
+  greaterThan: // '{description} must be greater than {gt}',
+  greaterThanOrEqualTo: // '{description} must be greater than or equal to {gte}',
+  equalTo: // '{description} must be equal to {is}',
+  lessThan: // '{description} must be less than {lt}',
+  lessThanOrEqualTo: // '{description} must be less than or equal to {lte}',
+  otherThan: // '{description} must be other than {value}',
+  odd: // '{description} must be odd',
+  even: // '{description} must be even',
+  positive: // '{description} must be positive',
+  date: // '{description} must be a valid date',
+  email: // '{description} must be a valid email address',
+  phone: // '{description} must be a valid phone number',
+  url: // '{description} must be a valid url'
+}
+```
+
+In the message body, any text wrapped in single braces will be replaced with their appropriate values that were passed in as options to the validator. For example:
+
+```js
+import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+// validators/custom.js
+export default function validateIsOne(options) {
+  return (key, newValue, oldValue, changes) => {
+    return newValue === 1 || buildMessage(key, 'isOne', newValue, options);
+  }
+}
+```
+
+```js
+// validations/foo.js
+export default {
+  mySpecialNumber: validateIsOne({ foo: 'foo' }})
+};
+```
+
+The above will look for a key `isOne` in your custom validation map, and use keys defined on the options object (in this case, `foo`) to replace tokens. With the custom validator above, we can add:
+
+```js
+// app/validations/messages.js
+export default {
+  isOne: '{description} must equal one, and also {foo}'
+}
+```
+
+Will render: `My special number must equal one, and also foo`.
 
 ## Installation
 
