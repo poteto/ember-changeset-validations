@@ -17,7 +17,7 @@ function validateUnique() {
 
 module('Unit | Helper | changeset');
 
-test('it composes validations', function(assert) {
+test('it composes validations and uses custom validation messages', function(assert) {
   let User = EmberObject.extend({
     firstName: null,
     lastName: null
@@ -33,15 +33,15 @@ test('it composes validations', function(assert) {
   let changesetInstance = changeset([user, userValidations]);
 
   changesetInstance.set('firstName', 'helloworldjimbob');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ['First name must be between 1 and 8 characters']);
+  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ['[CUSTOM] First name must be between 1 and 8 characters']);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
   changesetInstance.set('firstName', '');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["First name can't be blank", 'First name must be between 1 and 8 characters']);
+  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank", '[CUSTOM] First name must be between 1 and 8 characters']);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank first name');
 
   changesetInstance.set('lastName', '');
-  assert.deepEqual(changesetInstance.get('error.lastName.validation'), ["Last name can't be blank"]);
+  assert.deepEqual(changesetInstance.get('error.lastName.validation'), ["[CUSTOM] Last name can't be blank"]);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank last name');
 
   changesetInstance.set('firstName', 'Jim');

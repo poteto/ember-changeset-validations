@@ -19,7 +19,7 @@ test('#formatMessage formats a blank message', function(assert) {
 });
 
 test('#buildMessage builds a validation message', function(assert) {
-  assert.equal(buildMessage('firstName', 'invalid'), 'First name is invalid');
+  assert.ok(buildMessage('firstName', 'invalid').indexOf('First name is invalid') !== -1);
 });
 
 test('#buildMessage builds a custom message if custom message is string', function(assert) {

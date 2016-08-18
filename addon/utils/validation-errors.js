@@ -5,7 +5,7 @@
  */
 
 import Ember from 'ember';
-import messages from 'ember-changeset-validations/validators/messages';
+import getMessages from 'ember-changeset-validations/utils/get-messages';
 
 const {
   String: { dasherize, capitalize },
@@ -31,6 +31,7 @@ export function formatMessage(message, context = {}) {
 
 export default function buildMessage(key, type, value, context = {}) {
   let description = formatDescription(key);
+  let messages = getMessages();
 
   if (context.message) {
     let message = context.message;
