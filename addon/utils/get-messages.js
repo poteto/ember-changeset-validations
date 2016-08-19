@@ -2,10 +2,10 @@
 import Ember from 'ember';
 import defaultMessages from 'ember-changeset-validations/utils/messages';
 
-const { isPresent, isNone } = Ember;
+const { isPresent } = Ember;
 const { keys } = Object;
 const matchRegex = /validations\/messages$/gi;
-let cachedKey = null;
+let cachedRef = null;
 
 /**
  * Find and load messages module on consuming app. Defaults to addon messages.
@@ -17,13 +17,14 @@ let cachedKey = null;
  * @return {Object}
  */
 export default function getMessages(moduleMap = requirejs.entries, useCache = true) {
-  let cached = useCache && cachedKey;
-  let moduleKey = cached || keys(moduleMap)
-    .find((module) => isPresent(module.match(matchRegex)));
-
-  if (useCache && isPresent(moduleKey) && isNone(cachedKey)) {
-    cachedKey = moduleKey;
+  if (useCache && isPresent(cachedRef)) {
+    return cachedRef;
   }
 
-  return isPresent(moduleKey) ? requireModule(moduleKey).default : defaultMessages;
+  let moduleKey = keys(moduleMap)
+    .find((module) => isPresent(module.match(matchRegex)));
+  let messagesModule = isPresent(moduleKey) ? requireModule(moduleKey).default : defaultMessages;
+  cachedRef = messagesModule;
+
+  return messagesModule;
 }
