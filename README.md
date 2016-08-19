@@ -12,6 +12,8 @@ ember install ember-changeset-validations
 
 This will also install `ember-changeset`.
 
+Watch [a 6-part video series on ember-changeset and ember-changeset-validations](https://www.emberscreencasts.com/tags/editing-and-validating-forms-with-ember-changeset) presented by EmberScreencasts.
+
 ## Usage
 
 This addon updates the `changeset` helper by taking in a validation map as a 2nd argument (instead of a validator function). This means that you can very easily compose validations and decouple the validation from the underlying model.
