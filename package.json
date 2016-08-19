@@ -10,7 +10,7 @@
     "build": "ember build",
     "start": "ember server",
     "test": "ember try:each",
-    "nodetest": "mocha node-test --recursive"
+    "node-test": "mocha node-test --recursive"
   },
   "repository": "https://github.com/DockYard/ember-changeset-validations",
   "bugs": "https://github.com/DockYard/ember-changeset-validations/issues",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.3",
     "ember-ajax": "2.4.1",
-    "ember-cli": "2.6.3",
+    "ember-cli": "2.7.0",
     "ember-cli-app-version": "^1.0.1",
     "ember-cli-blueprint-test-helpers": "^0.13.0",
     "ember-cli-dependency-checker": "^1.2.0",
@@ -34,6 +34,7 @@
     "ember-cli-qunit": "^2.0.2",
     "ember-cli-release": "^0.2.9",
     "ember-cli-sri": "^2.1.0",
+    "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
