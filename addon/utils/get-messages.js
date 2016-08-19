@@ -2,7 +2,7 @@
 import Ember from 'ember';
 import defaultMessages from 'ember-changeset-validations/utils/messages';
 
-const { isPresent } = Ember;
+const { A: emberArray, isPresent } = Ember;
 const { keys } = Object;
 const matchRegex = /validations\/messages$/gi;
 let cachedRef = null;
@@ -21,7 +21,7 @@ export default function getMessages(moduleMap = requirejs.entries, useCache = tr
     return cachedRef;
   }
 
-  let moduleKey = keys(moduleMap)
+  let moduleKey = emberArray(keys(moduleMap))
     .find((module) => isPresent(module.match(matchRegex)));
   let messagesModule = isPresent(moduleKey) ? requireModule(moduleKey).default : defaultMessages;
   cachedRef = messagesModule;
