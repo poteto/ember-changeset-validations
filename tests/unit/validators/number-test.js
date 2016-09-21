@@ -116,6 +116,15 @@ test('it accepts an `even` option', function(assert) {
   assert.equal(validator(key, '34'), true);
 });
 
+test('it accepts an `multipleOf` option', function(assert) {
+  let key = 'age';
+  let options = { multipleOf: 17 };
+  let validator = validateNumber(options);
+
+  assert.equal(validator(key, '15'), buildMessage(key, 'multipleOf', '15', options));
+  assert.equal(validator(key, '34'), true);
+});
+
 test('it can output custom message string', function(assert) {
   let key = 'age';
   let options = { even: true, message: 'Even {description} is wrong' };

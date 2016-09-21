@@ -160,7 +160,8 @@ Validates various properties of a number.
   propertyName: validateNumber({ gte: 10 }), // greater than or equal to 5
   propertyName: validateNumber({ positive: true }), // must be a positive number
   propertyName: validateNumber({ odd: true }), // must be an odd number
-  propertyName: validateNumber({ even: true }) // must be an even number
+  propertyName: validateNumber({ even: true }), // must be an even number
+  propertyName: validateNumber({ multipleOf: 7 }) // must be a multiple of 7
 }
 ```
 
@@ -395,6 +396,7 @@ export default {
   odd: // '{description} must be odd',
   even: // '{description} must be even',
   positive: // '{description} must be positive',
+  multipleOf: // '{description} must be a multiple of {multipleOf}',
   date: // '{description} must be a valid date',
   email: // '{description} must be a valid email address',
   phone: // '{description} must be a valid phone number',

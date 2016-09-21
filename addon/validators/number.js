@@ -40,6 +40,8 @@ function _validateType(type, opts, numValue, key) {
     return buildMessage(key, 'odd', numValue, opts);
   } else if (type === 'even' && numValue % 2 !== 0) {
     return buildMessage(key, 'even', numValue, opts);
+  } else if (type === 'multipleOf' && !_isInteger(numValue / expected)) {
+    return buildMessage(key, 'multipleOf', numValue, opts);
   }
 
   return true;
