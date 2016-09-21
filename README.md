@@ -395,6 +395,7 @@ export default {
   odd: // '{description} must be odd',
   even: // '{description} must be even',
   positive: // '{description} must be positive',
+  multipleOf: // '{description} must be a multiple of {multipleOf}',
   date: // '{description} must be a valid date',
   email: // '{description} must be a valid email address',
   phone: // '{description} must be a valid phone number',
