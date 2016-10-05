@@ -241,7 +241,7 @@ For example:
 ```js
 // validators/custom.js
 export default function validateCustom({ min, max } = {}) {
-  return (key, newValue, oldValue, changes, object) => {
+  return (key, newValue, oldValue, changes, content) => {
     // validation logic
     // return `true` if valid || error message string if invalid
   }
@@ -256,7 +256,7 @@ For example:
 
 ```js
 export default function validateUniqueness(opts) {
-  return (key, newValue, oldValue, changes, object) => {
+  return (key, newValue, oldValue, changes, content) => {
     return new Ember.RSVP.Promise((resolve) => {
       // validation logic
       // return `true` if valid || error message string if invalid
@@ -410,7 +410,7 @@ In the message body, any text wrapped in single braces will be replaced with the
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 // validators/custom.js
 export default function validateIsOne(options) {
-  return (key, newValue, oldValue, changes, object) => {
+  return (key, newValue, oldValue, changes, content) => {
     return newValue === 1 || buildMessage(key, 'isOne', newValue, options);
   }
 }

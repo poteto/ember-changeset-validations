@@ -9,7 +9,7 @@ const {
 } = Ember;
 
 export default function lookupValidator(validationMap = {}) {
-  return ({ key, newValue, oldValue, changes, object }) => {
+  return ({ key, newValue, oldValue, changes, content }) => {
     let validator = validationMap[key];
 
     if (isEmpty(validator)) {
@@ -17,10 +17,10 @@ export default function lookupValidator(validationMap = {}) {
     }
 
     if (isArray(validator)) {
-      return handleMultipleValidations(validator, { key, newValue, oldValue, changes, object });
+      return handleMultipleValidations(validator, { key, newValue, oldValue, changes, content });
     }
 
-    let validation = validator(key, newValue, oldValue, changes, object);
+    let validation = validator(key, newValue, oldValue, changes, content);
 
     return isPromise(validation) ? validation.then(wrapInArray) : [validation];
   };
