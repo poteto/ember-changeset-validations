@@ -50,7 +50,7 @@
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
-    "ember-changeset": "^1.1.1"
+    "ember-changeset": "RisingTideGames/ember-changeset"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
