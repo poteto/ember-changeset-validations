@@ -259,7 +259,8 @@ export default function validateUniqueness(opts) {
   return (key, newValue, oldValue, changes) => {
     return new Ember.RSVP.Promise((resolve) => {
       // validation logic
-      // return `true` if valid || error message string if invalid
+      // resolve with `true` if valid || error message string if invalid
+      resolve(true);
     });
   };
 }
