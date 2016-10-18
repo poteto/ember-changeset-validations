@@ -33,11 +33,12 @@ function handleValidations(validations = []) {
  * @param  {Any} options.newValue
  * @param  {Any} options.oldValue
  * @param  {Object} options.changes
+ * @param  {Object} options.content
  * @return {Promise|Boolean|Any}
  */
-export default function handleMultipleValidations(validators, { key, newValue, oldValue, changes }) {
+export default function handleMultipleValidations(validators, { key, newValue, oldValue, changes, content }) {
   let validations = emberArray(validators
-    .map((validator) => validator(key, newValue, oldValue, changes)));
+    .map((validator) => validator(key, newValue, oldValue, changes, content)));
 
   if (emberArray(validations).any(isPromise)) {
     return all(validations).then(handleValidations);

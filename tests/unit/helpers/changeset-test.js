@@ -15,6 +15,12 @@ function validateUnique() {
   };
 }
 
+function validateContent() {
+  return (_key, _newValue, _oldValue, _changes, content) => {
+    return Boolean(content) || 'Content was not passed into validator';
+  };
+}
+
 module('Unit | Helper | changeset');
 
 test('it composes validations and uses custom validation messages', function(assert) {
@@ -80,4 +86,23 @@ test('it works with async validators', function(assert) {
     assert.deepEqual(changesetInstance.get('error.username'), expectedError, 'username should error');
     done();
   });
+});
+
+test('it passes the original object into validators', function(assert) {
+  let User = EmberObject.extend({
+    firstName: null,
+    lastName: null
+  });
+  let user = User.create();
+  let userValidations = {
+    firstName: validateContent(),
+    lastName: [validateContent(), validateContent()]
+  };
+  let changesetInstance = changeset([user, userValidations]);
+
+  changesetInstance.set('firstName', 'Herp');
+  assert.ok(changesetInstance.get('isValid'), 'should be valid if content is passed into validator');
+
+  changesetInstance.set('lastName', 'McDerpface');
+  assert.ok(changesetInstance.get('isValid'), 'should be valid if content is passed into validator');
 });

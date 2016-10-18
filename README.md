@@ -232,7 +232,7 @@ Create a new validator using the blueprint:
 ember generate validator <name>
 ```
 
-`ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
+`ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue`, `changes`, and `content`. The outer function accepts options for the validator.
 
 ### Synchronous validators
 
@@ -241,7 +241,7 @@ For example:
 ```js
 // validators/custom.js
 export default function validateCustom({ min, max } = {}) {
-  return (key, newValue, oldValue, changes) => {
+  return (key, newValue, oldValue, changes, content) => {
     // validation logic
     // return `true` if valid || error message string if invalid
   }
@@ -256,7 +256,7 @@ For example:
 
 ```js
 export default function validateUniqueness(opts) {
-  return (key, newValue, oldValue, changes) => {
+  return (key, newValue, oldValue, changes, content) => {
     return new Ember.RSVP.Promise((resolve) => {
       // validation logic
       // resolve with `true` if valid || error message string if invalid
@@ -411,7 +411,7 @@ In the message body, any text wrapped in single braces will be replaced with the
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 // validators/custom.js
 export default function validateIsOne(options) {
-  return (key, newValue, oldValue, changes) => {
+  return (key, newValue, oldValue, changes, content) => {
     return newValue === 1 || buildMessage(key, 'isOne', newValue, options);
   }
 }
