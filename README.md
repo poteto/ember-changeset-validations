@@ -232,7 +232,7 @@ Create a new validator using the blueprint:
 ember generate validator <name>
 ```
 
-`ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue` and `changes`. The outer function accepts options for the validator.
+`ember-changeset-validations` expects a higher order function that returns the validator function. The validator (or inner function) accepts a `key`, `newValue`, `oldValue`, `changes`, and `content`. The outer function accepts options for the validator.
 
 ### Synchronous validators
 

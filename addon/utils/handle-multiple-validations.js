@@ -33,6 +33,7 @@ function handleValidations(validations = []) {
  * @param  {Any} options.newValue
  * @param  {Any} options.oldValue
  * @param  {Object} options.changes
+ * @param  {Object} options.content
  * @return {Promise|Boolean|Any}
  */
 export default function handleMultipleValidations(validators, { key, newValue, oldValue, changes, content }) {
