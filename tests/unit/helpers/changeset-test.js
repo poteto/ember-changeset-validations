@@ -106,3 +106,28 @@ test('it passes the original object into validators', function(assert) {
   changesetInstance.set('lastName', 'McDerpface');
   assert.ok(changesetInstance.get('isValid'), 'should be valid if content is passed into validator');
 });
+
+test('it works with models that are promises', function(assert) {
+  let done = assert.async();
+  let User = EmberObject.extend({
+    firstName: null,
+    lastName: null
+  });
+  let user = resolve(User.create());
+  let userValidations = {
+    firstName: validatePresence(true),
+    lastName: validatePresence(true)
+  };
+
+  return changeset([user, userValidations]).then((changesetInstance) => {
+    changesetInstance.validate().then(() => {
+      assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank"]);
+      assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
+
+      changesetInstance.set('firstName', 'Jim');
+      changesetInstance.set('lastName', 'Bob');
+      assert.ok(changesetInstance.get('isValid'), 'should be valid after setting valid first and last names');
+      done();
+    });
+  });
+});
