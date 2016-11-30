@@ -91,6 +91,7 @@ When creating the `Changeset` programmatically instead of using the `changeset` 
 import Ember from 'ember';
 import EmployeeValidations from '../validations/employee';
 import lookupValidator from 'ember-changeset-validations';
+import Changeset from 'ember-changeset';
 
 const { Component } = Ember;
 
