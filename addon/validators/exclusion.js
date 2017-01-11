@@ -6,12 +6,16 @@
 import Ember from 'ember';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 
-const { typeOf } = Ember;
+const { isEmpty, typeOf } = Ember;
 
 export default function validateExclusion(options = {}) {
-  let { list, range } = options;
+  let { list, range, allowBlank } = options;
 
   return (key, value) => {
+    if (allowBlank && isEmpty(value)) {
+      return true;
+    }
+
     if (list && list.indexOf(value) !== -1) {
       return buildMessage(key, 'exclusion', value, options);
     }

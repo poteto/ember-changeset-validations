@@ -175,7 +175,8 @@ Validates that a value is a member of some list or range.
 ```js
 {
   propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
-  propertyName: validateInclusion({ range: [18, 60] }) // must be between 18 and 60
+  propertyName: validateInclusion({ range: [18, 60] }), // must be between 18 and 60
+  propertyName: validateInclusion({ allowBlank: true }), // can be blank
 }
 ```
 
@@ -188,7 +189,8 @@ Validates that a value is a not member of some list or range.
 ```js
 {
   propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
-  propertyName: validateExclusion({ range: [18, 60] }) // must not be between 18 and 60
+  propertyName: validateExclusion({ range: [18, 60] }), // must not be between 18 and 60
+  propertyName: validateExclusion({ allowBlank: true }), // can be blank
 }
 ```
 
@@ -217,7 +219,8 @@ Validates that a field has the same value as another.
 
 ```js
 {
-  propertyName: validateConfirmation({ on: 'password' }) // must match 'password'
+  propertyName: validateConfirmation({ on: 'password' }), // must match 'password'
+  propertyName: validateConfirmation({ allowBlank: true }), // can be blank
 }
 ```
 

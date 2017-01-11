@@ -53,3 +53,11 @@ test('it can output with custom message function', function(assert) {
     'custom message function is returned correctly'
   );
 });
+
+test('it accepts an `allowBlank` option', function(assert) {
+  let key = 'email';
+  let options = { allowBlank: true };
+  let validator = validateConfirmation(options);
+
+  assert.equal(validator(key, ''), true, 'Empty string is accepted');
+});
