@@ -50,3 +50,11 @@ test('it can output custom message function', function(assert) {
 
   assert.equal(validator(key, 'Test'), 'some test message', 'custom message function is returned correctly');
 });
+
+test('it accepts an `allowBlank` option', function(assert) {
+  let key = 'email';
+  let options = { allowBlank: true };
+  let validator = validateInclusion(options);
+
+  assert.equal(validator(key, ''), true, 'Empty string is accepted');
+});
