@@ -49,24 +49,19 @@ function _validateType(type, opts, numValue, key) {
 
 export default function validateNumber(options = {}) {
   return (key, value) => {
-    let numValue = Number(value);
-    let optKeys = keys(options);
-
-    if (options.allowBlank && isEmpty(value)) {
+    if (isEmpty(value) && options.allowBlank) {
       return true;
     }
 
-    if (typeof(value) === 'string' && isEmpty(value)) {
-      return buildMessage(key, 'notANumber', value, options);
-    }
+    let numValue = Number(value);
 
-    if(!_isNumber(numValue)) {
+    if (isEmpty(value) || !_isNumber(numValue)) {
       return buildMessage(key, 'notANumber', value, options);
-    }
-
-    if(isPresent(options.integer) && !_isInteger(numValue)) {
+    } else if (isPresent(options.integer) && !_isInteger(numValue)) {
       return buildMessage(key, 'notAnInteger', value, options);
     }
+
+    let optKeys = keys(options);
 
     for (let i = 0; i < optKeys.length; i++) {
       let type = optKeys[i];

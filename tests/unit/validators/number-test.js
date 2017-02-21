@@ -9,8 +9,15 @@ test('it accepts an `allowBlank` option', function(assert) {
   let options = { allowBlank: true };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, ''), true);
-  assert.equal(validator(key, '6'), true);
+  assert.equal(validator(key, ''), true, 'empty string is allowed');
+  assert.equal(validator(key, null), true, 'null is allowed');
+  assert.equal(validator(key, undefined), true, 'undefined is allowed');
+  assert.equal(validator(key, '6'), true, 'numeric string is allowed');
+
+  assert.equal(validator(key, 'not a number'), buildMessage(key, 'notANumber', 'not a number', options),
+    'non-numeric string is not allowed');
+  assert.equal(validator(key, NaN), buildMessage(key, 'notANumber', NaN, options),
+    'NaN is not allowed');
 });
 
 test('it rejects non-numbers', function(assert) {
@@ -20,6 +27,7 @@ test('it rejects non-numbers', function(assert) {
 
   assert.equal(validator(key, 'not a number'), buildMessage(key, 'notANumber', 'not a number', options));
   assert.equal(validator(key, '7'), true);
+  assert.equal(validator(key, 7), true);
 });
 
 test('it rejects empty strings', function(assert) {
@@ -29,6 +37,15 @@ test('it rejects empty strings', function(assert) {
 
   assert.equal(validator(key, ''), buildMessage(key, 'notANumber'));
   assert.equal(validator(key, '7'), true);
+});
+
+test('it rejects null and undefined', function(assert) {
+  let key = 'age';
+  let options = {};
+  let validator = validateNumber(options);
+
+  assert.equal(validator(key, null), buildMessage(key, 'notANumber'));
+  assert.equal(validator(key, undefined), buildMessage(key, 'notANumber'));
 });
 
 test('it accepts an `integer` option', function(assert) {
