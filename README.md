@@ -112,6 +112,8 @@ export default Component.extend({
 }}
 ```
 
+`ember-changeset` and `ember-changeset-validations` both also support creating changesets from promises. However, because that will also return a promise, to render in your template you will need to use a helper like `await` from [`ember-promise-helpers`](https://github.com/fivetanley/ember-promise-helpers).
+
 ## Validator API
 
 All validators take a [custom message option](#custom-validation-messages).
