@@ -14,9 +14,9 @@ test('it accepts an `allowBlank` option', function(assert) {
   assert.equal(validator(key, undefined), true, 'undefined is allowed');
   assert.equal(validator(key, '6'), true, 'numeric string is allowed');
 
-  assert.equal(validator(key, 'not a number'), buildMessage(key, 'notANumber', 'not a number', options),
+  assert.equal(validator(key, 'not a number'), buildMessage(key, { type: 'notANumber', value: 'not a number', context: options }),
     'non-numeric string is not allowed');
-  assert.equal(validator(key, NaN), buildMessage(key, 'notANumber', NaN, options),
+  assert.equal(validator(key, NaN), buildMessage(key, { type: 'notANumber', value: NaN, context: options }),
     'NaN is not allowed');
 });
 
@@ -25,7 +25,7 @@ test('it rejects non-numbers', function(assert) {
   let options = {};
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, 'not a number'), buildMessage(key, 'notANumber', 'not a number', options));
+  assert.equal(validator(key, 'not a number'), buildMessage(key, { type: 'notANumber', value: 'not a number', context: options }));
   assert.equal(validator(key, '7'), true);
   assert.equal(validator(key, 7), true);
 });
@@ -35,7 +35,7 @@ test('it rejects empty strings', function(assert) {
   let options = {};
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, ''), buildMessage(key, 'notANumber'));
+  assert.equal(validator(key, ''), buildMessage(key, { type: 'notANumber' }));
   assert.equal(validator(key, '7'), true);
 });
 
@@ -44,8 +44,8 @@ test('it rejects null and undefined', function(assert) {
   let options = {};
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, null), buildMessage(key, 'notANumber'));
-  assert.equal(validator(key, undefined), buildMessage(key, 'notANumber'));
+  assert.equal(validator(key, null), buildMessage(key, { type: 'notANumber' }));
+  assert.equal(validator(key, undefined), buildMessage(key, { type: 'notANumber' }));
 });
 
 test('it accepts an `integer` option', function(assert) {
@@ -53,7 +53,7 @@ test('it accepts an `integer` option', function(assert) {
   let options = { integer: true };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '8.5'), buildMessage(key, 'notAnInteger', '8.5', options));
+  assert.equal(validator(key, '8.5'), buildMessage(key, { type: 'notAnInteger', value: '8.5', context: options }));
   assert.equal(validator(key, '7'), true);
 });
 
@@ -62,7 +62,7 @@ test('it accepts an `is` option', function(assert) {
   let options = { is: 12 };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '8.5'), buildMessage(key, 'equalTo', '8.5', options));
+  assert.equal(validator(key, '8.5'), buildMessage(key, { type: 'equalTo', value: '8.5', context: options }));
   assert.equal(validator(key, '12'), true);
 });
 
@@ -71,8 +71,8 @@ test('it accepts a `lt` option', function(assert) {
   let options = { lt: 12 };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '15'), buildMessage(key, 'lessThan', '15', options));
-  assert.equal(validator(key, '12'), buildMessage(key, 'lessThan', '12', options));
+  assert.equal(validator(key, '15'), buildMessage(key, { type: 'lessThan', value: '15', context: options }));
+  assert.equal(validator(key, '12'), buildMessage(key, { type: 'lessThan', value: '12', context: options }));
   assert.equal(validator(key, '4'), true);
 });
 
@@ -81,7 +81,7 @@ test('it accepts a `lte` option', function(assert) {
   let options = { lte: 12 };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '15'), buildMessage(key, 'lessThanOrEqualTo', '15', options));
+  assert.equal(validator(key, '15'), buildMessage(key, { type: 'lessThanOrEqualTo', value: '15', context: options }));
   assert.equal(validator(key, '12'), true);
   assert.equal(validator(key, '4'), true);
 });
@@ -92,8 +92,8 @@ test('it accepts a `gt` option', function(assert) {
   let validator = validateNumber(options);
 
   assert.equal(validator(key, '15'), true);
-  assert.equal(validator(key, '12'), buildMessage(key, 'greaterThan', '12', options));
-  assert.equal(validator(key, '4'), buildMessage(key, 'greaterThan', '4', options));
+  assert.equal(validator(key, '12'), buildMessage(key, { type: 'greaterThan', value: '12', context: options }));
+  assert.equal(validator(key, '4'), buildMessage(key, { type: 'greaterThan', value: '4', context: options }));
 });
 
 test('it accepts a `gte` option', function(assert) {
@@ -103,7 +103,7 @@ test('it accepts a `gte` option', function(assert) {
 
   assert.equal(validator(key, '15'), true);
   assert.equal(validator(key, '12'), true);
-  assert.equal(validator(key, '4'), buildMessage(key, 'greaterThanOrEqualTo', '4', options));
+  assert.equal(validator(key, '4'), buildMessage(key, { type: 'greaterThanOrEqualTo', value: '4', context: options }));
 });
 
 test('it accepts a `positive` option', function(assert) {
@@ -112,7 +112,7 @@ test('it accepts a `positive` option', function(assert) {
   let validator = validateNumber(options);
 
   assert.equal(validator(key, '15'), true);
-  assert.equal(validator(key, '-12'), buildMessage(key, 'positive', '-12', options));
+  assert.equal(validator(key, '-12'), buildMessage(key, { type: 'positive', value: '-12', context: options }));
 });
 
 test('it accepts an `odd` option', function(assert) {
@@ -121,7 +121,7 @@ test('it accepts an `odd` option', function(assert) {
   let validator = validateNumber(options);
 
   assert.equal(validator(key, '15'), true);
-  assert.equal(validator(key, '34'), buildMessage(key, 'odd', '34', options));
+  assert.equal(validator(key, '34'), buildMessage(key, { type: 'odd', value: '34', context: options }));
 });
 
 test('it accepts an `even` option', function(assert) {
@@ -129,7 +129,7 @@ test('it accepts an `even` option', function(assert) {
   let options = { even: true };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '15'), buildMessage(key, 'even', '15', options));
+  assert.equal(validator(key, '15'), buildMessage(key, { type: 'even', value: '15', context: options }));
   assert.equal(validator(key, '34'), true);
 });
 
@@ -138,7 +138,7 @@ test('it accepts an `multipleOf` option', function(assert) {
   let options = { multipleOf: 17 };
   let validator = validateNumber(options);
 
-  assert.equal(validator(key, '15'), buildMessage(key, 'multipleOf', '15', options));
+  assert.equal(validator(key, '15'), buildMessage(key, { type: 'multipleOf', value: '15', context: options }));
   assert.equal(validator(key, '34'), true);
 });
 

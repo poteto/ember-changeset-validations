@@ -7,30 +7,22 @@ import Ember from 'ember';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
 
 const {
-  String: { dasherize, capitalize },
   assert,
   typeOf,
-  isNone,
   get
 } = Ember;
+
 const assign = Ember.assign || Ember.merge;
-const regex = /\{(\w+)\}/g;
 
-export function formatDescription(key = '') {
-  return capitalize(dasherize(key).split(/[_-]/g).join(' '));
-}
+export default function buildMessage(key, result) {
+  let messages = getMessages();
+  let description = messages.getDescriptionFor(key);
 
-export function formatMessage(message, context = {}) {
-  if (isNone(message) || typeof message !== 'string') {
-    return 'is invalid';
+  if (result.message) {
+    return result.message;
   }
 
-  return message.replace(regex, (s, attr) => context[attr]);
-}
-
-export default function buildMessage(key, type, value, context = {}) {
-  let description = formatDescription(key);
-  let messages = getMessages();
+  let { type, value, context = {} } = result;
 
   if (context.message) {
     let message = context.message;
@@ -42,8 +34,8 @@ export default function buildMessage(key, type, value, context = {}) {
       return builtMessage;
     }
 
-    return formatMessage(message, assign({ description }, context));
+    return messages.formatMessage(message, assign({ description }, context));
   }
 
-  return formatMessage(get(messages, type), assign({ description }, context));
+  return messages.formatMessage(get(messages, type), assign({ description }, context));
 }

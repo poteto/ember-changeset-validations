@@ -8,9 +8,9 @@ test('it accepts a `true` option', function(assert) {
   let key = 'firstName';
   let validator = validatePresence(true);
 
-  assert.equal(validator(key, undefined), buildMessage(key, 'present'));
-  assert.equal(validator(key, null), buildMessage(key, 'present'));
-  assert.equal(validator(key, ''), buildMessage(key, 'present'));
+  assert.equal(validator(key, undefined), buildMessage(key, { type: 'present' }));
+  assert.equal(validator(key, null), buildMessage(key, { type: 'present' }));
+  assert.equal(validator(key, ''), buildMessage(key, { type: 'present' }));
   assert.equal(validator(key, 'a'), true);
 });
 
@@ -21,16 +21,16 @@ test('it accepts a `false` option', function(assert) {
   assert.equal(validator(key, undefined), true);
   assert.equal(validator(key, null), true);
   assert.equal(validator(key, ''), true);
-  assert.equal(validator(key, 'a'), buildMessage(key, 'blank'));
+  assert.equal(validator(key, 'a'), buildMessage(key, { type: 'blank' }));
 });
 
 test('it accepts a true `presence` option', function(assert) {
   let key = 'firstName';
   let validator = validatePresence({ presence: true });
 
-  assert.equal(validator(key, undefined), buildMessage(key, 'present'));
-  assert.equal(validator(key, null), buildMessage(key, 'present'));
-  assert.equal(validator(key, ''), buildMessage(key, 'present'));
+  assert.equal(validator(key, undefined), buildMessage(key, { type: 'present' }));
+  assert.equal(validator(key, null), buildMessage(key, { type: 'present' }));
+  assert.equal(validator(key, ''), buildMessage(key, { type: 'present' }));
   assert.equal(validator(key, 'a'), true);
 });
 
@@ -41,7 +41,7 @@ test('it accepts a false `presence` option', function(assert) {
   assert.equal(validator(key, undefined), true);
   assert.equal(validator(key, null), true);
   assert.equal(validator(key, ''), true);
-  assert.equal(validator(key, 'a'), buildMessage(key, 'blank'));
+  assert.equal(validator(key, 'a'), buildMessage(key, { type: 'blank' }));
 });
 
 test('it can output a custom message string', function(assert) {

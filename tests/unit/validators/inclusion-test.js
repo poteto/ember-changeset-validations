@@ -9,8 +9,8 @@ test('it accepts a `list` option', function(assert) {
   let options = { list: ['Manager', 'VP', 'Director'] };
   let validator = validateInclusion(options);
 
-  assert.equal(validator(key, ''), buildMessage(key, 'inclusion', '', options));
-  assert.equal(validator(key, 'Executive'), buildMessage(key, 'inclusion', 'Executive', options));
+  assert.equal(validator(key, ''), buildMessage(key, { type: 'inclusion', value: '', context: options }));
+  assert.equal(validator(key, 'Executive'), buildMessage(key, { type: 'inclusion', value: 'Executive', context: options }));
   assert.equal(validator(key, 'Manager'), true);
 });
 
@@ -19,8 +19,8 @@ test('it accepts a `range` option', function(assert) {
   let options = { range: [18, 60] };
   let validator = validateInclusion(options);
 
-  assert.equal(validator(key, ''), buildMessage(key, 'inclusion', '', options));
-  assert.equal(validator(key, 61), buildMessage(key, 'inclusion', 61, options));
+  assert.equal(validator(key, ''), buildMessage(key, { type: 'inclusion', value: '', context: options }));
+  assert.equal(validator(key, 61), buildMessage(key, { type: 'inclusion', value: 61, context: options }));
   assert.equal(validator(key, 21), true);
 });
 
