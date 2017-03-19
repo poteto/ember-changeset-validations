@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
 
+const { Component } = Ember;
+
 const rulez = {
   firstName: [
     validatePresence(true),
@@ -17,7 +19,7 @@ const schema = {
   lastName: null
 };
 
-export default Ember.Component.extend({
-  rulez: rulez,
-  schema: schema
+export default Component.extend({
+  rulez,
+  schema
 });
