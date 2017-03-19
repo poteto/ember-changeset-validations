@@ -42,7 +42,6 @@ test('it accepts an `inverse` option with defined regex', function(assert) {
   let key = 'email';
   let options = { type: 'email', inverse: true };
   let validator = validateFormat(options);
-
   assert.equal(validator(key, 'test@example.com'), buildMessage(key, 'invalid'), 'email fails format test');
   assert.equal(validator(key, 'notanemail'), true, 'non-email passes format test');
 });
@@ -62,6 +61,15 @@ test('it can output custom message string', function(assert) {
   let validator = validateFormat(options);
 
   assert.equal(validator(key, 'notaurl'), 'Url should be of type url', 'custom message string is generated correctly');
+});
+
+test('it checks the email is valid or not', function(assert) {
+  let key = 'email';
+  let options = { type: 'email', message: '{description} should be of type {type}' };
+  let validator = validateFormat(options);
+  assert.equal(validator(key, 'test@example.'), 'Email should be of type email', 'email is invalid');
+  assert.equal(validator(key, 'test@example'), 'Email should be of type email', 'email is invalid');
+  assert.equal(validator(key, 'test@example.com'), true, 'email is valid');
 });
 
 test('it can output custom message function', function(assert) {
