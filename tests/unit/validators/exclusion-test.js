@@ -11,7 +11,7 @@ test('it accepts a `list` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 'Executive'), true);
-  assert.equal(validator(key, 'Manager'), buildMessage(key, 'exclusion', 'Manager', options));
+  assert.equal(validator(key, 'Manager'), buildMessage(key, { type: 'exclusion', value: 'Manager', context: options }));
 });
 
 test('it accepts a `range` option', function(assert) {
@@ -21,7 +21,7 @@ test('it accepts a `range` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 61), true);
-  assert.equal(validator(key, 21), buildMessage(key, 'exclusion', 21, options));
+  assert.equal(validator(key, 21), buildMessage(key, { type: 'exclusion', value: 21, context: options }));
 });
 
 test('it can output custom message string', function(assert) {

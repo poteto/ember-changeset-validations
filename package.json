@@ -50,7 +50,8 @@
     "ember-cli-babel": "^5.1.6",
     "ember-cli-htmlbars": "^1.0.3",
     "ember-cli-htmlbars-inline-precompile": "^0.3.3",
-    "ember-changeset": "1.2.3"
+    "ember-changeset": "1.2.3",
+    "ember-validators": "1.0.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

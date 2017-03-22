@@ -26,7 +26,7 @@ test('it accepts a `type` option', function(assert) {
   let validator = validateFormat(options);
 
   assert.equal(validator(key, 'http://dockyard.com'), true);
-  assert.equal(validator(key, 'somevalue'), buildMessage(key, options.type));
+  assert.equal(validator(key, 'somevalue'), buildMessage(key, { type: options.type }));
 });
 
 test('it accepts a `regex` option', function(assert) {
@@ -35,7 +35,7 @@ test('it accepts a `regex` option', function(assert) {
   let validator = validateFormat(options);
 
   assert.equal(validator(key, 'secretword'), true);
-  assert.equal(validator(key, 'fail'), buildMessage(key, 'invalid'));
+  assert.equal(validator(key, 'fail'), buildMessage(key, { type: 'invalid' }));
 });
 
 test('it accepts an `inverse` option with defined regex', function(assert) {
@@ -43,7 +43,7 @@ test('it accepts an `inverse` option with defined regex', function(assert) {
   let options = { type: 'email', inverse: true };
   let validator = validateFormat(options);
 
-  assert.equal(validator(key, 'test@example.com'), buildMessage(key, 'invalid'), 'email fails format test');
+  assert.equal(validator(key, 'test@example.com'), buildMessage(key, { type: 'email' }), 'email fails format test');
   assert.equal(validator(key, 'notanemail'), true, 'non-email passes format test');
 });
 
@@ -52,7 +52,7 @@ test('it accepts an `inverse` option with custom regex', function(assert) {
   let options = { regex: /^customregex$/, inverse: true };
   let validator = validateFormat(options);
 
-  assert.equal(validator(key, 'customregex'), buildMessage(key, 'invalid'), 'matching regex fails format test');
+  assert.equal(validator(key, 'customregex'), buildMessage(key, { type: 'invalid' }), 'matching regex fails format test');
   assert.equal(validator(key, 'notmatching'), true, 'non-matching regex passes format test');
 });
 

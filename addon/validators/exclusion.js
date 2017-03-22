@@ -1,34 +1,13 @@
-/**
- * For code taken from ember-cp-validations
- * Copyright 2016, Yahoo! Inc.
- * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
- */
-import Ember from 'ember';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { validate } from 'ember-validators';
 
-const { isEmpty, typeOf } = Ember;
-
-export default function validateExclusion(options = {}) {
-  let { list, range, allowBlank } = options;
+export default function validateInclusion(options = {}) {
+  if (options.list) {
+    options.in = options.list;
+  }
 
   return (key, value) => {
-    if (allowBlank && isEmpty(value)) {
-      return true;
-    }
-
-    if (list && list.indexOf(value) !== -1) {
-      return buildMessage(key, 'exclusion', value, options);
-    }
-
-    if (range && range.length === 2) {
-      let [min, max] = range;
-      let equalType = typeOf(value) === typeOf(min) && typeOf(value) === typeOf(max);
-
-      if (equalType && min <= value && value <= max) {
-        return buildMessage(key, 'exclusion', value, options);
-      }
-    }
-
-    return true;
+    let result = validate('exclusion', value, options, null, key);
+    return (result === true) ? true : buildMessage(key, result);
   };
 }

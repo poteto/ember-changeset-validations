@@ -116,11 +116,15 @@ export default Component.extend({
 
 ## Validator API
 
+`ember-changeset-validations` utilizes [`ember-validators`](https://github.com/offirgolan/ember-validators) as a core set of validators.
+
 All validators take a [custom message option](#custom-validation-messages).
 
 #### `presence`
 
 Validates presence/absence of a value.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Presence.html#method_validate)
 
 ```js
 {
@@ -135,6 +139,8 @@ Validates presence/absence of a value.
 #### `length`
 
 Validates the length of a `String` or an `Array`.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Length.html#method_validate)
 
 ```js
 {
@@ -151,6 +157,8 @@ Validates the length of a `String` or an `Array`.
 #### `number`
 
 Validates various properties of a number.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Number.html#method_validate)
 
 ```js
 {
@@ -174,6 +182,8 @@ Validates various properties of a number.
 
 Validates that a value is a member of some list or range.
 
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Inclusion.html#method_validate)
+
 ```js
 {
   propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
@@ -188,6 +198,8 @@ Validates that a value is a member of some list or range.
 
 Validates that a value is a not member of some list or range.
 
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Exclusion.html#method_validate)
+
 ```js
 {
   propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
@@ -201,6 +213,8 @@ Validates that a value is a not member of some list or range.
 #### `format`
 
 Validates a `String` based on a regular expression.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Format.html#method_validate)
 
 ```js
 {
@@ -218,6 +232,8 @@ Validates a `String` based on a regular expression.
 #### `confirmation`
 
 Validates that a field has the same value as another.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Confirmation.html#method_validate)
 
 ```js
 {
