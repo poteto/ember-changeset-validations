@@ -13,9 +13,6 @@ function handleResult(result) {
   return true;
 }
 
-/**
- * Accepts an array of ember-changeset-validations validation functions.
- */
 export default function and(...validators) {
   return (key, newValue, oldValue, changes, object) => {
     for (let i = 0; i < validators.length; i++) {
