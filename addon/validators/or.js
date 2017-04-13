@@ -1,22 +1,20 @@
 import isPromise from 'ember-changeset/utils/is-promise';
-import Ember from 'ember';
 
-function notTrue(value) {
-  return Ember.typeOf(value) !== 'boolean' || !value;
+function isTrue(value) {
+  return value === true;
 }
 
 function handleResult(result) {
-  if (notTrue(result)) throw result;
-  return true;
+  if (isTrue(result)) throw true;
+  return result;
 }
 
-/**
- * Accepts an array of ember-changeset-validations validation functions.
- */
-export default function and(...validators) {
+export default function or(...validators) {
   return (key, newValue, oldValue, changes, object) => {
+    let validation;
+
     for (let i = 0; i < validators.length; i++) {
-      const validation = validators[i](key, newValue, oldValue, changes, object);
+      validation = validators[i](key, newValue, oldValue, changes, object);
 
       if (isPromise(validation)) {
         let promise = validation.then(handleResult);
@@ -30,9 +28,9 @@ export default function and(...validators) {
         return promise.catch(err => err);
       }
 
-      if (notTrue(validation)) return validation;
+      if (isTrue(validation)) return true;
     }
 
-    return true;
+    return validation;
   }
 }
