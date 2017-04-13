@@ -5,7 +5,10 @@ function isTrue(value) {
 }
 
 function handleResult(result) {
-  if (isTrue(result)) throw true;
+  if (isTrue(result)) {
+    throw true;
+  }
+
   return result;
 }
 
@@ -20,6 +23,7 @@ export default function or(...validators) {
         let promise = validation.then(handleResult);
 
         for (let j = i+1; j < validators.length; j++) {
+          // jshint loopfunc: true
           promise = promise
             .then(() => validators[j](key, newValue, oldValue, changes, object))
             .then(handleResult);
@@ -28,9 +32,11 @@ export default function or(...validators) {
         return promise.catch(err => err);
       }
 
-      if (isTrue(validation)) return true;
+      if (isTrue(validation)) {
+        return true;
+      }
     }
 
     return validation;
-  }
+  };
 }
