@@ -1,4 +1,4 @@
-var eslintRules = require('./config/eslint');
+var eslintRules = require('../config/eslint');
 
 module.exports = {
   env: {
