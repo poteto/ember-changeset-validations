@@ -21,6 +21,7 @@
   "author": "Lauren Tan <arr@sugarpirate.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^7.2.2",
     "broccoli-asset-rev": "^2.4.3",
     "ember-ajax": "2.4.1",
     "ember-cli": "2.7.0",
