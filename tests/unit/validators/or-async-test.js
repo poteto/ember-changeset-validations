@@ -87,21 +87,21 @@ test('it works with arbitrary nesting', async function(assert) {
 
 test('it works with arbitrary nesting', async function(assert) {
   const validators1 = [
-    () => Ember.RSVP.resolve('first error'),
-    () => Ember.RSVP.resolve('second error'),
-    () => Ember.RSVP.resolve('third error')
+    () => resolve('first error'),
+    () => resolve('second error'),
+    () => resolve('third error')
   ];
 
   const validators2 = [
-    () => Ember.RSVP.resolve('fourth error'),
-    () => Ember.RSVP.resolve(true),
-    () => Ember.RSVP.resolve('sixth error')
+    () => resolve('fourth error'),
+    () => resolve(true),
+    () => resolve('sixth error')
   ];
 
   const validators3 = [
-    () => Ember.RSVP.resolve('seventh error'),
-    () => Ember.RSVP.resolve('eighth error'),
-    () => Ember.RSVP.resolve('ninth error')
+    () => resolve('seventh error'),
+    () => resolve('eighth error'),
+    () => resolve('ninth error')
   ];
 
   const validationFn = or(
