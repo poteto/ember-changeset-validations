@@ -27,14 +27,14 @@ for (const { validators, expected } of testCases) {
 }
 
 test('it short-circuits', function(assert) {
-	const didExecute = [false, false];
-	const validators = [
-		() => { didExecute[0] = true; return undefined; },
-		() => { throw new Error('This validator should not be reached.'); }
-	];
-	const validationFn = and(...validators);
-	validationFn();
-	assert.deepEqual(didExecute, [true, false]);
+  const didExecute = [false, false];
+  const validators = [
+    () => { didExecute[0] = true; return undefined; },
+    () => { throw new Error('This validator should not be reached.'); }
+  ];
+  const validationFn = and(...validators);
+  validationFn();
+  assert.deepEqual(didExecute, [true, false]);
 });
 
 test('it works with arbitrary nesting', function(assert) {
