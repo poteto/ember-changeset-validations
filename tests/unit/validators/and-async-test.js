@@ -10,16 +10,28 @@ module('Unit | Validator | and | async validators');
 
 const testCases = [
   {
-    validators: [() => resolve(true), () => resolve(true), () => resolve(true)],
+    validators: [() => resolve(true), () => resolve(true)],
     expected: true
   },
   {
-    validators: [() => resolve(true), () => true, () => resolve(true)],
+    validators: [() => resolve(true), () => true],
+    expected: true
+  },
+  {
+    validators: [() => true, () => resolve(true)],
     expected: true
   },
   {
     validators: [() => resolve(true), () => true, () => reject('rip')],
     expected: 'rip'
+  },
+  {
+    validators: [() => reject(true), () => 'blah', () => reject('rip')],
+    expected: true
+  },
+  {
+    validators: [() => true, () => resolve('some value')],
+    expected: 'some value'
   }
 ];
 
@@ -77,19 +89,19 @@ test('it works with arbitrary nesting', async function(assert) {
   const validators1 = [
     () => resolve(true),
     () => resolve(true),
-    () => resolve(true),
+    () => resolve(true)
   ];
 
   const validators2 = [
     () => resolve(true),
     () => resolve('leeroy jenkins'),
-    () => resolve(true),
+    () => resolve(true)
   ];
 
   const validators3 = [
     () => resolve(true),
     () => resolve(true),
-    () => resolve(true),
+    () => resolve(true)
   ];
 
   const validationFn = and(
@@ -101,5 +113,13 @@ test('it works with arbitrary nesting', async function(assert) {
   );
 
   const result = await validationFn();
-  assert.equal(await validationFn(), 'leeroy jenkins');
+  assert.equal(result, 'leeroy jenkins');
+});
+
+test('it passes arguments to validators', async function(assert) {
+  const validationFn = and(
+    (key, newValue, oldValue, changes, content) => resolve([key, newValue, oldValue, changes, content])
+  );
+  const result = await validationFn(1, 2, 3, 4, 5);
+  assert.deepEqual(result, [1, 2, 3, 4, 5]);
 });

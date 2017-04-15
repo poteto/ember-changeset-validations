@@ -2,146 +2,124 @@ import { module, test } from 'qunit';
 import or from 'ember-changeset-validations/validators/or';
 import Ember from 'ember';
 
-module('Unit | Validator | or | sync validators');
+const {
+  RSVP: { resolve, reject }
+} = Ember;
 
-/**
- * @param {Number} ms
- */
-function resolveAfter(ms) {
-  return new Ember.RSVP.Promise((resolve, reject) => {
-    try {
-      Ember.run.later(resolve, true, ms);
-    } catch (err) {
-      reject(err);
-    }
+module('Unit | Validator | or | async validators');
+
+const testCases = [
+  {
+    validators: [() => reject('first'), () => reject('second'), () => reject('third')],
+    expected: 'third'
+  },
+  {
+    validators: [() => reject('first'), () => true, () => reject('third')],
+    expected: true
+  },
+  {
+    validators: [() => true, () => resolve('rip')],
+    expected: true
+  },
+  {
+    validators: [
+      () => resolve('first error'),
+      () => resolve('second error'),
+      () => resolve('third error')
+    ],
+    expected: 'third error'
+  },
+  {
+    validators: [() => resolve(true), () => resolve('foo')],
+    expected: true
+  }
+];
+
+for (const { validators, expected } of testCases) {
+  test('it works', async function(assert) {
+    const validationFn = or(...validators);
+    const result = await validationFn();
+    assert.equal(result, expected);
   });
 }
 
-/**
- * Note: ember-changeset treats anything that isn't the
- * value `true` as a failed alidation.
- *
- * @param {Number} ms
- * @param {String} errorMessage
- */
-function rejectAfter(ms, errorMessage) {
-  return new Ember.RSVP.Promise((resolve, reject) => {
-    try {
-      Ember.run.later(resolve, errorMessage, ms);
-    } catch (err) {
-      reject(err);
-    }
-  });
-}
-
-test('should work with an argument list', async function(assert) {
-	const testCases = [
-		{
-			validators: [
-				() => rejectAfter(1, 'first'),
-				() => rejectAfter(2, 'second'),
-				() => rejectAfter(3, 'third')
-			],
-			expected: 'third',
-		},
-		{
-			validators: [() => rejectAfter(1), () => true, () => rejectAfter(3)],
-			expected: true,
-		},
-		{
-			validators: [() => true, () => resolveAfter(3, 'rip')],
-			expected: true,
-		},
-	];
-
-	for (const { validators, expected } of testCases) {
-		const validationFn = or(...validators);
-		const result = await validationFn();
-		assert.equal(result, expected);
-	}
+test('it short-circuits', async function(assert) {
+  const didExecute = [false, false];
+  const validators = [
+    () => resolve().then(() => { didExecute[0] = true; return true; }),
+    () => resolve().then(() => { throw new Error('This validator should not be reached.'); })
+  ];
+  const validationFn = or(...validators);
+  await validationFn();
+  assert.deepEqual(didExecute, [true, false]);
 });
 
-test('should short-circuit', async function(assert) {
-	const didExecute = [false, false, false];
-	const validators = [
-		() => rejectAfter(1, 'first').then(() => { didExecute[0] = true; return false; }),
-		() => rejectAfter(1, 'second').then(() => true),
-		() => rejectAfter(1, 'third').then(() => { throw new Error('This validator should not be reached.'); }),
-	];
-	const validationFn = or(...validators);
-	await validationFn();
-	assert.deepEqual(didExecute, [true, false, false]);
+test('it works with arbitrary nesting', async function(assert) {
+  const validators1 = [
+    () => resolve('first error'),
+    () => resolve('second error'),
+    () => resolve('third error')
+  ];
+
+  const validators2 = [
+    () => resolve('fourth error'),
+    () => resolve('fifth error'),
+    () => resolve('sixth error')
+  ];
+
+  const validators3 = [
+    () => resolve('seventh error'),
+    () => resolve('eighth error'),
+    () => resolve('ninth error')
+  ];
+
+  const validationFn = or(
+    or(
+      or(...validators1),
+      or(...validators2)
+    ),
+    or(...validators3)
+  );
+
+  const result = await validationFn();
+  assert.equal(result, 'ninth error');
 });
 
-test('should return the last error if all validators return errors', async function(assert) {
-	const validators = [
-		() => Ember.RSVP.resolve('first error'),
-		() => Ember.RSVP.resolve('second error'),
-		() => Ember.RSVP.resolve('third error'),
-	];
+test('it works with arbitrary nesting', async function(assert) {
+  const validators1 = [
+    () => Ember.RSVP.resolve('first error'),
+    () => Ember.RSVP.resolve('second error'),
+    () => Ember.RSVP.resolve('third error')
+  ];
 
-	const validationFn = or(...validators);
-	assert.deepEqual(await validationFn(), 'third error');
+  const validators2 = [
+    () => Ember.RSVP.resolve('fourth error'),
+    () => Ember.RSVP.resolve(true),
+    () => Ember.RSVP.resolve('sixth error')
+  ];
+
+  const validators3 = [
+    () => Ember.RSVP.resolve('seventh error'),
+    () => Ember.RSVP.resolve('eighth error'),
+    () => Ember.RSVP.resolve('ninth error')
+  ];
+
+  const validationFn = or(
+    or(
+      or(...validators1),
+      or(...validators2)
+    ),
+    or(...validators3)
+  );
+
+  const result = await validationFn();
+  assert.equal(result, true);
 });
 
-test('should work with arbitrary nesting', async function(assert) {
-	{
-		const validators1 = [
-			() => Ember.RSVP.resolve('first error'),
-			() => Ember.RSVP.resolve('second error'),
-			() => Ember.RSVP.resolve('third error'),
-		];
-
-		const validators2 = [
-			() => Ember.RSVP.resolve('fourth error'),
-			() => Ember.RSVP.resolve('fifth error'),
-			() => Ember.RSVP.resolve('sixth error'),
-		];
-
-		const validators3 = [
-			() => Ember.RSVP.resolve('seventh error'),
-			() => Ember.RSVP.resolve('eighth error'),
-			() => Ember.RSVP.resolve('ninth error'),
-		];
-
-		const validationFn = or(
-			or(
-				or(...validators1),
-				or(...validators2)
-			),
-			or(...validators3)
-		);
-
-		assert.equal(await validationFn(), 'ninth error');
-	}
-
-	{
-		const validators1 = [
-			() => Ember.RSVP.resolve('first error'),
-			() => Ember.RSVP.resolve('second error'),
-			() => Ember.RSVP.resolve('third error'),
-		];
-
-		const validators2 = [
-			() => Ember.RSVP.resolve('fourth error'),
-			() => Ember.RSVP.resolve(true), // derp
-			() => Ember.RSVP.resolve('sixth error'),
-		];
-
-		const validators3 = [
-			() => Ember.RSVP.resolve('seventh error'),
-			() => Ember.RSVP.resolve('eighth error'),
-			() => Ember.RSVP.resolve('ninth error'),
-		];
-
-		const validationFn = or(
-			or(
-				or(...validators1),
-				or(...validators2)
-			),
-			or(...validators3)
-		);
-
-		assert.equal(await validationFn(), true);
-	}
+test('it passes arguments to validators', async function(assert) {
+  const validationFn = or(
+    (key, newValue, oldValue, changes, content) => resolve([key, newValue, oldValue, changes, content])
+  );
+  const result = await validationFn(1, 2, 3, 4, 5);
+  assert.deepEqual(result, [1, 2, 3, 4, 5]);
 });

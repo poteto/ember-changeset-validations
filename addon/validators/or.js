@@ -4,6 +4,22 @@ function isTrue(value) {
   return value === true;
 }
 
+/**
+ * Note: in ember-changeset-validations, a successful validation is one that:
+ *
+ *   a) returns `true`
+ *   b) returns a Promise that resolves to `true`
+ *
+ * Example:
+ *
+ *   true                  => success
+ *   resolve(true)         => success
+ *   'some value'          => fail
+ *   false                 => fail
+ *   resolve('some value') => fail
+ *   reject('some value')  => fail
+ *   reject(true)          => fail
+ */
 function handleResult(result) {
   if (isTrue(result)) {
     throw true;
@@ -22,15 +38,16 @@ export default function or(...validators) {
       // If a validator results in a Promise, then the remaining validator
       // results are treated as Promises.
       if (isPromise(result)) {
-        let promise = result.then(handleResult);
+        let promise = result.then(handleResult, handleResult);
 
         for (let j = i+1; j < validators.length; j++) {
           promise = promise
             .then(() => validators[j](key, newValue, oldValue, changes, object))
-            .then(handleResult);
+            .then(handleResult, handleResult);
         }
 
-        return promise.catch(err => err);
+        // Passthrough `true` value.
+        return promise.catch(a => a);
       }
 
       // If a validator result is `true`, then short-circuit and return
