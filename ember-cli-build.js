@@ -6,6 +6,7 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     // Add options here
     babel: {
+      // allow usage of async/await in tests
       includePolyfill: true
     }
   });

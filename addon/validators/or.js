@@ -14,16 +14,17 @@ function handleResult(result) {
 
 export default function or(...validators) {
   return (key, newValue, oldValue, changes, object) => {
-    let validation;
+    let result;
 
     for (let i = 0; i < validators.length; i++) {
-      validation = validators[i](key, newValue, oldValue, changes, object);
+      result = validators[i](key, newValue, oldValue, changes, object);
 
-      if (isPromise(validation)) {
-        let promise = validation.then(handleResult);
+      // If a validator results in a Promise, then the remaining validator
+      // results are treated as Promises.
+      if (isPromise(result)) {
+        let promise = result.then(handleResult);
 
         for (let j = i+1; j < validators.length; j++) {
-          // jshint loopfunc: true
           promise = promise
             .then(() => validators[j](key, newValue, oldValue, changes, object))
             .then(handleResult);
@@ -32,11 +33,14 @@ export default function or(...validators) {
         return promise.catch(err => err);
       }
 
-      if (isTrue(validation)) {
+      // If a validator result is `true`, then short-circuit and return
+      // the result.
+      if (isTrue(result)) {
         return true;
       }
     }
 
-    return validation;
+    // If all validators resulted in `true`, then return the final result.
+    return result;
   };
 }

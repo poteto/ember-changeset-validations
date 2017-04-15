@@ -10,11 +10,11 @@ module('Unit | Validator | or | sync validators');
 function resolveAfter(ms) {
   return new Ember.RSVP.Promise((resolve, reject) => {
     try {
-      Ember.run.later(resolve, true, ms)
+      Ember.run.later(resolve, true, ms);
     } catch (err) {
-      reject(err)
+      reject(err);
     }
-  })
+  });
 }
 
 /**
@@ -27,11 +27,11 @@ function resolveAfter(ms) {
 function rejectAfter(ms, errorMessage) {
   return new Ember.RSVP.Promise((resolve, reject) => {
     try {
-      Ember.run.later(resolve, errorMessage, ms)
+      Ember.run.later(resolve, errorMessage, ms);
     } catch (err) {
-      reject(err)
+      reject(err);
     }
-  })
+  });
 }
 
 test('should work with an argument list', async function(assert) {
@@ -52,37 +52,37 @@ test('should work with an argument list', async function(assert) {
 			validators: [() => true, () => resolveAfter(3, 'rip')],
 			expected: true,
 		},
-	]
+	];
 
 	for (const { validators, expected } of testCases) {
-		const validationFn = or(...validators)
-		const result = await validationFn()
-		assert.equal(result, expected)
+		const validationFn = or(...validators);
+		const result = await validationFn();
+		assert.equal(result, expected);
 	}
-})
+});
 
 test('should short-circuit', async function(assert) {
-	const didExecute = [false, false, false]
+	const didExecute = [false, false, false];
 	const validators = [
-		() => rejectAfter(1, 'first').then(() => { didExecute[0] = true; return false }),
+		() => rejectAfter(1, 'first').then(() => { didExecute[0] = true; return false; }),
 		() => rejectAfter(1, 'second').then(() => true),
-		() => rejectAfter(1, 'third').then(() => { throw new Error('This validator should not be reached.') }),
-	]
-	const validationFn = or(...validators)
-	await validationFn()
-	assert.deepEqual(didExecute, [true, false, false])
-})
+		() => rejectAfter(1, 'third').then(() => { throw new Error('This validator should not be reached.'); }),
+	];
+	const validationFn = or(...validators);
+	await validationFn();
+	assert.deepEqual(didExecute, [true, false, false]);
+});
 
 test('should return the last error if all validators return errors', async function(assert) {
 	const validators = [
 		() => Ember.RSVP.resolve('first error'),
 		() => Ember.RSVP.resolve('second error'),
 		() => Ember.RSVP.resolve('third error'),
-	]
+	];
 
-	const validationFn = or(...validators)
-	assert.deepEqual(await validationFn(), 'third error')
-})
+	const validationFn = or(...validators);
+	assert.deepEqual(await validationFn(), 'third error');
+});
 
 test('should work with arbitrary nesting', async function(assert) {
 	{
@@ -90,19 +90,19 @@ test('should work with arbitrary nesting', async function(assert) {
 			() => Ember.RSVP.resolve('first error'),
 			() => Ember.RSVP.resolve('second error'),
 			() => Ember.RSVP.resolve('third error'),
-		]
+		];
 
 		const validators2 = [
 			() => Ember.RSVP.resolve('fourth error'),
 			() => Ember.RSVP.resolve('fifth error'),
 			() => Ember.RSVP.resolve('sixth error'),
-		]
+		];
 
 		const validators3 = [
 			() => Ember.RSVP.resolve('seventh error'),
 			() => Ember.RSVP.resolve('eighth error'),
 			() => Ember.RSVP.resolve('ninth error'),
-		]
+		];
 
 		const validationFn = or(
 			or(
@@ -110,9 +110,9 @@ test('should work with arbitrary nesting', async function(assert) {
 				or(...validators2)
 			),
 			or(...validators3)
-		)
+		);
 
-		assert.equal(await validationFn(), 'ninth error')
+		assert.equal(await validationFn(), 'ninth error');
 	}
 
 	{
@@ -120,19 +120,19 @@ test('should work with arbitrary nesting', async function(assert) {
 			() => Ember.RSVP.resolve('first error'),
 			() => Ember.RSVP.resolve('second error'),
 			() => Ember.RSVP.resolve('third error'),
-		]
+		];
 
 		const validators2 = [
 			() => Ember.RSVP.resolve('fourth error'),
 			() => Ember.RSVP.resolve(true), // derp
 			() => Ember.RSVP.resolve('sixth error'),
-		]
+		];
 
 		const validators3 = [
 			() => Ember.RSVP.resolve('seventh error'),
 			() => Ember.RSVP.resolve('eighth error'),
 			() => Ember.RSVP.resolve('ninth error'),
-		]
+		];
 
 		const validationFn = or(
 			or(
@@ -140,8 +140,8 @@ test('should work with arbitrary nesting', async function(assert) {
 				or(...validators2)
 			),
 			or(...validators3)
-		)
+		);
 
-		assert.equal(await validationFn(), true)
+		assert.equal(await validationFn(), true);
 	}
-})
+});

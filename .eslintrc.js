@@ -2,7 +2,7 @@ var eslintRules = require('./config/eslint');
 
 module.exports = {
   root: true,
-  parser: 'babel-eslint', // allows usage of async/await
+  parser: 'babel-eslint', // allow usage of async/await
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module'

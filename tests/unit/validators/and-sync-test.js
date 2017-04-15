@@ -105,7 +105,7 @@ test('it passes arguments to validators', function(assert) {
 			(key, newValue, oldValue, changes, object) => [key, newValue, oldValue, changes, object],
 			(key, newValue) => true,
 			(key, newValue) => true,
-		]
+		];
 
 		const validationFn = and(...validators);
 		assert.deepEqual(validationFn(1, 2, 3, 4, 5), [1, 2, 3, 4, 5]);
