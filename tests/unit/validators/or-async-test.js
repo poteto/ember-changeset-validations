@@ -32,6 +32,10 @@ const testCases = [
   {
     validators: [() => resolve(true), () => resolve('foo')],
     expected: true
+  },
+  {
+    validators: [() => reject(true), () => reject('foo')],
+    expected: 'foo'
   }
 ];
 
