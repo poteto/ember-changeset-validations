@@ -10,53 +10,49 @@ module('Unit | Validator | or | async validators');
 
 const testCases = [
   {
+    description: 'it returns the result of the last rejected Promise',
     validators: [() => reject('first'), () => reject('second'), () => reject('third')],
     expected: 'third'
   },
   {
+    description: 'it returns the result of the last rejected Promise',
+    validators: [() => reject(true), () => reject('foo')],
+    expected: 'foo'
+  },
+  {
+    description: 'it returns the result of the last resolved Promise',
+    validators: [() => resolve('first error'), () => resolve('second error'), () => resolve('third error')],
+    expected: 'third error'
+  },
+  {
+    description: 'it short-circuits',
     validators: [() => reject('first'), () => true, () => reject('third')],
     expected: true
   },
   {
-    validators: [() => true, () => resolve('rip')],
-    expected: true
-  },
-  {
-    validators: [
-      () => resolve('first error'),
-      () => resolve('second error'),
-      () => resolve('third error')
-    ],
-    expected: 'third error'
-  },
-  {
+    description: 'it short-circuits',
     validators: [() => resolve(true), () => resolve('foo')],
     expected: true
   },
   {
-    validators: [() => reject(true), () => reject('foo')],
-    expected: 'foo'
+    description: 'it short-circuits',
+    validators: [() => resolve(true), () => reject('foo'), () => reject('bar')],
+    expected: true
+  },
+  {
+    description: 'it passes arguments to validators',
+    validators: [(key, newValue, oldValue, changes, content) => resolve([key, newValue, oldValue, changes, content])],
+    expected: [1, 2, 3, 4, 5]
   }
 ];
 
-for (const { validators, expected } of testCases) {
-  test('it works', async function(assert) {
+for (const { description, validators, expected } of testCases) {
+  test(description, async function(assert) {
     const validationFn = or(...validators);
-    const result = await validationFn();
-    assert.equal(result, expected);
+    const result = await validationFn(1, 2, 3, 4, 5);
+    assert.deepEqual(result, expected);
   });
 }
-
-test('it short-circuits', async function(assert) {
-  const didExecute = [false, false];
-  const validators = [
-    () => resolve().then(() => { didExecute[0] = true; return true; }),
-    () => resolve().then(() => { throw new Error('This validator should not be reached.'); })
-  ];
-  const validationFn = or(...validators);
-  await validationFn();
-  assert.deepEqual(didExecute, [true, false]);
-});
 
 test('it works with arbitrary nesting', async function(assert) {
   const validators1 = [
@@ -118,12 +114,4 @@ test('it works with arbitrary nesting', async function(assert) {
 
   const result = await validationFn();
   assert.equal(result, true);
-});
-
-test('it passes arguments to validators', async function(assert) {
-  const validationFn = or(
-    (key, newValue, oldValue, changes, content) => resolve([key, newValue, oldValue, changes, content])
-  );
-  const result = await validationFn(1, 2, 3, 4, 5);
-  assert.deepEqual(result, [1, 2, 3, 4, 5]);
 });

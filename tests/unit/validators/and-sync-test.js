@@ -5,37 +5,34 @@ module('Unit | Validator | and | sync validators');
 
 const testCases = [
   {
+    description: 'it returns the first encountered error',
     validators: [() => true, () => 'this is an error message'],
     expected: 'this is an error message'
   },
   {
-    validators: [() => true, () => false],
+    description: 'it returns the first encountered error',
+    validators: [() => true, () => false, () => 'this should not be returned'],
     expected: false
   },
   {
+    description: 'it returns `true` when all validators succeed',
     validators: [() => true, () => true],
     expected: true
+  },
+  {
+    description: 'it passes arguments to validators',
+    validators: [(key, newValue, oldValue, changes, content) => [key, newValue, oldValue, changes, content]],
+    expected: [1, 2, 3, 4, 5]
   }
 ];
 
-for (const { validators, expected } of testCases) {
-  test('it works', function(assert) {
+for (const { description, validators, expected } of testCases) {
+  test(description, function(assert) {
     const validationFn = and(...validators);
-    const result = validationFn();
-    assert.equal(result, expected);
+    const result = validationFn(1, 2, 3, 4, 5);
+    assert.deepEqual(result, expected);
   });
 }
-
-test('it short-circuits', function(assert) {
-  const didExecute = [false, false];
-  const validators = [
-    () => { didExecute[0] = true; return undefined; },
-    () => { throw new Error('This validator should not be reached.'); }
-  ];
-  const validationFn = and(...validators);
-  validationFn();
-  assert.deepEqual(didExecute, [true, false]);
-});
 
 test('it works with arbitrary nesting', function(assert) {
   const validators1 = [
@@ -97,12 +94,4 @@ test('it works with arbitrary nesting', function(assert) {
 
   const result = validationFn();
   assert.equal(result, 'leeroy jenkins');
-});
-
-test('it passes arguments to validators', function(assert) {
-  const validationFn = and(
-    (key, newValue, oldValue, changes, content) => [key, newValue, oldValue, changes, content]
-  );
-  const result = validationFn(1, 2, 3, 4, 5);
-  assert.deepEqual(result, [1, 2, 3, 4, 5]);
 });

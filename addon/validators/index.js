@@ -5,3 +5,5 @@ export { default as validateFormat } from './format';
 export { default as validateInclusion } from './inclusion';
 export { default as validateExclusion } from './exclusion';
 export { default as validateConfirmation } from './confirmation';
+export { default as and } from './and';
+export { default as or } from './or';

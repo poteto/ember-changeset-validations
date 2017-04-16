@@ -5,45 +5,39 @@ module('Unit | Validator | or | sync validators');
 
 const testCases = [
   {
-    validators: [() => true, () => 'this is an error message'],
+    description: 'it short-circuits on first validator',
+    validators: [() => true, () => 'this is an error'],
     expected: true
   },
   {
-    validators: [() => true, () => false],
-    expected: true
+    description: 'it returns the last error',
+    validators: [() => 'first error', () => 'second error'],
+    expected: 'second error'
   },
   {
+    description: 'it returns the last error',
+    validators: [() => false, () => undefined],
+    expected: undefined
+  },
+  {
+    description: 'it works when all validators return true',
     validators: [() => true, () => true],
     expected: true
   },
   {
-    validators: [
-      () => 'first error',
-      () => 'second error',
-      () => 'third error'
-    ],
-    expected: 'third error'
+    description: 'it passes arguments to validators',
+    validators: [(key, newValue, oldValue, changes, object) => [key, newValue, oldValue, changes, object]],
+    expected: [1, 2, 3, 4, 5]
   }
 ];
 
-for (const { validators, expected } of testCases) {
-  test('it works', function(assert) {
+for (const { description, validators, expected } of testCases) {
+  test(description, function(assert) {
     const validationFn = or(...validators);
-    const result = validationFn();
-    assert.equal(result, expected);
+    const result = validationFn(1, 2, 3, 4, 5);
+    assert.deepEqual(result, expected);
   });
 }
-
-test('it short-circuits', function(assert) {
-  const didExecute = [false, false];
-  const validators = [
-    () => { didExecute[0] = true; return true; },
-    () => { throw new Error('This validator should not be reached.'); }
-  ];
-  const validationFn = or(...validators);
-  validationFn();
-  assert.deepEqual(didExecute, [true, false]);
-});
 
 test('it works with arbitrary nesting', function(assert) {
   const validators1 = [
@@ -105,12 +99,4 @@ test('it works with arbitrary nesting', function(assert) {
 
   const result = validationFn();
   assert.equal(result, true);
-});
-
-test('it passes arguments to validators', function(assert) {
-  const validationFn = or(
-    (key, newValue, oldValue, changes, object) => [key, newValue, oldValue, changes, object]
-  );
-  const result = validationFn(1, 2, 3, 4, 5);
-  assert.deepEqual(result, [1, 2, 3, 4, 5]);
 });
