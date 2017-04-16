@@ -244,6 +244,40 @@ Validates that a field has the same value as another.
 
 **[⬆️ back to top](#validator-api)**
 
+#### `and`
+
+Higher-order function that composes validations, in a similar way to the `&&` operator.
+
+See the [validation composition](#validation-composition) docs for details.
+
+```js
+{
+  email: and(
+    validateFormat({ type: 'email' }),
+    askServerIfEmailExists() // will not get called if validateFormat fails
+  )
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
+#### `or`
+
+Higher-order function that composes validations, in a similar way to the `||` operator.
+
+See the [validation composition](#validation-composition) docs for details.
+
+```js
+{
+  email: or(
+    isFalsy(),
+    askServerIfEmailExists() // will not get called if isFalsy succeeds
+  )
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
 ## Writing your own validators
 
 Adding your own validator is super simple – there are no Base classes to extend! **Validators are just functions**. All you need to do is to create a function with the correct signature.
@@ -362,6 +396,42 @@ export const AdultValidations = {
 };
 
 export default assign({}, UserValidations, AdultValidations);
+```
+
+In addition to validation maps, `ember-changeset-validations` provides `and` and `or` higher-order functions for composing validators. They are useful if you want the short-circuit behavior of `&&` and `||`. For example:
+
+```js
+// validations/user.js
+import and from 'ember-changeset-hofs/utils/and';
+import or from 'ember-changeset-hofs/utils/or';
+
+export default {
+  email: and(
+    validateFormat({ type: 'email' }),
+    askServerIfEmailExists(), // will not get called if validateFormat fails
+  ),
+
+  anotherEmail: or(
+    isFalsy(),
+    askServerIfEmailExists(), // will not get called if isFalsy succeeds
+  ),
+};
+```
+
+Note that `and` and `or` work with both synchronous and asynchronous validators. So you can nest `and` and `or` validators arbitrarily, and you can mix sync and async validators however you want:
+
+```js
+const validator = and(
+  and(
+    and(...someValidators),
+    or(...someMoreValidators),
+    or(
+      or(...someAsyncValidators),
+      and(...someMoreAsyncValidators),
+    )
+  ),
+  or(...evenMoreValidators)
+);
 ```
 
 ## Custom validation messages
