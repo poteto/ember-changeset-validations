@@ -29,6 +29,16 @@ test('#buildMessage builds a custom message if custom message is string', functi
   );
 });
 
+test('#buildMessage returns correct defaults for "blank" and "present"', function(assert) {
+  assert.expect(2);
+  assert.equal(buildMessage('firstName', { type: 'present' }),
+    'First name can\'t be blank',
+    '"present" message is correct');
+  assert.equal(buildMessage('firstName', { type: 'blank' }),
+    'First name must be blank',
+    '"blank" message is correct');
+});
+
 test('#buildMessage builds a custom message if custom message is a function', function(assert) {
   assert.expect(5);
 

@@ -12,7 +12,6 @@ export default function validatePresence(options) {
     if (typeof result === 'boolean' || typeof result === 'string') {
       return result;
     } else {
-
       // We flipped the meaning behind `present` and `blank` so switch the two
       if (result.type === 'present') {
         result.type = 'blank';
