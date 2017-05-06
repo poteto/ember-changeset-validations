@@ -1,44 +1,67 @@
-/*jshint node:true*/
+/* eslint-env node */
 module.exports = {
   scenarios: [
     {
       name: 'ember-1.13',
       bower: {
         dependencies: {
-          'ember': '~1.13.0'
+          'ember': 'components/ember#release-1-13'
         },
         resolutions: {
-          'ember': '~1.13.0'
+          'ember': 'release-1-13'
+        }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
         }
       }
     },
     {
-      name: 'ember-2.0',
+      name: 'ember-lts-2.4',
       bower: {
         dependencies: {
-          'ember': '~2.0.0'
+          'ember': 'components/ember#lts-2-4'
         },
         resolutions: {
-          'ember': '~2.0.0'
+          'ember': 'lts-2-4'
+        }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
         }
       }
     },
     {
-      name: 'ember-lts',
+      name: 'ember-lts-2.8',
       bower: {
         dependencies: {
-          'ember': '~2.4.0'
+          'ember': 'components/ember#lts-2-8'
+        },
+        resolutions: {
+          'ember': 'lts-2-8'
+        }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
         }
       }
     },
     {
-      name: 'ember-latest',
+      name: 'ember-release',
       bower: {
         dependencies: {
           'ember': 'components/ember#release'
         },
         resolutions: {
           'ember': 'release'
+        }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
         }
       }
     },
@@ -52,6 +75,11 @@ module.exports = {
         resolutions: {
           'ember': 'beta'
         }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     },
     {
@@ -64,6 +92,11 @@ module.exports = {
         resolutions: {
           'ember': 'canary'
         }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     },
     {
@@ -71,11 +104,22 @@ module.exports = {
       allowedToFail: true,
       bower: {
         dependencies: {
-          'ember': 'alpha'
+          'ember': 'components/ember#alpha'
         },
         resolutions: {
           'ember': 'alpha'
         }
+      },
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
+      }
+    },
+    {
+      name: 'ember-default',
+      npm: {
+        devDependencies: {}
       }
     }
   ]
