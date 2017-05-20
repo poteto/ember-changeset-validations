@@ -17,25 +17,21 @@ const assign = Ember.assign || Ember.merge;
 export default function buildMessage(key, result) {
   let messages = getMessages();
   let description = messages.getDescriptionFor(key);
-
-  if (result.message) {
-    return result.message;
-  }
-
   let { type, value, context = {} } = result;
+  let message;
 
-  if (context.message) {
-    let message = context.message;
-
-    if (typeOf(message) === 'function') {
-      let builtMessage = message(key, type, value, context);
-      assert('Custom message function must return a string', typeOf(builtMessage) === 'string');
-
-      return builtMessage;
-    }
-
-    return messages.formatMessage(message, assign({ description }, context));
+  if (context.message || result.message) {
+    message = context.message || result.message;
+  } else {
+    message = get(messages, type);
   }
 
-  return messages.formatMessage(get(messages, type), assign({ description }, context));
+  if (typeOf(message) === 'function') {
+    let builtMessage = message(key, type, value, context);
+    assert('Custom message function must return a string', typeOf(builtMessage) === 'string');
+
+    return messages.formatMessage(builtMessage, assign({ description }, context));
+  }
+
+  return messages.formatMessage(message, assign({ description }, context));
 }
