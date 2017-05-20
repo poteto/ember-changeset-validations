@@ -5,7 +5,9 @@ export default {
   confirmation: "[CUSTOM] {description} doesn't match {on}",
   accepted: '[CUSTOM] {description} must be accepted',
   empty: "[CUSTOM] {description} can't be empty",
-  blank: '[CUSTOM] {description} must be blank',
+  blank(key) {
+    return `[CUSTOM] key: ${key} - {description} must be blank`;
+  },
   present: "[CUSTOM] {description} can't be blank",
   collection: '[CUSTOM] {description} must be a collection',
   singular: "[CUSTOM] {description} can't be a collection",

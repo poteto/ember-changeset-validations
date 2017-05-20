@@ -38,16 +38,18 @@ test('it composes validations and uses custom validation messages', function(ass
   };
   let changesetInstance = changeset([user, userValidations]);
 
-  changesetInstance.set('firstName', 'helloworldjimbob');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ['[CUSTOM] First name must be between 1 and 8 characters']);
+  `[CUSTOM] key: ${key} value: ${value} - {description} must be blank`;
+  var firstNameVal = 'helloworldjimbob';
+  changesetInstance.set('firstName', firstNameVal);
+  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name must be between 1 and 8 characters"]);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
   changesetInstance.set('firstName', '');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank", '[CUSTOM] First name must be between 1 and 8 characters']);
+  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] key: firstName - First name can't be blank", '[CUSTOM] First name must be between 1 and 8 characters']);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank first name');
 
   changesetInstance.set('lastName', '');
-  assert.deepEqual(changesetInstance.get('error.lastName.validation'), ["[CUSTOM] Last name can't be blank"]);
+  assert.deepEqual(changesetInstance.get('error.lastName.validation'), ["[CUSTOM] key: lastName - Last name can't be blank"]);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank last name');
 
   changesetInstance.set('firstName', 'Jim');
@@ -121,7 +123,7 @@ test('it works with models that are promises', function(assert) {
 
   return changeset([user, userValidations]).then((changesetInstance) => {
     changesetInstance.validate().then(() => {
-      assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank"]);
+      assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] key: firstName - First name can't be blank"]);
       assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
       changesetInstance.set('firstName', 'Jim');
