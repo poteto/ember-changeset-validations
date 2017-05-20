@@ -5,7 +5,7 @@ import withDefaults from 'ember-changeset-validations/utils/with-defaults';
 
 const { A: emberArray, isPresent } = Ember;
 const { keys } = Object;
-const matchRegex = /validations\/messages$/gi;
+const matchRegex = /\/validations\/messages$/gi;
 
 let cachedRef = null;
 
