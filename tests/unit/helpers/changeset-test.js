@@ -38,9 +38,7 @@ test('it composes validations and uses custom validation messages', function(ass
   };
   let changesetInstance = changeset([user, userValidations]);
 
-  `[CUSTOM] key: ${key} value: ${value} - {description} must be blank`;
-  var firstNameVal = 'helloworldjimbob';
-  changesetInstance.set('firstName', firstNameVal);
+  changesetInstance.set('firstName', 'helloworldjimbob');
   assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name must be between 1 and 8 characters"]);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
