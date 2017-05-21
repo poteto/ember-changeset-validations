@@ -27,7 +27,7 @@ export default function buildMessage(key, result) {
   if (typeOf(result) === 'string') {
     type = result;
     value = arguments[2];
-    context = arguments[3];
+    context = arguments[3] || {};
   }
 
   if (context.message) {
