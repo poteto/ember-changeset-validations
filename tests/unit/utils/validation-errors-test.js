@@ -29,6 +29,14 @@ test('#buildMessage builds a custom message if custom message is string', functi
   );
 });
 
+test('#buildMessage does not break compatibility', function(assert) {
+  assert.equal(
+    buildMessage('firstName', 'custom', 'testValue', { message: "{description} can't be equal to {foo}", foo: 'foo' }),
+    "First name can't be equal to foo",
+    'Built message is generated correctly'
+  );
+});
+
 test('#buildMessage builds a custom message if custom message is a function', function(assert) {
   assert.expect(5);
 
