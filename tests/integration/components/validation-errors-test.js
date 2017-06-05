@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import { find, fillIn } from 'ember-native-dom-helpers';
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -6,7 +6,7 @@ moduleForComponent('foo-bar', 'Integration | Components | validation errors', {
   integration: true
 });
 
-test('will clear error messages independently by field', function(assert) {
+test('will clear error messages independently by field', async function(assert) {
   this.render(hbs`
     {{#foo-bar as |changeset|}}
       <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
@@ -29,21 +29,17 @@ test('will clear error messages independently by field', function(assert) {
     {{/foo-bar}}
   `);
 
-  assert.equal(this.$('ul.firstNameErrors').length, 0);
-  assert.equal(this.$('ul.lastNameErrors').length, 0);
+  assert.notOk(find('ul.firstNameErrors'));
+  assert.notOk(find('ul.lastNameErrors'));
 
-  Ember.run(() => {
-    this.$('input.firstName').val('a').trigger('input');
-    this.$('input.lastName').val('b').trigger('input');
-  });
+  await fillIn('input.firstName', 'a');
+  await fillIn('input.lastName', 'b');
 
-  assert.equal(this.$('ul.firstNameErrors li').length, 1);
-  assert.equal(this.$('ul.lastNameErrors li').length, 1);
+  assert.ok(find('ul.firstNameErrors li'));
+  assert.ok(find('ul.lastNameErrors li'));
 
-  Ember.run(() => {
-    this.$('input.lastName').val('bc').trigger('input');
-  });
+  await fillIn('input.lastName', 'bc');
 
-  assert.equal(this.$('ul.firstNameErrors li').length, 1);
-  assert.equal(this.$('ul.lastNameErrors').length, 0);
+  assert.ok(find('ul.firstNameErrors li'));
+  assert.notOk(find('ul.lastNameErrors'));
 });
