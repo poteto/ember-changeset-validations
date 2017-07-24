@@ -1,5 +1,7 @@
 # ember-changeset-validations ![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg) [![CircleCI](https://circleci.com/gh/DockYard/ember-changeset-validations.svg?style=shield)](https://circleci.com/gh/DockYard/ember-changeset-validations) [![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations) [![Ember Observer Score](http://emberobserver.com/badges/ember-changeset-validations.svg)](http://emberobserver.com/addons/ember-changeset-validations)
 
+**[ember-changeset-validations is built and maintained by DockYard, contact us for expert Ember.js consulting](https://dockyard.com/ember-consulting)**.
+
 `ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/DockYard/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
 
 Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/DockYard/ember-changeset/blob/master/README.md) there on how to use changesets.
