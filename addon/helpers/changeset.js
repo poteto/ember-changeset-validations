@@ -6,20 +6,40 @@ import isPromise from 'ember-changeset/utils/is-promise';
 
 const { Helper: { helper } } = Ember;
 
-export function changeset([model, validationMap]) {
+function _createChangesetWithMap(model, validationMap, initValidation) {
+  const chset = new Changeset(model, lookupValidator(validationMap), validationMap);
+
+  if (initValidation) {
+    chset.validate();
+  }
+  return chset;
+}
+
+function _createChangeset(model, validationFunction, initValidation) {
+  const chset = new Changeset(model, validationFunction);
+
+  if (initValidation) {
+    chset.validate();
+  }
+  return chset;
+}
+
+export function changeset([model, validationMap], namedArgs) {
+  const initValidation = "initValidation" in namedArgs ? true : false;
+
   if (isObject(validationMap)) {
     if (isPromise(model)) {
-      return model.then((resolved) => new Changeset(resolved, lookupValidator(validationMap), validationMap));
+      return model.then((resolved) => _createChangesetWithMap(resolved, validationMap, initValidation));
     }
 
-    return new Changeset(model, lookupValidator(validationMap), validationMap);
+    return _createChangesetWithMap(model, validationMap, initValidation);
   }
 
   if (isPromise(model)) {
-    return model.then((resolved) => new Changeset(resolved, validationMap));
+    return model.then((resolved) => _createChangeset(resolved, validationMap, initValidation));
   }
 
-  return new Changeset(model, validationMap);
+  return _createChangeset(model, validationMap, initValidation);
 }
 
 export default helper(changeset);
