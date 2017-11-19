@@ -13,9 +13,9 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/DockYard/ember-changeset-validations",
-  "bugs": "https://github.com/DockYard/ember-changeset-validations/issues",
-  "homepage": "https://github.com/DockYard/ember-changeset-validations",
+  "repository": "https://github.com/poteto/ember-changeset-validations",
+  "bugs": "https://github.com/poteto/ember-changeset-validations/issues",
+  "homepage": "https://github.com/poteto/ember-changeset-validations",
   "scripts": {
     "build": "ember build",
     "start": "ember server",
