@@ -2082,9 +2082,9 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
-ember-changeset@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.4.0.tgz#9f7dbe1542f3c30f018f61e858dd7af7019369ea"
+ember-changeset@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.4.1.tgz#e9a8f9c2bb3bfc1bc973c21a9e86a8cf8143df38"
   dependencies:
     ember-cli-babel "^6.8.2"
     ember-deep-set "^0.1.2"
