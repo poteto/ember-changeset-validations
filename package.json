@@ -26,6 +26,7 @@
     "ember-changeset": "1.4.1",
     "ember-cli-babel": "^6.0.0",
     "ember-cli-htmlbars": "^1.1.1",
+    "ember-get-config": "^0.2.4",
     "ember-validators": "^1.0.0"
   },
   "devDependencies": {
