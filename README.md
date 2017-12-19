@@ -1,4 +1,9 @@
-# ember-changeset-validations ![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg) [![TravisCI Build Status](https://img.shields.io/travis/poteto/ember-changeset-validations/master.svg)](https://travis-ci.org/poteto/ember-changeset-validations) [![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations) [![Ember Observer Score](http://emberobserver.com/badges/ember-changeset-validations.svg)](http://emberobserver.com/addons/ember-changeset-validations)
+<h1 align="center"><br><br><img alt="ember-changeset-validations" src="assets/title.svg" width="350px"><br><br><br></h1>
+
+<a href="https://badge.fury.io/js/ember-changeset-validations"><img alt="Download count all time" src="https://img.shields.io/npm/dt/ember-changeset-validations.svg"></a>
+<a href="https://travis-ci.org/poteto/ember-changeset-validations"><img alt="TravisCI Build Status" src="https://img.shields.io/travis/poteto/ember-changeset-validations/master.svg"></a>
+<a href="https://badge.fury.io/js/ember-changeset-validations"><img alt="npm version" src="https://badge.fury.io/js/ember-changeset-validations.svg"></a>
+<a href="https://emberobserver.com/addons/ember-changeset-validations"><img alt="Ember Observer Score" src="https://emberobserver.com/badges/ember-changeset-validations.svg"></a>
 
 `ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/poteto/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
 
