@@ -23,7 +23,7 @@
     "node-test": "mocha node-test --recursive"
   },
   "dependencies": {
-    "ember-changeset": "1.4.1",
+    "ember-changeset": "poteto/ember-changeset#develop/nested-keys-cleaner-commits",
     "ember-cli-babel": "^6.0.0",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-get-config": "^0.2.4",
