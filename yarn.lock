@@ -2106,9 +2106,9 @@ ember-ajax@^3.0.0:
   dependencies:
     ember-cli-babel "^6.0.0"
 
-ember-changeset@poteto/ember-changeset#develop/nested-keys-cleaner-commits:
-  version "1.4.1"
-  resolved "https://codeload.github.com/poteto/ember-changeset/tar.gz/a3f831acea113e5397841791cf16361ed1df85ca"
+ember-changeset@1.4.2-beta.0:
+  version "1.4.2-beta.0"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.4.2-beta.0.tgz#8ea41e577bf903e880afc37113965a65b2ee4da4"
   dependencies:
     ember-cli-babel "^6.8.2"
     ember-deep-set poteto/ember-deep-set#dee1243027d7f47ffa4a28709baf4c4874fd5317
@@ -2492,7 +2492,7 @@ ember-cli@2.13.1:
     walk-sync "^0.3.0"
     yam "0.0.22"
 
-ember-deep-set@poteto/ember-deep-set#dee1243027d7f47ffa4a28709baf4c4874fd5317:
+"ember-deep-set@github:poteto/ember-deep-set#dee1243027d7f47ffa4a28709baf4c4874fd5317":
   version "0.1.2"
   resolved "https://codeload.github.com/poteto/ember-deep-set/tar.gz/dee1243027d7f47ffa4a28709baf4c4874fd5317"
   dependencies:
