@@ -23,7 +23,7 @@
     "node-test": "mocha node-test --recursive"
   },
   "dependencies": {
-    "ember-changeset": "^1.0.0",
+    "ember-changeset": "poteto/ember-changeset#433a44f00d614ec95863fd8efc84932ea9916b63",
     "ember-cli-babel": "^6.0.0",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-get-config": "^0.2.4",
