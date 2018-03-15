@@ -131,3 +131,20 @@ test('it works with models that are promises', function(assert) {
     });
   });
 });
+
+test('it preserves options (i.e. skipValidate)', function(assert) {
+  let User = EmberObject.extend({
+    firstName: null,
+    lastName: null
+  });
+  let user = resolve(User.create());
+  let userValidations = {
+    firstName: validatePresence(true),
+    lastName: validatePresence(true)
+  };
+  let options = { skipValidate: true }
+
+  return changeset([user, userValidations], options ).then((changesetInstance) => {
+    assert.deepEqual(changesetInstance.get('_options'), options);
+  });
+});
