@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
-
-const { Component } = Ember;
 
 const rulez = {
   firstName: [
