@@ -1,10 +1,8 @@
-import Ember from 'ember';
+import { helper } from '@ember/component/helper';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import isObject from 'ember-changeset/utils/is-object';
 import isPromise from 'ember-changeset/utils/is-promise';
-
-const { Helper: { helper } } = Ember;
 
 export function changeset([model, validationMap]) {
   if (isObject(validationMap)) {

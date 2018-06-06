@@ -1,13 +1,9 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { resolve } from 'rsvp';
+import { run } from '@ember/runloop';
 import { changeset } from 'ember-changeset-validations/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
-
-const {
-  Object: EmberObject,
-  RSVP: { resolve },
-  run
-} = Ember;
 
 function validateUnique() {
   return (_key, newValue) => {
