@@ -77,8 +77,8 @@ import AdminValidations from '../validations/admin';
 const { Component } = Ember;
 
 export default Component.extend({
-  EmployeeValidations,
-  AdminValidations
+  EmployeeValidations: EmployeeValidations,
+  AdminValidations: AdminValidations
 });
 ```
 
