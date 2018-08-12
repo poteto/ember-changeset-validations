@@ -2050,12 +2050,12 @@ electron-to-chromium@^1.3.30:
   version "1.3.33"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.33.tgz#bf00703d62a7c65238136578c352d6c5c042a545"
 
-ember-changeset@1.5.0-beta.0:
-  version "1.5.0-beta.0"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.5.0-beta.0.tgz#7a77ee727927b51fb64a6aa1fccf287c13fd56b5"
+ember-changeset@1.5.0-beta.1:
+  version "1.5.0-beta.1"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.5.0-beta.1.tgz#c15c86d6caa0285f6958611cc2a8b85faa038f9b"
   dependencies:
     ember-cli-babel "^6.8.2"
-    ember-deep-set "^0.1.3"
+    ember-deep-set "^0.1.4"
 
 ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.1.0, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.2:
   version "6.11.0"
@@ -2362,9 +2362,9 @@ ember-cli@~3.1.4:
     watch-detector "^0.1.0"
     yam "^0.0.24"
 
-ember-deep-set@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/ember-deep-set/-/ember-deep-set-0.1.3.tgz#852dbcf189419d33e57af724ff2d6d8f404d7b73"
+ember-deep-set@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/ember-deep-set/-/ember-deep-set-0.1.4.tgz#a9989969498d89685be155b72109b037af4d5645"
   dependencies:
     ember-cli-babel "^6.6.0"
 
