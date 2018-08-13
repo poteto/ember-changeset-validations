@@ -1,9 +1,4 @@
-import Ember from 'ember';
-
-const {
-  A: emberArray,
-  isArray
-} = Ember;
+import { isArray, A as emberArray } from '@ember/array';
 
 /**
  * Wraps a value in an Ember.Array.

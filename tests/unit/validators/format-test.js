@@ -25,7 +25,7 @@ test('it accepts a `type` option', function(assert) {
   let options = { type: 'url' };
   let validator = validateFormat(options);
 
-  assert.equal(validator(key, 'http://dockyard.com'), true);
+  assert.equal(validator(key, 'http://lauren.com'), true);
   assert.equal(validator(key, 'somevalue'), buildMessage(key, { type: options.type }));
 });
 
