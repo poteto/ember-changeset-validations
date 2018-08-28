@@ -127,3 +127,20 @@ test('it works with models that are promises', function(assert) {
     });
   });
 });
+
+test('it passes through options to the changeset object', function(assert) {
+  let User = EmberObject.extend({
+    firstName: null,
+    lastName: null
+  });
+  let userValidations = {
+    firstName: validatePresence(true),
+    lastName: validatePresence(true)
+  };
+
+  let changesetInstance = changeset([User.create(), userValidations], { skipValidate: true });
+  assert.ok(changesetInstance.get('_options.skipValidate'), 'option should have been passed through');
+
+  changesetInstance.set('firstName', '');
+  assert.ok(changesetInstance.get('isValid'), 'should not have validated');
+});
