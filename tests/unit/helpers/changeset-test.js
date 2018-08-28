@@ -139,7 +139,7 @@ test('it passes through options to the changeset object', function(assert) {
   };
 
   let changesetInstance = changeset([User.create(), userValidations], { skipValidate: true });
-  assert.ok(changesetInstance.get('skipValidate'), 'option should have been passed through');
+  assert.ok(changesetInstance.get('_options.skipValidate'), 'option should have been passed through');
 
   changesetInstance.set('firstName', '');
   assert.ok(changesetInstance.get('isValid'), 'should not have validated');
