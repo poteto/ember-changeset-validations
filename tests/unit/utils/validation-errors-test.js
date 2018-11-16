@@ -69,8 +69,8 @@ test('#buildMessage can return a raw data structure', function(assert) {
   let originalConfig = get(config, 'changeset-validations');
   set(config, 'changeset-validations', { rawOutput: true });
   let result = buildMessage('firstName', { type: 'present', value: 'testValue', context: { foo: 'foo' }})
-  assert.ok(typeof result !== 'string')
-  let { message, data: { description, type } } = result
+  assert.ok(typeof result !== 'string', 'the return value is an object')
+  let { message, type, context: { description } } = result
   assert.equal(message, "{description} can't be blank", 'default message is given')
   assert.equal(description, 'First name', 'description is sent')
   assert.equal(type, 'present')

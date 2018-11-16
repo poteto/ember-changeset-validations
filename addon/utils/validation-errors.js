@@ -41,10 +41,12 @@ export default function buildMessage(key, result) {
     return messages.formatMessage(message, assign({ description }, context));
   }
 
+  let message = get(messages, type);
   if (returnsRaw) {
-    return assign({ message: get(messages, type), data: assign({ description }, result) });
+    context = assign({}, context, { description })
+    return { value, type, message, context };
   } else {
-    return messages.formatMessage(get(messages, type), assign({ description }, context));
+    return messages.formatMessage(message, assign({ description }, context));
   }
 
 }
