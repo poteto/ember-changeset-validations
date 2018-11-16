@@ -5,17 +5,21 @@
  */
 import Ember from 'ember';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
+import config from 'ember-get-config';
 
 const {
   assert,
   typeOf,
-  get
+  get,
+  getWithDefault
 } = Ember;
 
 const assign = Ember.assign || Ember.merge;
 
 export default function buildMessage(key, result) {
+  let returnsRaw = getWithDefault(config, 'changeset-validations.rawOutput', false);
   let messages = getMessages();
+
   let description = messages.getDescriptionFor(key);
 
   if (result.message) {
@@ -37,5 +41,10 @@ export default function buildMessage(key, result) {
     return messages.formatMessage(message, assign({ description }, context));
   }
 
-  return messages.formatMessage(get(messages, type), assign({ description }, context));
+  if (returnsRaw) {
+    return assign({ message: get(messages, type), data: assign({ description }, result) });
+  } else {
+    return messages.formatMessage(get(messages, type), assign({ description }, context));
+  }
+
 }
