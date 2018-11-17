@@ -4,14 +4,15 @@
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 import Ember from 'ember';
+import {
+  get, getWithDefault
+} from '@ember/object';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
 import config from 'ember-get-config';
 
 const {
   assert,
-  typeOf,
-  get,
-  getWithDefault
+  typeOf
 } = Ember;
 
 const assign = Ember.assign || Ember.merge;

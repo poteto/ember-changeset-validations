@@ -465,12 +465,12 @@ Will render: `My special number must equal one, and also foo`.
 ## Raw error output
 
 By default, `ember-changeset-validations` returns the errors as plain strings.
-In some situations, it may be preferable for the developer that the library returns a description os the errors;
+In some situations, it may be preferable for the developer that the library returns a description of the errors;
 internationalisation (i18n) for example, or finer-grained error output.
 
 To have `ember-changeset-validations` return such data structure, add the following to you `config/environment.js`
 
-``` 
+```
 ENV['changeset-validations'].rawOutput = true;
 ```
 

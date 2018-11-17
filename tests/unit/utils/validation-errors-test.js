@@ -2,12 +2,7 @@ import getMessages from 'ember-changeset-validations/utils/get-messages';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 import config from 'ember-get-config';
-import Ember from 'ember';
-
-const {
-  get,
-  set
-} = Ember;
+import { get, set } from '@ember/object';
 
 const messages = getMessages();
 
