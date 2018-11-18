@@ -1,6 +1,8 @@
 import getMessages from 'ember-changeset-validations/utils/get-messages';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
+import config from 'ember-get-config';
+import { get, set } from '@ember/object';
 
 const messages = getMessages();
 
@@ -57,3 +59,16 @@ test('#buildMessage builds a custom message if custom message is a function', fu
     'correct custom error message is returned'
   );
 });
+
+test('#buildMessage can return a raw data structure', function(assert) {
+  let originalConfig = get(config, 'changeset-validations'); // enable the feature
+  set(config, 'changeset-validations', { rawOutput: true });
+  let result = buildMessage('firstName', { type: 'present', value: 'testValue', context: { foo: 'foo' }})
+  assert.ok(typeof result !== 'string', 'the return value is an object')
+  let { message, type, value, context: { description } } = result
+  assert.equal(message, "{description} can't be blank", 'default message is given')
+  assert.equal(description, 'First name', 'description is returned')
+  assert.equal(type, 'present', 'the type of the error is returned')
+  assert.equal(value, 'testValue', 'the passed value is returned')
+  set(config, 'changeset-validations', originalConfig); // reset the config
+})
