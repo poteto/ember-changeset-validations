@@ -352,15 +352,15 @@ export default {
 };
 ```
 
-You can easily import other validations and combine them using `Ember.assign` or `Ember.merge`.
+You can easily import other validations and combine them using `Ember.assign`.
 
 ```js
 // validations/adult.js
-import Ember from 'ember';
 import UserValidations from './user';
 import { validateNumber } from 'ember-changeset-validations/validators';
 
-const { assign } = Ember;
+import { assign } from '@ember/polyfills';
+
 
 export const AdultValidations = {
   age: validateNumber({ gt: 18 })

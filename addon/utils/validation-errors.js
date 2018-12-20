@@ -3,19 +3,16 @@
  * Copyright 2016, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-import Ember from 'ember';
 import {
-  get, getWithDefault
+  get,
+  getWithDefault
 } from '@ember/object';
-import getMessages from 'ember-changeset-validations/utils/get-messages';
+
+import { assert } from '@ember/debug';
+import { assign } from '@ember/polyfills';
 import config from 'ember-get-config';
-
-const {
-  assert,
-  typeOf
-} = Ember;
-
-const assign = Ember.assign || Ember.merge;
+import getMessages from 'ember-changeset-validations/utils/get-messages';
+import { typeOf } from '@ember/utils';
 
 export default function buildMessage(key, result) {
   let returnsRaw = getWithDefault(config, 'changeset-validations.rawOutput', false);
