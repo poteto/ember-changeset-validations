@@ -1,11 +1,7 @@
-import Ember from 'ember';
 import _Messages from 'ember-validators/messages';
+import { assign } from '@ember/polyfills';
+import { capitalize, dasherize } from '@ember/string';
 
-const {
-  String: { dasherize, capitalize }
-} = Ember;
-
-const assign = Ember.assign || Ember.merge;
 const Messages = assign({}, _Messages);
 
 export default assign(Messages, {
