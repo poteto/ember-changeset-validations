@@ -2756,10 +2756,9 @@ electron-to-chromium@^1.3.86:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.91.tgz#d74437a753b122aa6eca7c722055004d3627635d"
   integrity sha512-wOWwM4vQpmb97VNkExnwE5e/sUMUb7NXurlEnhE89JOarUp6FOOMKjtTGgj9bmqskZkeRA7u+p0IztJ/y2OP5Q==
 
-ember-changeset@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-1.6.0.tgz#5a8352fbedcd34c0e4a7f7938338f47254f4946c"
-  integrity sha512-sZFd+uNNiGPNkDa+xGEYVaVafus86kVuvsMXKlL3etpk3Y/sCySUzurUk3SefElTjZaGmRTJdf7KJK9KkT/8aw==
+"ember-changeset@git+ssh://git@github.com:poteto/ember-changeset#2.0-beta":
+  version "1.5.0"
+  resolved "git+ssh://git@github.com:poteto/ember-changeset#67b6f3f5249eb709ea14a2fd9bf2a3e22a7ba9b6"
   dependencies:
     ember-cli-babel "^6.8.2"
     ember-deep-set "^0.2.0"

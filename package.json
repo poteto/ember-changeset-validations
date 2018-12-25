@@ -25,7 +25,7 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
-    "ember-changeset": "1.6.0",
+    "ember-changeset": "git+ssh://git@github.com:poteto/ember-changeset#2.0-beta",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-get-config": "^0.2.4",
