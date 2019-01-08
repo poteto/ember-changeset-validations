@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-changeset-validations'
+  name: require('./package').name
 };
