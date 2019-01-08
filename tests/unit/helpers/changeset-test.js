@@ -35,15 +35,15 @@ test('it composes validations and uses custom validation messages', function(ass
   let changesetInstance = changeset([user, userValidations]);
 
   changesetInstance.set('firstName', 'helloworldjimbob');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ['[CUSTOM] First name must be between 1 and 8 characters']);
+  assert.deepEqual(changesetInstance.get('error').firstName.validation, ['[CUSTOM] First name must be between 1 and 8 characters']);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
   changesetInstance.set('firstName', '');
-  assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank", '[CUSTOM] First name must be between 1 and 8 characters']);
+  assert.deepEqual(changesetInstance.get('error').firstName.validation, ["[CUSTOM] First name can't be blank", '[CUSTOM] First name must be between 1 and 8 characters']);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank first name');
 
   changesetInstance.set('lastName', '');
-  assert.deepEqual(changesetInstance.get('error.lastName.validation'), ["[CUSTOM] Last name can't be blank"]);
+  assert.deepEqual(changesetInstance.get('error').lastName.validation, ["[CUSTOM] Last name can't be blank"]);
   assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with blank last name');
 
   changesetInstance.set('firstName', 'Jim');
@@ -70,16 +70,16 @@ test('it works with async validators', function(assert) {
   run(() => changesetInstance.set('email', 'foo@bar.com'));
   run(() => {
     let expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
-    assert.deepEqual(changesetInstance.get('error.email'), expectedError, 'email should error');
+    assert.deepEqual(changesetInstance.get('error').email, expectedError, 'email should error');
   });
   run(() => changesetInstance.set('username', 'jimbob'));
   run(() => {
-    assert.deepEqual(changesetInstance.get('change.username'), 'jimbob', 'should set username');
+    assert.deepEqual(changesetInstance.get('change').username, 'jimbob', 'should set username');
   });
   run(() => changesetInstance.set('username', 'foo@bar.com'));
   run(() => {
     let expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
-    assert.deepEqual(changesetInstance.get('error.username'), expectedError, 'username should error');
+    assert.deepEqual(changesetInstance.get('error').username, expectedError, 'username should error');
     done();
   });
 });
@@ -117,7 +117,7 @@ test('it works with models that are promises', function(assert) {
 
   return changeset([user, userValidations]).then((changesetInstance) => {
     changesetInstance.validate().then(() => {
-      assert.deepEqual(changesetInstance.get('error.firstName.validation'), ["[CUSTOM] First name can't be blank"]);
+      assert.deepEqual(changesetInstance.get('error').firstName.validation, ["[CUSTOM] First name can't be blank"]);
       assert.ok(changesetInstance.get('isInvalid'), 'should be invalid with wrong length first name');
 
       changesetInstance.set('firstName', 'Jim');
@@ -139,7 +139,7 @@ test('it passes through options to the changeset object', function(assert) {
   };
 
   let changesetInstance = changeset([User.create(), userValidations], { skipValidate: true });
-  assert.ok(changesetInstance.get('_options.skipValidate'), 'option should have been passed through');
+  assert.ok(changesetInstance.get('_options').skipValidate, 'option should have been passed through');
 
   changesetInstance.set('firstName', '');
   assert.ok(changesetInstance.get('isValid'), 'should not have validated');
