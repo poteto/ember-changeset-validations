@@ -1,12 +1,20 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { validate } from 'ember-validators';
 
-export default function validatePresence(options) {
+export default function validatePresence(options = {}) {
+  let targets
   if (typeof options === 'boolean') {
     options = { presence: options };
+  } else {
+    targets = typeof options.on === 'string' ? [ options.on ] : options.on;
+    delete options.on;
   }
 
-  return (key, value) => {
+  return (key, value, oldValue, changes, content) => {
+    if (targets && !targets.some((target) => changes[target] || ( changes[target] === undefined && content[target]))) {
+      return true;
+    }
+
     let result = validate('presence', value, options, null, key);
 
     if (typeof result === 'boolean' || typeof result === 'string') {
