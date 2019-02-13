@@ -2,7 +2,7 @@ import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { validate } from 'ember-validators';
 
 export default function validatePresence(options = {}) {
-  let targets
+  let targets;
   if (typeof options === 'boolean') {
     options = { presence: options };
   } else {
