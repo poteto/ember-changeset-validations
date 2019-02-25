@@ -139,6 +139,17 @@ Validates presence/absence of a value.
 }
 ```
 
+#### `on` option for `presence`
+
+Only validates for presence if any of the other values are present
+```js
+{
+  password: validatePresence({ presence: true, on: 'ssn' })
+  password: validatePresence({ presence: true, on: [ 'ssn', 'email', 'address' ] })
+  password: validatePresence({ presence: false, on: 'alternative-login' })
+}
+```
+
 **[⬆️ back to top](#validator-api)**
 
 #### `length`
