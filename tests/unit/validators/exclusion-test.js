@@ -11,7 +11,7 @@ test('it accepts a `list` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 'Executive'), true);
-  assert.equal(validator(key, 'Manager'), buildMessage(key, { type: 'exclusion', value: 'Manager', context: options }));
+  assert.equal(validator(key, 'Manager'), buildMessage(key, 'exclusion', 'Manager', options));
 });
 
 test('it accepts a `range` option', function(assert) {
@@ -21,7 +21,7 @@ test('it accepts a `range` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 61), true);
-  assert.equal(validator(key, 21), buildMessage(key, { type: 'exclusion', value: 21, context: options }));
+  assert.equal(validator(key, 21), buildMessage(key, 'exclusion', 21, options));
 });
 
 test('it can output custom message string', function(assert) {
@@ -49,12 +49,4 @@ test('it can output custom message function', function(assert) {
   let validator = validateExclusion(options);
 
   assert.equal(validator(key, 'Test'), 'some test message', 'custom message function is returned correctly');
-});
-
-test('it accepts an `allowBlank` option', function(assert) {
-  let key = 'email';
-  let options = { allowBlank: true };
-  let validator = validateExclusion(options);
-
-  assert.equal(validator(key, ''), true, 'Empty string is accepted');
 });

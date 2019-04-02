@@ -1,8 +1,12 @@
-import { A as emberArray } from '@ember/array';
-import { all } from 'rsvp';
-import { get } from '@ember/object';
-import { typeOf } from '@ember/utils';
+import Ember from 'ember';
 import isPromise from 'ember-changeset/utils/is-promise';
+
+const {
+  A: emberArray,
+  RSVP: { all },
+  get,
+  typeOf
+} = Ember;
 
 /**
  * Rejects `true` values from an array of validations. Returns `true` when there

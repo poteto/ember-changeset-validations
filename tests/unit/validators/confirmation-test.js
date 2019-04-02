@@ -10,9 +10,9 @@ test('it accepts an `on` option', function(assert) {
   let opts = { on: 'password' };
   let validator = validateConfirmation(opts);
 
-  assert.equal(validator(key, undefined, undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
-  assert.equal(validator(key, null, undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
-  assert.equal(validator(key, '', undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
+  assert.equal(validator(key, undefined, undefined, changes), buildMessage(key, 'confirmation', null, opts));
+  assert.equal(validator(key, null, undefined, changes), buildMessage(key, 'confirmation', null, opts));
+  assert.equal(validator(key, '', undefined, changes), buildMessage(key, 'confirmation', null, opts));
   assert.equal(validator(key, '1234567', undefined, changes), true);
 });
 
@@ -52,12 +52,4 @@ test('it can output with custom message function', function(assert) {
     'some test message',
     'custom message function is returned correctly'
   );
-});
-
-test('it accepts an `allowBlank` option', function(assert) {
-  let key = 'email';
-  let options = { allowBlank: true, on: 'foo' };
-  let validator = validateConfirmation(options);
-
-  assert.equal(validator(key, ''), true, 'Empty string is accepted');
 });

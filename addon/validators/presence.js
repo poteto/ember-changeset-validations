@@ -1,38 +1,39 @@
+/**
+ * For code taken from ember-cp-validations
+ * Copyright 2016, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+import Ember from 'ember';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
 
-export default function validatePresence(options) {
-  let targets;
-  if (typeof options === 'boolean') {
-    options = { presence: options };
-  } else if (options && options.on !== undefined) {
-    if (typeof options.on === 'string') {
-      targets = [ options.on ];
-    } else if (Array.isArray(options.on)) {
-      targets = options.on;
-    }
+const {
+  get,
+  isPresent,
+  isBlank
+} = Ember;
 
-    delete options.on;
+function _isPresent(value) {
+  if (value instanceof Ember.ObjectProxy || value instanceof Ember.ArrayProxy) {
+    return _isPresent(get(value, 'content'));
   }
 
-  return (key, value, _oldValue, changes, content) => {
-    if (targets && !targets.some((target) => changes[target] || (changes[target] === undefined && content[target]))) {
-      return true;
+  return isPresent(value);
+}
+
+function _testPresence(key, value, presence, context = {}) {
+  if (presence) {
+    return _isPresent(value) || buildMessage(key, 'present', value, context);
+  } else {
+    return isBlank(value) || buildMessage(key, 'blank', value, context);
+  }
+}
+
+export default function validatePresence(opts) {
+  return (key, value) => {
+    if (typeof opts === 'boolean') {
+      return _testPresence(key, value, opts);
     }
 
-    let result = validate('presence', value, options, null, key);
-
-    if (typeof result === 'boolean' || typeof result === 'string') {
-      return result;
-    } else {
-      // We flipped the meaning behind `present` and `blank` so switch the two
-      if (result.type === 'present') {
-        result.type = 'blank';
-      } else if (result.type === 'blank') {
-        result.type = 'present';
-      }
-
-      return buildMessage(key, result);
-    }
+    return _testPresence(key, value, opts.presence, opts);
   };
 }

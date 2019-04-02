@@ -38,6 +38,7 @@ get accepted:
  - Did you confirm this fix/feature is something that is needed?
  - Did you write tests, preferably in a test driven style?
  - Did you add documentation for the changes you made?
+ - Did you follow our [styleguide](https://github.com/dockyard/styleguides)?
 
 If your pull-request addresses an issue then please add the corresponding
 issue's number to the description of your pull-request.
@@ -49,7 +50,7 @@ issue's number to the description of your pull-request.
 First clone this repository:
 
 ```sh
-git clone https://github.com/poteto/ember-changeset-validations.git
+git clone https://github.com/DockYard/ember-changeset-validations.git
 ```
 
 <!-- Add further details on how to install the project here -->

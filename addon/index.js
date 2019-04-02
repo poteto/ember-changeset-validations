@@ -1,8 +1,12 @@
-import { isEmpty } from '@ember/utils';
-import { isArray } from '@ember/array';
+import Ember from 'ember';
 import wrapInArray from 'ember-changeset-validations/utils/wrap';
 import handleMultipleValidations from 'ember-changeset-validations/utils/handle-multiple-validations';
 import isPromise from 'ember-changeset/utils/is-promise';
+
+const {
+  isEmpty,
+  isArray
+} = Ember;
 
 export default function lookupValidator(validationMap = {}) {
   return ({ key, newValue, oldValue, changes, content }) => {

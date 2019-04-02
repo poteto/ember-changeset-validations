@@ -1,13 +1,8 @@
-<h1 align="center"><br><br><img alt="ember-changeset-validations: Validations for ember-changeset" src="assets/title.svg" width="350px"><br><br><br></h1>
+# ember-changeset-validations ![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg) [![CircleCI](https://circleci.com/gh/DockYard/ember-changeset-validations.svg?style=shield)](https://circleci.com/gh/DockYard/ember-changeset-validations) [![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations) [![Ember Observer Score](http://emberobserver.com/badges/ember-changeset-validations.svg)](http://emberobserver.com/addons/ember-changeset-validations)
 
-[![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
-[![TravisCI Build Status](https://img.shields.io/travis/poteto/ember-changeset-validations/master.svg)](https://travis-ci.org/poteto/ember-changeset-validations)
-[![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
-[![Ember Observer Score](https://emberobserver.com/badges/ember-changeset-validations.svg)](https://emberobserver.com/addons/ember-changeset-validations)
+`ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/DockYard/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
 
-`ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/poteto/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
-
-Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to use changesets.
+Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/DockYard/ember-changeset/blob/master/README.md) there on how to use changesets.
 
 To install:
 
@@ -38,7 +33,7 @@ This addon updates the `changeset` helper by taking in a validation map as a 2nd
 }}
 ```
 
-A validation map is just a POJO (Plain Old JavaScript Object). Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
+A validation map is just a POJO. Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
 
 ```js
 // validations/employee.js
@@ -96,7 +91,6 @@ When creating the `Changeset` programmatically instead of using the `changeset` 
 import Ember from 'ember';
 import EmployeeValidations from '../validations/employee';
 import lookupValidator from 'ember-changeset-validations';
-import Changeset from 'ember-changeset';
 
 const { Component } = Ember;
 
@@ -117,19 +111,13 @@ export default Component.extend({
 }}
 ```
 
-`ember-changeset` and `ember-changeset-validations` both also support creating changesets from promises. However, because that will also return a promise, to render in your template you will need to use a helper like `await` from [`ember-promise-helpers`](https://github.com/fivetanley/ember-promise-helpers).
-
 ## Validator API
-
-`ember-changeset-validations` utilizes [`ember-validators`](https://github.com/offirgolan/ember-validators) as a core set of validators.
 
 All validators take a [custom message option](#custom-validation-messages).
 
 #### `presence`
 
 Validates presence/absence of a value.
-
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Presence.html#method_validate)
 
 ```js
 {
@@ -139,24 +127,11 @@ Validates presence/absence of a value.
 }
 ```
 
-#### `on` option for `presence`
-
-Only validates for presence if any of the other values are present
-```js
-{
-  password: validatePresence({ presence: true, on: 'ssn' })
-  password: validatePresence({ presence: true, on: [ 'ssn', 'email', 'address' ] })
-  password: validatePresence({ presence: false, on: 'alternative-login' })
-}
-```
-
 **[⬆️ back to top](#validator-api)**
 
 #### `length`
 
 Validates the length of a `String` or an `Array`.
-
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Length.html#method_validate)
 
 ```js
 {
@@ -173,8 +148,6 @@ Validates the length of a `String` or an `Array`.
 #### `number`
 
 Validates various properties of a number.
-
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Number.html#method_validate)
 
 ```js
 {
@@ -198,13 +171,10 @@ Validates various properties of a number.
 
 Validates that a value is a member of some list or range.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Inclusion.html#method_validate)
-
 ```js
 {
   propertyName: validateInclusion({ list: ['Foo', 'Bar'] }), // must be "Foo" or "Bar"
-  propertyName: validateInclusion({ range: [18, 60] }), // must be between 18 and 60
-  propertyName: validateInclusion({ allowBlank: true }), // can be blank
+  propertyName: validateInclusion({ range: [18, 60] }) // must be between 18 and 60
 }
 ```
 
@@ -214,13 +184,10 @@ Validates that a value is a member of some list or range.
 
 Validates that a value is a not member of some list or range.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Exclusion.html#method_validate)
-
 ```js
 {
   propertyName: validateExclusion({ list: ['Foo', 'Bar'] }), // cannot be "Foo" or "Bar"
-  propertyName: validateExclusion({ range: [18, 60] }), // must not be between 18 and 60
-  propertyName: validateExclusion({ allowBlank: true }), // can be blank
+  propertyName: validateExclusion({ range: [18, 60] }) // must not be between 18 and 60
 }
 ```
 
@@ -229,8 +196,6 @@ Validates that a value is a not member of some list or range.
 #### `format`
 
 Validates a `String` based on a regular expression.
-
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Format.html#method_validate)
 
 ```js
 {
@@ -249,12 +214,9 @@ Validates a `String` based on a regular expression.
 
 Validates that a field has the same value as another.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Confirmation.html#method_validate)
-
 ```js
 {
-  propertyName: validateConfirmation({ on: 'password' }), // must match 'password'
-  propertyName: validateConfirmation({ allowBlank: true }), // can be blank
+  propertyName: validateConfirmation({ on: 'password' }) // must match 'password'
 }
 ```
 
@@ -363,15 +325,15 @@ export default {
 };
 ```
 
-You can easily import other validations and combine them using `Ember.assign`.
+You can easily import other validations and combine them using `Ember.assign` or `Ember.merge`.
 
 ```js
 // validations/adult.js
+import Ember from 'ember';
 import UserValidations from './user';
 import { validateNumber } from 'ember-changeset-validations/validators';
 
-import { assign } from '@ember/polyfills';
-
+const { assign } = Ember;
 
 export const AdultValidations = {
   age: validateNumber({ gt: 18 })
@@ -473,46 +435,20 @@ export default {
 
 Will render: `My special number must equal one, and also foo`.
 
-## Raw error output
-
-By default, `ember-changeset-validations` returns the errors as plain strings.
-In some situations, it may be preferable for the developer that the library returns a description of the errors;
-internationalisation (i18n) for example, or finer-grained error output.
-
-To have `ember-changeset-validations` return such data structure, add the following to you `config/environment.js`
-
-```
-ENV['changeset-validations'].rawOutput = true;
-```
-
-This will return an object with the following structure, that you can then pass to your applications's error processing:
-
-```
-{
-  value, // the value to validate
-  type, // the type of the error (`present`, `blank`...)
-  message, // the **unprocessed** error message
-  context: {
-    description // the description of the field
-    // ...and other options given to configure the validator
-  }
-}
-```
-
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd ember-changeset-validations`
+* `git clone` this repository
 * `npm install`
+* `bower install`
 
 ## Running
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+* `ember server`
+* Visit your app at http://localhost:4200.
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
+* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
@@ -520,4 +456,4 @@ This will return an object with the following structure, that you can then pass 
 
 * `ember build`
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).

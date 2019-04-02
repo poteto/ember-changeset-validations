@@ -3,28 +3,34 @@
  * Copyright 2016, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-import {
-  get,
-  getWithDefault
-} from '@ember/object';
-
-import { assert } from '@ember/debug';
-import { assign } from '@ember/polyfills';
-import config from 'ember-get-config';
+import Ember from 'ember';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
-import { typeOf } from '@ember/utils';
 
-export default function buildMessage(key, result) {
-  let returnsRaw = getWithDefault(config, 'changeset-validations.rawOutput', false);
-  let messages = getMessages();
+const {
+  String: { dasherize, capitalize },
+  assert,
+  typeOf,
+  isNone,
+  get
+} = Ember;
+const assign = Ember.assign || Ember.merge;
+const regex = /\{(\w+)\}/g;
 
-  let description = messages.getDescriptionFor(key);
+export function formatDescription(key = '') {
+  return capitalize(dasherize(key).split(/[_-]/g).join(' '));
+}
 
-  if (result.message) {
-    return result.message;
+export function formatMessage(message, context = {}) {
+  if (isNone(message) || typeof message !== 'string') {
+    return 'is invalid';
   }
 
-  let { type, value, context = {} } = result;
+  return message.replace(regex, (s, attr) => context[attr]);
+}
+
+export default function buildMessage(key, type, value, context = {}) {
+  let description = formatDescription(key);
+  let messages = getMessages();
 
   if (context.message) {
     let message = context.message;
@@ -36,15 +42,8 @@ export default function buildMessage(key, result) {
       return builtMessage;
     }
 
-    return messages.formatMessage(message, assign({ description }, context));
+    return formatMessage(message, assign({ description }, context));
   }
 
-  let message = get(messages, type);
-  if (returnsRaw) {
-    context = assign({}, context, { description })
-    return { value, type, message, context };
-  } else {
-    return messages.formatMessage(message, assign({ description }, context));
-  }
-
+  return formatMessage(get(messages, type), assign({ description }, context));
 }

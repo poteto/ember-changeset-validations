@@ -1,9 +1,17 @@
+import Ember from 'ember';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
+
+const {
+  get,
+  isPresent,
+  isEqual
+} = Ember;
 
 export default function validateConfirmation(options = {}) {
+  let { on } = options;
+
   return (key, newValue, _oldValue, changes/*, _content*/) => {
-    let result = validate('confirmation', newValue, options, changes, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return isPresent(newValue) && isEqual(get(changes, on), newValue) ||
+      buildMessage(key, 'confirmation', newValue, options);
   };
 }

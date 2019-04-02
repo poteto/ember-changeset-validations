@@ -32,6 +32,5 @@ export default {
   date: '[CUSTOM] {description} must be a valid date',
   email: '[CUSTOM] {description} must be a valid email address',
   phone: '[CUSTOM] {description} must be a valid phone number',
-  url: '[CUSTOM] {description} must be a valid url',
-  custom: '[CUSTOM] This is a custom message'
+  url: '[CUSTOM] {description} must be a valid url'
 };

@@ -5,6 +5,7 @@ Have a usage question?
 ======================
 Questions will be closed without comment. Here are some resources to get help:
 
+- Read the README: https://github.com/dockyard/styleguides
 !! ADD MORE HELP RESOURCES HERE !!
 
 Think you found a bug?

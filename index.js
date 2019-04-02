@@ -1,5 +1,6 @@
+/* jshint node: true */
 'use strict';
 
 module.exports = {
-  name: require('./package').name
+  name: 'ember-changeset-validations'
 };

@@ -1,23 +1,16 @@
-import { helper } from '@ember/component/helper';
+import Ember from 'ember';
 import Changeset from 'ember-changeset';
 import lookupValidator from 'ember-changeset-validations';
 import isObject from 'ember-changeset/utils/is-object';
-import isPromise from 'ember-changeset/utils/is-promise';
 
-export function changeset([model, validationMap], options = {}) {
+const { Helper: { helper } } = Ember;
+
+export function changeset([model, validationMap]) {
   if (isObject(validationMap)) {
-    if (isPromise(model)) {
-      return model.then((resolved) => new Changeset(resolved, lookupValidator(validationMap), validationMap, options));
-    }
-
-    return new Changeset(model, lookupValidator(validationMap), validationMap, options);
+    return new Changeset(model, lookupValidator(validationMap), validationMap);
   }
 
-  if (isPromise(model)) {
-    return model.then((resolved) => new Changeset(resolved, validationMap, {}, options));
-  }
-
-  return new Changeset(model, validationMap, {}, options);
+  return new Changeset(model, validationMap);
 }
 
 export default helper(changeset);

@@ -9,7 +9,7 @@ test('it accepts a `min` option', function(assert) {
   let options = { min: 1 };
   let validator = validateLength(options);
 
-  assert.equal(validator(key, ''), buildMessage(key, { type: 'tooShort', value: '', context: options }));
+  assert.equal(validator(key, ''), buildMessage(key, 'tooShort', '', options));
   assert.equal(validator(key, 'a'), true);
 });
 
@@ -20,7 +20,7 @@ test('it accepts a `max` option', function(assert) {
 
   assert.equal(validator(key, ''), true);
   assert.equal(validator(key, 'a'), true);
-  assert.equal(validator(key, 'ab'), buildMessage(key, { type: 'tooLong', value: 'ab', context: options }));
+  assert.equal(validator(key, 'ab'), buildMessage(key, 'tooLong', 'ab', options));
 });
 
 test('it accepts a `min` and `max` option', function(assert) {
@@ -28,11 +28,11 @@ test('it accepts a `min` and `max` option', function(assert) {
   let options = { min: 1, max: 3 };
   let validator = validateLength(options);
 
-  assert.equal(validator(key, ''), buildMessage(key, { type: 'between', value: '', context: options }));
+  assert.equal(validator(key, ''), buildMessage(key, 'between', '', options));
   assert.equal(validator(key, 'a'), true);
   assert.equal(validator(key, 'ab'), true);
   assert.equal(validator(key, 'abc'), true);
-  assert.equal(validator(key, 'abcd'), buildMessage(key, { type: 'between', value: '', context: options }));
+  assert.equal(validator(key, 'abcd'), buildMessage(key, 'between', '', options));
 });
 
 test('it accepts an `is` option', function(assert) {
@@ -40,9 +40,9 @@ test('it accepts an `is` option', function(assert) {
   let options = { is: 2 };
   let validator = validateLength(options);
 
-  assert.equal(validator(key, 'a'), buildMessage(key, { type: 'wrongLength', value: '', context: options }));
+  assert.equal(validator(key, 'a'), buildMessage(key, 'wrongLength', '', options));
   assert.equal(validator(key, 'ab'), true);
-  assert.equal(validator(key, 'abc'), buildMessage(key, { type: 'wrongLength', value: '', context: options }));
+  assert.equal(validator(key, 'abc'), buildMessage(key, 'wrongLength', '', options));
 });
 
 test('it accepts an `allowBlank` option', function(assert) {
