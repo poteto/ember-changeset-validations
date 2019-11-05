@@ -1,8 +1,8 @@
 import { helper } from '@ember/component/helper';
-import EmberChangeset from 'ember-changeset/helpers/changeset';
+import { changeset as EmberChangeset } from 'ember-changeset/helpers/changeset';
 
-export function changeset(...args) {
-  return EmberChangeset(...args);
+export function changeset([obj, validations], options) {
+  return EmberChangeset([obj, validations], options);
 }
 
 export default helper(changeset);
