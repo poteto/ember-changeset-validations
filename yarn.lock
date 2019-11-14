@@ -3134,10 +3134,10 @@ ember-assign-polyfill@~2.4.0:
     ember-cli-babel "^6.6.0"
     ember-cli-version-checker "^2.0.0"
 
-ember-changeset@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-2.2.1.tgz#d0d6ed8f464f79dfb11c0e16a6117dc153832754"
-  integrity sha512-StZxaj4m+Voi3eEPg0pprbbmnbvsvRDatJSjKFOiLWfGw2dMfve4TSSMyqU74jRhObCGVKDVw/pJIjhnLMdGag==
+ember-changeset@2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-2.2.4.tgz#2bf8c67815a57ee2e7ff76e6b58fc63bd3bdf1b9"
+  integrity sha512-JRcX/o8TpDhCkMwxcFxFepZ1nMJHFVwvEGXkZCdO1YZCzDkdkFCieaDQD+5S+B8kTRCLiiXPeClhG8XQOzcEkg==
   dependencies:
     ember-cli-babel "^7.1.2"
     ember-deep-set "^0.2.0"
