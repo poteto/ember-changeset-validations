@@ -29,18 +29,18 @@ module('Integration | Components | validation errors', function(hooks) {
       {{/foo-bar}}
     `);
 
-    assert.notOk(find('ul.firstNameErrors'));
-    assert.notOk(find('ul.lastNameErrors'));
+    assert.notOk(find('ul.firstNameErrors'), 'has no first name errors');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors');
 
     await fillIn('input.firstName', 'a');
     await fillIn('input.lastName', 'b');
 
-    assert.ok(find('ul.firstNameErrors li'));
-    assert.ok(find('ul.lastNameErrors li'));
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors');
+    assert.ok(find('ul.lastNameErrors li'), 'has last name errors');
 
     await fillIn('input.lastName', 'bc');
 
-    assert.ok(find('ul.firstNameErrors li'));
-    assert.notOk(find('ul.lastNameErrors'));
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
   });
 });
