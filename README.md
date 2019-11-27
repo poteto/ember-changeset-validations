@@ -9,10 +9,16 @@
 
 Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to use changesets.
 
-To install:
+To install if your app is on ember-source >= 3.13:
 
 ```
 ember install ember-changeset-validations
+```
+
+To install if your app is on ember-source < 3.13:
+
+```
+ember install ember-changeset-validations@v2.2.1
 ```
 
 This will also install `ember-changeset`.
