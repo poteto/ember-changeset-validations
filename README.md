@@ -31,17 +31,15 @@ This addon updates the `changeset` helper by taking in a validation map as a 2nd
 
 ```hbs
 {{! application/template.hbs}}
-{{dummy-form
-    changeset=(changeset user EmployeeValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user EmployeeValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 
-{{dummy-form
-    changeset=(changeset user AdminValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user AdminValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 A validation map is just a POJO (Plain Old JavaScript Object). Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
@@ -76,51 +74,44 @@ export default {
 Then, you can use the POJO as a property on your Component or Controller and use it in the template:
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import EmployeeValidations from '../validations/employee';
 import AdminValidations from '../validations/admin';
 
-const { Component } = Ember;
-
-export default Component.extend({
+export default class EmployeeComponent extends Component {
   EmployeeValidations,
   AdminValidations
-});
+}
 ```
 
 ```hbs
-{{dummy-form
-    changeset=(changeset user EmployeeValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user EmployeeValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 When creating the `Changeset` programmatically instead of using the `changeset` helper, you will have to apply the `lookupValidator` function to convert the POJO to a validator function as expected by `Changeset`:
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import EmployeeValidations from '../validations/employee';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
 
-const { Component } = Ember;
-
-export default Component.extend({
+export default class ChangesetComponent extends Component {
   init() {
-    this._super(...arguments);
-    let model = get(this, 'model');
-    this.changeset = new Changeset(model, lookupValidator(EmployeeValidations), EmployeeValidations);
+    super.init(...arguments);
+    this.changeset = new Changeset(this.model, lookupValidator(EmployeeValidations), EmployeeValidations);
   }
-});
+}
 ```
 
 ```hbs
-{{dummy-form
-    changeset=changeset
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 `ember-changeset` and `ember-changeset-validations` both also support creating changesets from promises. However, because that will also return a promise, to render in your template you will need to use a helper like `await` from [`ember-promise-helpers`](https://github.com/fivetanley/ember-promise-helpers).
@@ -369,21 +360,18 @@ export default {
 };
 ```
 
-You can easily import other validations and combine them using `Ember.assign`.
+You can easily import other validations and combine them using `Object.assign`.
 
 ```js
 // validations/adult.js
 import UserValidations from './user';
 import { validateNumber } from 'ember-changeset-validations/validators';
 
-import { assign } from '@ember/polyfills';
-
-
 export const AdultValidations = {
   age: validateNumber({ gt: 18 })
 };
 
-export default assign({}, UserValidations, AdultValidations);
+export default Object.assign({}, UserValidations, AdultValidations);
 ```
 
 ## Custom validation messages
