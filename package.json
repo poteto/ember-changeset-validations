@@ -29,7 +29,8 @@
     "test": "ember test",
     "node-test": "mocha node-test --recursive",
     "test:all": "ember try:each",
-    "nodetest": "mocha node-tests --recursive"
+    "nodetest": "mocha node-tests --recursive",
+    "contributors": "npx contributor-faces -e \"(*-bot|*\\[bot\\]|*-tomster|homu|bors)\""
   },
   "dependencies": {
     "ember-changeset": "3.0.0-beta.0",
