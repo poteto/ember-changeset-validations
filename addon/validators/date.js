@@ -3,7 +3,7 @@ import withDefaults from 'ember-changeset-validations/utils/with-defaults';
 import { validate } from 'ember-validators';
 
 export default function validateNumber(options = {}) {
-  // options = withDefaults(options, { allowString: true, allowNone: false });
+  options = withDefaults(options, { allowBlank: false });
 
   if (options.allowBlank) {
     options.allowNone = true;

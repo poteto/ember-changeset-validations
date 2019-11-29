@@ -167,6 +167,20 @@ Validates the length of a `String` or an `Array`.
 
 **[⬆️ back to top](#validator-api)**
 
+#### `date`
+
+Validates various properties of a date.
+
+👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Date.html#method_validate)
+
+```js
+{
+  propertyName: validateDate({ before: '3000-01-01' }), // must be before 1st Jan. 3000
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
 #### `number`
 
 Validates various properties of a number.
