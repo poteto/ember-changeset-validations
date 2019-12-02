@@ -18,15 +18,18 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, '1992-03-30'), true, 'date string is allowed');
     assert.equal(validator(key, 'now'), true, '"now" value is is allowed');
 
-    assert.equal(validator(key, 'not a date'), buildMessage(key, { type: 'date', value: 'not a date', context: options }),
-      'non-date string is not allowed');
-    assert.equal(validator(key, NaN), buildMessage(key, { type: 'date', value: NaN, context: options }),
-      'NaN is not allowed');
-    assert.equal(validator(key, {}), buildMessage(key, { type: 'date', value: {}, context: options }),
-      'empty object is not allowed');
+    assert.equal(validator(key, 'not a date'),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }), 'non-date string is not allowed'
+    );
+    assert.equal(validator(key, NaN),
+      buildMessage(key, { type: 'date', value: NaN, context: options }), 'NaN is not allowed'
+    );
+    assert.equal(validator(key, {}),
+      buildMessage(key, { type: 'date', value: {}, context: options }), 'empty object is not allowed'
+    );
   });
 
-  test('it accepts empty strings, null & undefined', function(assert) {
+  test('it accepts valid values', function(assert) {
     const key = 'test_date';
     const options = {};
     const validator = validateDate(options);
@@ -35,6 +38,24 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, ''), true, 'empty string is allowed');
     assert.equal(validator(key, null), true);
     assert.equal(validator(key, undefined), true);
+    assert.equal(validator(key, '1992-03-30'), true, 'date string is allowed');
+    assert.equal(validator(key, 'now'), true, '"now" value is is allowed');
+  });
+
+  test('it rejectes invalid values', function(assert) {
+    const key = 'test_date';
+    const options = {};
+    const validator = validateDate(options);
+
+    assert.equal(validator(key, 'not a date'),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }), 'non-date string is not allowed'
+    );
+    assert.equal(validator(key, NaN),
+      buildMessage(key, { type: 'date', value: NaN, context: options }), 'NaN is not allowed'
+    );
+    assert.equal(validator(key, {}),
+      buildMessage(key, { type: 'date', value: {}, context: options }), 'empty object is not allowed'
+    );
   });
 
   test('it accepts a `before` option', function(assert) {
