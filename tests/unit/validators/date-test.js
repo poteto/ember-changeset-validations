@@ -1,5 +1,5 @@
 import moment from 'moment';
-import validateDate, {errorFormat as errorOutputFormat } from 'ember-changeset-validations/validators/date';
+import validateDate, { errorFormat as errorOutputFormat } from 'ember-changeset-validations/validators/date';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
@@ -70,14 +70,14 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(futureDate).add(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'before', value: moment(futureDate).add(1, 'days').format(inputFormat),
-        context: {before: moment(options.before).format(errorOutputFormat)},
+        context: { before: moment(options.before).format(errorOutputFormat) },
       }, 'date after the "before" date is not allowed')
     );
     validator = validateDate(options);
     assert.equal(validator(key, futureDate),
       buildMessage(key, {
         type: 'before', value: futureDate,
-        context: {before: moment(options.before).format(errorOutputFormat)},
+        context: { before: moment(options.before).format(errorOutputFormat) },
       }, 'date same as the "before" date is not allowed')
     );
     validator = validateDate(options);
@@ -90,14 +90,14 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(pastDate).add(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'before', value: moment(pastDate).add(1, 'days').format(inputFormat),
-        context: {before: moment(options.before).format(errorOutputFormat)},
+        context: { before: moment(options.before).format(errorOutputFormat) },
       }, 'date after the "before" date is not allowed')
     );
     validator = validateDate(options);
     assert.equal(validator(key, pastDate),
       buildMessage(key, {
         type: 'before', value: pastDate,
-        context: {before: moment(options.before).format(errorOutputFormat)},
+        context: { before: moment(options.before).format(errorOutputFormat) },
       }, 'date same as the "before" date is not allowed')
     );
     validator = validateDate(options);
@@ -117,7 +117,7 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(futureDate).add(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'onOrBefore', value: moment(futureDate).add(1, 'days').format(inputFormat),
-        context: {onOrBefore: moment(options.onOrBefore).format(errorOutputFormat)},
+        context: { onOrBefore: moment(options.onOrBefore).format(errorOutputFormat) },
       }, 'date after the "onOrBefore" date is not allowed')
     );
     validator = validateDate(options);
@@ -132,7 +132,7 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(pastDate).add(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'onOrBefore', value: moment(pastDate).add(1, 'days').format(inputFormat),
-        context: {onOrBefore: moment(options.onOrBefore).format(errorOutputFormat)},
+        context: { onOrBefore: moment(options.onOrBefore).format(errorOutputFormat) },
       }, 'date after the "onOrBefore" date is not allowed')
     );
     validator = validateDate(options);
@@ -154,14 +154,14 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(futureDate).subtract(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'after', value: moment(futureDate).subtract(1, 'days').format(inputFormat),
-        context: {after: moment(options.after).format(errorOutputFormat)},
+        context: { after: moment(options.after).format(errorOutputFormat) },
       }, 'date after the "after" date is not allowed')
     );
     validator = validateDate(options);
     assert.equal(validator(key, futureDate),
       buildMessage(key, {
         type: 'after', value: futureDate,
-        context: {after: moment(options.after).format(errorOutputFormat)},
+        context: { after: moment(options.after).format(errorOutputFormat) },
       }, 'date same as the "after" date is not allowed')
     );
     validator = validateDate(options);
@@ -174,14 +174,14 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(pastDate).subtract(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'after', value: moment(pastDate).subtract(1, 'days').format(inputFormat),
-        context: {after: moment(options.after).format(errorOutputFormat)},
+        context: { after: moment(options.after).format(errorOutputFormat) },
       }, 'date after the "after" date is not allowed')
     );
     validator = validateDate(options);
     assert.equal(validator(key, pastDate),
       buildMessage(key, {
         type: 'after', value: pastDate,
-        context: {after: moment(options.after).format(errorOutputFormat)},
+        context: { after: moment(options.after).format(errorOutputFormat) },
       }, 'date same as the "after" date is not allowed')
     );
     validator = validateDate(options);
@@ -201,7 +201,7 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(futureDate).subtract(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'onOrAfter', value: moment(futureDate).subtract(1, 'days').format(inputFormat),
-        context: {onOrAfter: moment(options.onOrAfter).format(errorOutputFormat)},
+        context: { onOrAfter: moment(options.onOrAfter).format(errorOutputFormat) },
       }, 'date after the "onOrAfter" date is not allowed')
     );
     validator = validateDate(options);
@@ -216,7 +216,7 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(pastDate).subtract(1, 'days').format(inputFormat)),
       buildMessage(key, {
         type: 'onOrAfter', value: moment(pastDate).subtract(1, 'days').format(inputFormat),
-        context: {onOrAfter: moment(options.onOrAfter).format(errorOutputFormat)},
+        context: { onOrAfter: moment(options.onOrAfter).format(errorOutputFormat) },
       }, 'date after the "onOrAfter" date is not allowed')
     );
     validator = validateDate(options);
@@ -235,11 +235,31 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, moment(beforeTarget).subtract(1, 'month').format(inputFormat)),
       buildMessage(key, {
         type: 'before', value: beforeTarget,
-        context: {before: moment(options.before).format(errorOutputFormat)},
+        context: { before: moment(options.before).format(errorOutputFormat) },
       }, 'date within the same year as the "before" date is not allowed')
     );
     validator = validateDate(options);
     assert.equal(validator(key, moment(beforeTarget).subtract(1, 'year').format(inputFormat)), true);
+  });
+
+  test('it accepts a `format` option', function(assert) {
+    const key = 'test_date';
+    const options = {};
+    let validator = validateDate(options);
+
+    options.format = 'YYYY'
+    validator = validateDate(options);
+    assert.equal(validator(key, '1-1-1999'),
+      buildMessage(key, { type: 'wrongDateFormat', value: '1-1-1999', context: options }), 'format should be just year'
+    );
+    assert.equal(validator(key, '1999'), true);
+
+    options.format = 'MMM || Do || YYYY'
+    validator = validateDate(options);
+    assert.equal(validator(key, '11-3-1998'),
+      buildMessage(key, { type: 'wrongDateFormat', value: '1-1-1999', context: options }), 'format should be "MMM || Do || YYYY"'
+    );
+    assert.equal(validator(key, 'Nov || 3rd || 1998'), true);
   });
 
 });
