@@ -82,6 +82,43 @@ module('Unit | Validator | date', function() {
     );
     validator = validateDate(options);
     assert.equal(validator(key, moment(pastDate).subtract(1, 'days').format(inputFormat)), true);
-
   });
+
+  test('it accepts a `onOrBefore` option', function(assert) {
+    const futureDate = '3000-01-01';
+    const pastDate = '1900-01-01';
+
+    const key = 'test_date';
+    const options = { onOrBefore: futureDate };
+
+    let validator = validateDate(options);
+
+    // Testing with before date in the future
+    assert.equal(validator(key, moment(futureDate).add(1, 'days').format(inputFormat)),
+      buildMessage(key, {
+        type: 'onOrBefore', value: moment(futureDate).add(1, 'days').format(inputFormat),
+        context: {onOrBefore: moment(options.onOrBefore).format(errorOutputFormat)},
+      }, 'date after the "onOrBefore" date is not allowed')
+    );
+    validator = validateDate(options);
+    assert.equal(validator(key, futureDate), true, 'date same as the "onOrBefore" date is allowed');
+    validator = validateDate(options);
+    assert.equal(validator(key, moment(futureDate).subtract(1, 'days').format(inputFormat)), true);
+
+
+    // Testing with before date in the past
+    options.onOrBefore = pastDate;
+    validator = validateDate(options);
+    assert.equal(validator(key, moment(pastDate).add(1, 'days').format(inputFormat)),
+      buildMessage(key, {
+        type: 'onOrBefore', value: moment(pastDate).add(1, 'days').format(inputFormat),
+        context: {onOrBefore: moment(options.onOrBefore).format(errorOutputFormat)},
+      }, 'date after the "onOrBefore" date is not allowed')
+    );
+    validator = validateDate(options);
+    assert.equal(validator(key, pastDate), true, 'date same as the "onOrBefore" date is allowed');
+    validator = validateDate(options);
+    assert.equal(validator(key, moment(pastDate).subtract(1, 'days').format(inputFormat)), true);
+  });
+
 });

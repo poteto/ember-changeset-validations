@@ -176,6 +176,7 @@ Validates various properties of a date.
 ```js
 {
   propertyName: validateDate({ before: '3000-01-01' }), // must be before 1st Jan. 3000
+  propertyName: validateDate({ onOrBefore: '3000-01-01' }), // must be not after 1st Jan. 3000
 }
 ```
 
