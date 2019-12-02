@@ -1,10 +1,9 @@
 import moment from 'moment';
-import validateDate from 'ember-changeset-validations/validators/date';
+import validateDate, {errorFormat as errorOutputFormat } from 'ember-changeset-validations/validators/date';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
 const inputFormat = "YYYY-MM-DD";
-const errorOutputFormat = "MMM Do, YYYY"; // Jan 1st, 1999
 
 module('Unit | Validator | date', function() {
   test('it accepts an `allowBlank` option', function(assert) {
@@ -224,6 +223,23 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, pastDate), true, 'date same as the "onOrAfter" date is allowed');
     validator = validateDate(options);
     assert.equal(validator(key, moment(pastDate).add(1, 'days').format(inputFormat)), true);
+  });
+
+  test('it accepts a `precision` option', function(assert) {
+    const beforeTarget = '1950-11-20';
+    const key = 'test_date';
+    const options = { before: beforeTarget, precision: 'year' };
+    let validator = validateDate(options);
+
+    validator = validateDate(options);
+    assert.equal(validator(key, moment(beforeTarget).subtract(1, 'month').format(inputFormat)),
+      buildMessage(key, {
+        type: 'before', value: beforeTarget,
+        context: {before: moment(options.before).format(errorOutputFormat)},
+      }, 'date within the same year as the "before" date is not allowed')
+    );
+    validator = validateDate(options);
+    assert.equal(validator(key, moment(beforeTarget).subtract(1, 'year').format(inputFormat)), true);
   });
 
 });

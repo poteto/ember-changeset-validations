@@ -179,6 +179,7 @@ Validates various properties of a date.
   propertyName: validateDate({ onOrBefore: '3000-01-01' }), // must be not after 1st Jan. 3000
   propertyName: validateDate({ after: '3000-01-01' }), // must be after 1st Jan. 3000
   propertyName: validateDate({ onOrAfter: '3000-01-01' }), // must be not before 1st Jan. 3000
+  propertyName: validateDate({ precision: 'year', before: '1950-11-20' }), // must be no later than *1949*
 }
 ```
 
