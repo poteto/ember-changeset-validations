@@ -511,6 +511,42 @@ This will return an object with the following structure, that you can then pass 
 }
 ```
 
+## Contributors
+
+We're grateful to these wonderful contributors who've contributed to `ember-changeset-validations`:
+
+[//]: contributor-faces
+<a href="https://github.com/poteto"><img src="https://avatars0.githubusercontent.com/u/1390709?v=4" title="poteto" width="80" height="80"></a>
+<a href="https://github.com/snewcomer"><img src="https://avatars0.githubusercontent.com/u/7374640?v=4" title="snewcomer" width="80" height="80"></a>
+<a href="https://github.com/nucleartide"><img src="https://avatars3.githubusercontent.com/u/914228?v=4" title="nucleartide" width="80" height="80"></a>
+<a href="https://github.com/acburdine"><img src="https://avatars2.githubusercontent.com/u/5167581?v=4" title="acburdine" width="80" height="80"></a>
+<a href="https://github.com/rkrishnan8594"><img src="https://avatars1.githubusercontent.com/u/5016823?v=4" title="rkrishnan8594" width="80" height="80"></a>
+<a href="https://github.com/ahmadsoe"><img src="https://avatars3.githubusercontent.com/u/1957737?v=4" title="ahmadsoe" width="80" height="80"></a>
+<a href="https://github.com/martndemus"><img src="https://avatars2.githubusercontent.com/u/903637?v=4" title="martndemus" width="80" height="80"></a>
+<a href="https://github.com/brandynbennett"><img src="https://avatars0.githubusercontent.com/u/4146629?v=4" title="brandynbennett" width="80" height="80"></a>
+<a href="https://github.com/bcardarella"><img src="https://avatars0.githubusercontent.com/u/18524?v=4" title="bcardarella" width="80" height="80"></a>
+<a href="https://github.com/Dhaulagiri"><img src="https://avatars1.githubusercontent.com/u/1672302?v=4" title="Dhaulagiri" width="80" height="80"></a>
+<a href="https://github.com/noslouch"><img src="https://avatars1.githubusercontent.com/u/2090382?v=4" title="noslouch" width="80" height="80"></a>
+<a href="https://github.com/pangratz"><img src="https://avatars1.githubusercontent.com/u/341877?v=4" title="pangratz" width="80" height="80"></a>
+<a href="https://github.com/Daniel-Xu"><img src="https://avatars0.githubusercontent.com/u/548144?v=4" title="Daniel-Xu" width="80" height="80"></a>
+<a href="https://github.com/dustinfarris"><img src="https://avatars3.githubusercontent.com/u/1087165?v=4" title="dustinfarris" width="80" height="80"></a>
+<a href="https://github.com/jeffreybiles"><img src="https://avatars2.githubusercontent.com/u/839123?v=4" title="jeffreybiles" width="80" height="80"></a>
+<a href="https://github.com/jhitchins88"><img src="https://avatars2.githubusercontent.com/u/24356857?v=4" title="jhitchins88" width="80" height="80"></a>
+<a href="https://github.com/manquer"><img src="https://avatars3.githubusercontent.com/u/3044333?v=4" title="manquer" width="80" height="80"></a>
+<a href="https://github.com/michaellee"><img src="https://avatars1.githubusercontent.com/u/1329644?v=4" title="michaellee" width="80" height="80"></a>
+<a href="https://github.com/cibernox"><img src="https://avatars2.githubusercontent.com/u/265339?v=4" title="cibernox" width="80" height="80"></a>
+<a href="https://github.com/nickschot"><img src="https://avatars1.githubusercontent.com/u/334789?v=4" title="nickschot" width="80" height="80"></a>
+<a href="https://github.com/offirgolan"><img src="https://avatars2.githubusercontent.com/u/575938?v=4" title="offirgolan" width="80" height="80"></a>
+<a href="https://github.com/patrickberkeley"><img src="https://avatars0.githubusercontent.com/u/8364?v=4" title="patrickberkeley" width="80" height="80"></a>
+<a href="https://github.com/scottkidder"><img src="https://avatars1.githubusercontent.com/u/136984?v=4" title="scottkidder" width="80" height="80"></a>
+<a href="https://github.com/simonihmig"><img src="https://avatars0.githubusercontent.com/u/1325249?v=4" title="simonihmig" width="80" height="80"></a>
+<a href="https://github.com/sivakumar-kailasam"><img src="https://avatars3.githubusercontent.com/u/604117?v=4" title="sivakumar-kailasam" width="80" height="80"></a>
+<a href="https://github.com/ssured"><img src="https://avatars3.githubusercontent.com/u/2558804?v=4" title="ssured" width="80" height="80"></a>
+<a href="https://github.com/TayHobbs"><img src="https://avatars1.githubusercontent.com/u/6898493?v=4" title="TayHobbs" width="80" height="80"></a>
+<a href="https://github.com/exeto"><img src="https://avatars1.githubusercontent.com/u/4079046?v=4" title="exeto" width="80" height="80"></a>
+
+[//]: contributor-faces
+
 ## Installation
 
 * `git clone <repository-url>` this repository
