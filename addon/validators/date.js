@@ -5,7 +5,7 @@ import { validate } from 'ember-validators';
 const errorFormat = "MMM Do, YYYY";
 
 export default function validateNumber(options = {}) {
-  options = withDefaults(options, { allowBlank: false, errorFormat: errorFormat});
+  options = withDefaults(options, { allowBlank: false, errorFormat: errorFormat });
 
   return (key, value) => {
     let result = validate('date', value, options, null, key);
@@ -13,4 +13,4 @@ export default function validateNumber(options = {}) {
   };
 }
 
-export {errorFormat};
+export { errorFormat };
