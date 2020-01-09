@@ -79,14 +79,14 @@ import EmployeeValidations from '../validations/employee';
 import AdminValidations from '../validations/admin';
 
 export default class EmployeeComponent extends Component {
-  EmployeeValidations,
-  AdminValidations
+  EmployeeValidations;
+  AdminValidations;
 }
 ```
 
 ```hbs
 <DummyForm
-    @changeset={{changeset user EmployeeValidations}}
+    @changeset={{changeset user this.EmployeeValidations}}
     @submit={{action "submit"}}
     @rollback={{action "rollback"}} />
 ```
@@ -109,7 +109,7 @@ export default class ChangesetComponent extends Component {
 
 ```hbs
 <DummyForm
-    @changeset={{changeset}}
+    @changeset={{this.changeset}}
     @submit={{action "submit"}}
     @rollback={{action "rollback"}} />
 ```
