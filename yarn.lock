@@ -3818,10 +3818,10 @@ ember-auto-import@^1.5.2:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-changeset@3.0.0-beta.3:
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.0.0-beta.3.tgz#280f1e19fe6d0bc832a1f786db7ae146c54995dd"
-  integrity sha512-ffXnJMHt1ABrf5algNEE+1DJJErc7ICTrohdRnzmlSK8eLypAoSHaeCz/v5hxGcMu2RVTVfHlbJOfjWf/ZeyFA==
+ember-changeset@^3.0.0-beta.3:
+  version "3.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.0.0-beta.4.tgz#397fcfa02d642e4d099b69c14c071fcd60aaad77"
+  integrity sha512-zhtDKpqUWWbmk5sen6lNq18NxYLo9gXTcytQL3u8eNjWuLmbzHqomwFEK8G30oABlYRzjbwwRXTdZ6m1hFbsYw==
   dependencies:
     "@glimmer/tracking" "^1.0.0"
     ember-cli-babel "^7.13.0"
