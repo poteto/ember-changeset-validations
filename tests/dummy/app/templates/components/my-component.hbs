@@ -1,0 +1,6 @@
+<h1>Hi der</h1>
+
+<form {{on "submit" (fn this.submit @changeset)}}>
+  <input value={{@changeset.title}} />
+  <button type="submit">Submit</button>
+</form>
