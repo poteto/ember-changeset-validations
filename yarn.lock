@@ -4012,7 +4012,7 @@ ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-changeset@^3.0.0-beta.18:
+ember-changeset@^3.0.0-beta.17:
   version "3.0.0-beta.17"
   resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.0.0-beta.17.tgz#1ea6dcf3629d6bbaf1de640281d481b1a0e99337"
   integrity sha512-oJDEbwLcLc1+spmqgbUzzwddEx16lwujifOO59k+IQ3wmV1da7Ns1imMmv3G332QeYhRXtofUj838Uzdi6uSKQ==
