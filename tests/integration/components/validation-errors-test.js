@@ -8,7 +8,7 @@ module('Integration | Components | validation errors', function(hooks) {
 
   test('will clear error messages independently by field', async function(assert) {
     await render(hbs`
-      {{#foo-bar as |changeset|}}
+      <FooBar as |changeset|>
         <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
         {{#if changeset.error.firstName}}
         <ul class="firstNameErrors">
@@ -26,7 +26,7 @@ module('Integration | Components | validation errors', function(hooks) {
         {{/each}}
         </ul>
         {{/if}}
-      {{/foo-bar}}
+      </FooBar>
     `);
 
     assert.notOk(find('ul.firstNameErrors'), 'has no first name errors');
