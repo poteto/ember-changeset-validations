@@ -37,7 +37,7 @@ export default function validateDate(options = {}) {
       onOrBefore = toDate(onOrBefore);
 
       if (date > onOrBefore) {
-        return buildMessage(key, { value, message: `${onOrAfter} date is NOT on or before ${value}` });
+        return buildMessage(key, { value, message: `[ON OR BEFORE] date is NOT on or before ${value}` });
       }
     }
 
@@ -45,7 +45,7 @@ export default function validateDate(options = {}) {
       after = toDate(after);
 
       if (date <= after) {
-        return buildMessage(key, { value, message: `${after} date is NOT after ${value}` });
+        return buildMessage(key, { value, message: `[AFTER] date is NOT after ${value}` });
       }
     }
 
@@ -53,7 +53,7 @@ export default function validateDate(options = {}) {
       onOrAfter = toDate(onOrAfter);
 
       if (date < onOrAfter) {
-        return buildMessage(key, { value, message: `${onOrBefore} date is NOT on or after ${value}` });
+        return buildMessage(key, { value, message: `[ON OR AFTER] date is NOT on or after ${value}` });
       }
     }
 

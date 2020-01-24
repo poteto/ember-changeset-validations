@@ -73,7 +73,7 @@ module('Unit | Validator | date', function() {
     assert.equal(
       validator(key, afterDate),
       buildMessage(key, { afterDate, message: `[BEFORE] date is NOT before ${afterDate}` }),
-      'date after the "before" date is not allowed'
+      'date is after "before" date'
     );
 
     options = { before: afterDate };
@@ -82,6 +82,84 @@ module('Unit | Validator | date', function() {
       validator(key, startDate),
       true,
       'date is "before" date'
+    );
+  });
+
+  test('it accepts a `onOrBefore` option', function(assert) {
+    const startDate = new Date();
+    startDate.setHours(startDate.getHours() - 2);
+    const afterDate = new Date();
+
+    const key = 'test_date';
+    let options = { onOrBefore: startDate };
+
+    let validator = validateDate(options);
+
+    // Testing with onOrBefore date in the future
+    assert.equal(
+      validator(key, afterDate),
+      buildMessage(key, { afterDate, message: `[ON OR BEFORE] date is NOT on or before ${afterDate}` }),
+      'date is after "onOrBefore" date'
+    );
+
+    options = { onOrBefore: afterDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, startDate),
+      true,
+      'date is "onOrBefore" date'
+    );
+  });
+
+  test('it accepts a `after` option', function(assert) {
+    const startDate = new Date();
+    startDate.setHours(startDate.getHours() - 2);
+    const afterDate = new Date();
+
+    const key = 'test_date';
+    let options = { after: afterDate };
+
+    let validator = validateDate(options);
+
+    // Testing with after date in the future
+    assert.equal(
+      validator(key, startDate),
+      buildMessage(key, { startDate, message: `[AFTER] date is NOT after ${startDate}` }),
+      'date is after the "after" date'
+    );
+
+    options = { after: startDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, afterDate),
+      true,
+      'date is "after" date'
+    );
+  });
+
+  test('it accepts a `onOrAfter` option', function(assert) {
+    const startDate = new Date();
+    startDate.setHours(startDate.getHours() - 2);
+    const onOrAfterDate = new Date();
+
+    const key = 'test_date';
+    let options = { onOrAfter: onOrAfterDate };
+
+    let validator = validateDate(options);
+
+    // Testing with onOrAfter date in the future
+    assert.equal(
+      validator(key, startDate),
+      buildMessage(key, { onOrAfterDate, message: `[ON OR AFTER] date is NOT on or after ${startDate}` }),
+      'date onOrAfter the "onOrAfter" date is not allowed'
+    );
+
+    options = { onOrAfter: startDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, onOrAfterDate),
+      true,
+      'date is "onOrAfter" date'
     );
   });
 });
