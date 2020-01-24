@@ -1,15 +1,63 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import withDefaults from 'ember-changeset-validations/utils/with-defaults';
-import { validate } from 'ember-validators';
+import toDate from 'ember-changeset-validations/utils/to-date';
 
 const errorFormat = "MMM Do, YYYY";
 
-export default function validateNumber(options = {}) {
+function isValidDate(d) {
+  return d instanceof Date && !isNaN(d);
+}
+
+export default function validateDate(options = {}) {
   options = withDefaults(options, { allowBlank: false, errorFormat: errorFormat });
 
   return (key, value) => {
-    let result = validate('date', value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    let { allowBlank } = options;
+    let { before, onOrBefore, after, onOrAfter } = options;
+
+    if (allowBlank && (typeof value === 'undefined' || value === null)) {
+      return true;
+    }
+
+    let date = toDate(value);
+
+    if (!isValidDate(date)) {
+      return buildMessage(key, { type: 'date', value: 'not a date' });
+    }
+
+    if (before) {
+      before = toDate(before);
+
+      if (date >= before) {
+        return buildMessage(key, { value, message: `[BEFORE] date is NOT before ${value}` });
+      }
+    }
+
+    if (onOrBefore) {
+      onOrBefore = toDate(onOrBefore);
+
+      if (date > onOrBefore) {
+        return buildMessage(key, { value, message: `${onOrAfter} date is NOT on or before ${value}` });
+      }
+    }
+
+    if (after) {
+      after = toDate(after);
+
+      if (date <= after) {
+        return buildMessage(key, { value, message: `${after} date is NOT after ${value}` });
+      }
+    }
+
+    if (onOrAfter) {
+      onOrAfter = toDate(onOrAfter);
+
+      if (date < onOrAfter) {
+        return buildMessage(key, { value, message: `${onOrBefore} date is NOT on or after ${value}` });
+      }
+    }
+
+    return true;
   };
 }
 

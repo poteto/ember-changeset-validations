@@ -3,19 +3,14 @@
  * Copyright 2016, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-import {
-  get,
-  getWithDefault
-} from '@ember/object';
+import { get } from '@ember/object';
 
 import { assert } from '@ember/debug';
-import { assign } from '@ember/polyfills';
 import config from 'ember-get-config';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
-import { typeOf } from '@ember/utils';
 
 export default function buildMessage(key, result) {
-  let returnsRaw = getWithDefault(config, 'changeset-validations.rawOutput', false);
+  let returnsRaw = get(config, 'changeset-validations.rawOutput') || false;
   let messages = getMessages();
 
   let description = messages.getDescriptionFor(key);
@@ -29,22 +24,21 @@ export default function buildMessage(key, result) {
   if (context.message) {
     let message = context.message;
 
-    if (typeOf(message) === 'function') {
+    if (typeof message === 'function') {
       let builtMessage = message(key, type, value, context);
-      assert('Custom message function must return a string', typeOf(builtMessage) === 'string');
+      assert('Custom message function must return a string', typeof builtMessage === 'string');
 
       return builtMessage;
     }
 
-    return messages.formatMessage(message, assign({ description }, context));
+    return messages.formatMessage(message, Object.assign({ description }, context));
   }
 
   let message = get(messages, type);
   if (returnsRaw) {
-    context = assign({}, context, { description })
+    context = Object.assign({}, context, { description })
     return { value, type, message, context };
   } else {
-    return messages.formatMessage(message, assign({ description }, context));
+    return messages.formatMessage(message, Object.assign({ description }, context));
   }
-
 }
