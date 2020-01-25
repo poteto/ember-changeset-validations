@@ -3,19 +3,21 @@
  * Copyright 2016, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
-import Ember from 'ember';
+import {
+  get,
+  getWithDefault
+} from '@ember/object';
+
+import { assert } from '@ember/debug';
+import { assign } from '@ember/polyfills';
+import config from 'ember-get-config';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
-
-const {
-  assert,
-  typeOf,
-  get
-} = Ember;
-
-const assign = Ember.assign || Ember.merge;
+import { typeOf } from '@ember/utils';
 
 export default function buildMessage(key, result) {
+  let returnsRaw = getWithDefault(config, 'changeset-validations.rawOutput', false);
   let messages = getMessages();
+
   let description = messages.getDescriptionFor(key);
 
   if (result.message) {
@@ -37,5 +39,12 @@ export default function buildMessage(key, result) {
     return messages.formatMessage(message, assign({ description }, context));
   }
 
-  return messages.formatMessage(get(messages, type), assign({ description }, context));
+  let message = get(messages, type);
+  if (returnsRaw) {
+    context = assign({}, context, { description })
+    return { value, type, message, context };
+  } else {
+    return messages.formatMessage(message, assign({ description }, context));
+  }
+
 }

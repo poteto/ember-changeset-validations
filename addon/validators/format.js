@@ -1,10 +1,6 @@
-import Ember from 'ember';
+import { isEmpty } from '@ember/utils';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { validate } from 'ember-validators';
-
-const {
-  isEmpty
-} = Ember;
 
 export default function validateInclusion(options = {}) {
   let hasOptions = !isEmpty(Object.keys(options));

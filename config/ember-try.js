@@ -1,82 +1,66 @@
-/*jshint node:true*/
-module.exports = {
-  scenarios: [
-    {
-      name: 'ember-1.13',
-      bower: {
-        dependencies: {
-          'ember': '~1.13.0'
+'use strict';
+
+const getChannelURL = require('ember-source-channel-url');
+
+module.exports = async function() {
+  return {
+    useYarn: true,
+    scenarios: [
+      {
+        name: 'ember-lts-3.13',
+        npm: {
+          devDependencies: {
+            'ember-source': '~3.13.0'
+          }
+        }
+      },
+      {
+        name: 'ember-release',
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('release')
+          }
+        }
+      },
+      {
+        name: 'ember-beta',
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('beta')
+          }
+        }
+      },
+      {
+        name: 'ember-canary',
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('canary')
+          }
+        }
+      },
+      // The default `.travis.yml` runs this scenario via `yarn test`,
+      // not via `ember try`. It's still included here so that running
+      // `ember try:each` manually or from a customized CI config will run it
+      // along with all the other scenarios.
+      {
+        name: 'ember-default',
+        npm: {
+          devDependencies: {}
+        }
+      },
+      {
+        name: 'ember-default-with-jquery',
+        env: {
+          EMBER_OPTIONAL_FEATURES: JSON.stringify({
+            'jquery-integration': true
+          })
         },
-        resolutions: {
-          'ember': '~1.13.0'
+        npm: {
+          devDependencies: {
+            '@ember/jquery': '^0.5.1'
+          }
         }
       }
-    },
-    {
-      name: 'ember-2.0',
-      bower: {
-        dependencies: {
-          'ember': '~2.0.0'
-        },
-        resolutions: {
-          'ember': '~2.0.0'
-        }
-      }
-    },
-    {
-      name: 'ember-lts',
-      bower: {
-        dependencies: {
-          'ember': '~2.4.0'
-        }
-      }
-    },
-    {
-      name: 'ember-latest',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#release'
-        },
-        resolutions: {
-          'ember': 'release'
-        }
-      }
-    },
-    {
-      name: 'ember-beta',
-      allowedToFail: true,
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#beta'
-        },
-        resolutions: {
-          'ember': 'beta'
-        }
-      }
-    },
-    {
-      name: 'ember-canary',
-      allowedToFail: true,
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#canary'
-        },
-        resolutions: {
-          'ember': 'canary'
-        }
-      }
-    },
-    {
-      name: 'ember-alpha',
-      allowedToFail: true,
-      bower: {
-        dependencies: {
-          'ember': 'alpha'
-        },
-        resolutions: {
-          'ember': 'alpha'
-        }
-      }
-    }
-  ]
+    ]
+  };
 };

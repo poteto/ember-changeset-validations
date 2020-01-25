@@ -1,13 +1,24 @@
-# ember-changeset-validations ![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg) [![CircleCI](https://circleci.com/gh/DockYard/ember-changeset-validations.svg?style=shield)](https://circleci.com/gh/DockYard/ember-changeset-validations) [![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations) [![Ember Observer Score](http://emberobserver.com/badges/ember-changeset-validations.svg)](http://emberobserver.com/addons/ember-changeset-validations)
+<h1 align="center"><br><br><img alt="ember-changeset-validations: Validations for ember-changeset" src="assets/title.svg" width="350px"><br><br><br></h1>
 
-`ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/DockYard/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
+[![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
+[![TravisCI Build Status](https://img.shields.io/travis/poteto/ember-changeset-validations/master.svg)](https://travis-ci.org/poteto/ember-changeset-validations)
+[![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-changeset-validations.svg)](https://emberobserver.com/addons/ember-changeset-validations)
 
-Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/DockYard/ember-changeset/blob/master/README.md) there on how to use changesets.
+`ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/poteto/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
 
-To install:
+Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to use changesets.
+
+To install if your app is on ember-source >= 3.13:
 
 ```
 ember install ember-changeset-validations
+```
+
+To install if your app is on ember-source < 3.13:
+
+```
+ember install ember-changeset-validations@v2.2.1
 ```
 
 This will also install `ember-changeset`.
@@ -20,17 +31,15 @@ This addon updates the `changeset` helper by taking in a validation map as a 2nd
 
 ```hbs
 {{! application/template.hbs}}
-{{dummy-form
-    changeset=(changeset user EmployeeValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user EmployeeValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 
-{{dummy-form
-    changeset=(changeset user AdminValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user AdminValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 A validation map is just a POJO (Plain Old JavaScript Object). Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
@@ -65,51 +74,44 @@ export default {
 Then, you can use the POJO as a property on your Component or Controller and use it in the template:
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import EmployeeValidations from '../validations/employee';
 import AdminValidations from '../validations/admin';
 
-const { Component } = Ember;
-
-export default Component.extend({
-  EmployeeValidations,
-  AdminValidations
-});
+export default class EmployeeComponent extends Component {
+  EmployeeValidations;
+  AdminValidations;
+}
 ```
 
 ```hbs
-{{dummy-form
-    changeset=(changeset user EmployeeValidations)
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{changeset user this.EmployeeValidations}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 When creating the `Changeset` programmatically instead of using the `changeset` helper, you will have to apply the `lookupValidator` function to convert the POJO to a validator function as expected by `Changeset`:
 
 ```js
-import Ember from 'ember';
+import Component from '@ember/component';
 import EmployeeValidations from '../validations/employee';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
 
-const { Component } = Ember;
-
-export default Component.extend({
+export default class ChangesetComponent extends Component {
   init() {
-    this._super(...arguments);
-    let model = get(this, 'model');
-    this.changeset = new Changeset(model, lookupValidator(EmployeeValidations), EmployeeValidations);
+    super.init(...arguments);
+    this.changeset = new Changeset(this.model, lookupValidator(EmployeeValidations), EmployeeValidations);
   }
-});
+}
 ```
 
 ```hbs
-{{dummy-form
-    changeset=changeset
-    submit=(action "submit")
-    rollback=(action "rollback")
-}}
+<DummyForm
+    @changeset={{this.changeset}}
+    @submit={{action "submit"}}
+    @rollback={{action "rollback"}} />
 ```
 
 `ember-changeset` and `ember-changeset-validations` both also support creating changesets from promises. However, because that will also return a promise, to render in your template you will need to use a helper like `await` from [`ember-promise-helpers`](https://github.com/fivetanley/ember-promise-helpers).
@@ -131,6 +133,17 @@ Validates presence/absence of a value.
   propertyName: validatePresence(true), // must be present
   propertyName: validatePresence(false) // must be blank
   propertyName: validatePresence({ presence: true }) // alternative option syntax
+}
+```
+
+#### `on` option for `presence`
+
+Only validates for presence if any of the other values are present
+```js
+{
+  password: validatePresence({ presence: true, on: 'ssn' })
+  password: validatePresence({ presence: true, on: [ 'ssn', 'email', 'address' ] })
+  password: validatePresence({ presence: false, on: 'alternative-login' })
 }
 ```
 
@@ -347,21 +360,18 @@ export default {
 };
 ```
 
-You can easily import other validations and combine them using `Ember.assign` or `Ember.merge`.
+You can easily import other validations and combine them using `Object.assign`.
 
 ```js
 // validations/adult.js
-import Ember from 'ember';
 import UserValidations from './user';
 import { validateNumber } from 'ember-changeset-validations/validators';
-
-const { assign } = Ember;
 
 export const AdultValidations = {
   age: validateNumber({ gt: 18 })
 };
 
-export default assign({}, UserValidations, AdultValidations);
+export default Object.assign({}, UserValidations, AdultValidations);
 ```
 
 ## Custom validation messages
@@ -457,20 +467,82 @@ export default {
 
 Will render: `My special number must equal one, and also foo`.
 
+## Raw error output
+
+By default, `ember-changeset-validations` returns the errors as plain strings.
+In some situations, it may be preferable for the developer that the library returns a description of the errors;
+internationalisation (i18n) for example, or finer-grained error output.
+
+To have `ember-changeset-validations` return such data structure, add the following to you `config/environment.js`
+
+```
+ENV['changeset-validations'].rawOutput = true;
+```
+
+This will return an object with the following structure, that you can then pass to your applications's error processing:
+
+```
+{
+  value, // the value to validate
+  type, // the type of the error (`present`, `blank`...)
+  message, // the **unprocessed** error message
+  context: {
+    description // the description of the field
+    // ...and other options given to configure the validator
+  }
+}
+```
+
+## Contributors
+
+We're grateful to these wonderful contributors who've contributed to `ember-changeset-validations`:
+
+[//]: contributor-faces
+<a href="https://github.com/poteto"><img src="https://avatars0.githubusercontent.com/u/1390709?v=4" title="poteto" width="80" height="80"></a>
+<a href="https://github.com/snewcomer"><img src="https://avatars0.githubusercontent.com/u/7374640?v=4" title="snewcomer" width="80" height="80"></a>
+<a href="https://github.com/nucleartide"><img src="https://avatars3.githubusercontent.com/u/914228?v=4" title="nucleartide" width="80" height="80"></a>
+<a href="https://github.com/acburdine"><img src="https://avatars2.githubusercontent.com/u/5167581?v=4" title="acburdine" width="80" height="80"></a>
+<a href="https://github.com/rkrishnan8594"><img src="https://avatars1.githubusercontent.com/u/5016823?v=4" title="rkrishnan8594" width="80" height="80"></a>
+<a href="https://github.com/ahmadsoe"><img src="https://avatars3.githubusercontent.com/u/1957737?v=4" title="ahmadsoe" width="80" height="80"></a>
+<a href="https://github.com/martndemus"><img src="https://avatars2.githubusercontent.com/u/903637?v=4" title="martndemus" width="80" height="80"></a>
+<a href="https://github.com/brandynbennett"><img src="https://avatars0.githubusercontent.com/u/4146629?v=4" title="brandynbennett" width="80" height="80"></a>
+<a href="https://github.com/bcardarella"><img src="https://avatars0.githubusercontent.com/u/18524?v=4" title="bcardarella" width="80" height="80"></a>
+<a href="https://github.com/Dhaulagiri"><img src="https://avatars1.githubusercontent.com/u/1672302?v=4" title="Dhaulagiri" width="80" height="80"></a>
+<a href="https://github.com/noslouch"><img src="https://avatars1.githubusercontent.com/u/2090382?v=4" title="noslouch" width="80" height="80"></a>
+<a href="https://github.com/pangratz"><img src="https://avatars1.githubusercontent.com/u/341877?v=4" title="pangratz" width="80" height="80"></a>
+<a href="https://github.com/Daniel-Xu"><img src="https://avatars0.githubusercontent.com/u/548144?v=4" title="Daniel-Xu" width="80" height="80"></a>
+<a href="https://github.com/dustinfarris"><img src="https://avatars3.githubusercontent.com/u/1087165?v=4" title="dustinfarris" width="80" height="80"></a>
+<a href="https://github.com/jeffreybiles"><img src="https://avatars2.githubusercontent.com/u/839123?v=4" title="jeffreybiles" width="80" height="80"></a>
+<a href="https://github.com/jhitchins88"><img src="https://avatars2.githubusercontent.com/u/24356857?v=4" title="jhitchins88" width="80" height="80"></a>
+<a href="https://github.com/manquer"><img src="https://avatars3.githubusercontent.com/u/3044333?v=4" title="manquer" width="80" height="80"></a>
+<a href="https://github.com/michaellee"><img src="https://avatars1.githubusercontent.com/u/1329644?v=4" title="michaellee" width="80" height="80"></a>
+<a href="https://github.com/cibernox"><img src="https://avatars2.githubusercontent.com/u/265339?v=4" title="cibernox" width="80" height="80"></a>
+<a href="https://github.com/nickschot"><img src="https://avatars1.githubusercontent.com/u/334789?v=4" title="nickschot" width="80" height="80"></a>
+<a href="https://github.com/offirgolan"><img src="https://avatars2.githubusercontent.com/u/575938?v=4" title="offirgolan" width="80" height="80"></a>
+<a href="https://github.com/patrickberkeley"><img src="https://avatars0.githubusercontent.com/u/8364?v=4" title="patrickberkeley" width="80" height="80"></a>
+<a href="https://github.com/scottkidder"><img src="https://avatars1.githubusercontent.com/u/136984?v=4" title="scottkidder" width="80" height="80"></a>
+<a href="https://github.com/simonihmig"><img src="https://avatars0.githubusercontent.com/u/1325249?v=4" title="simonihmig" width="80" height="80"></a>
+<a href="https://github.com/sivakumar-kailasam"><img src="https://avatars3.githubusercontent.com/u/604117?v=4" title="sivakumar-kailasam" width="80" height="80"></a>
+<a href="https://github.com/ssured"><img src="https://avatars3.githubusercontent.com/u/2558804?v=4" title="ssured" width="80" height="80"></a>
+<a href="https://github.com/TayHobbs"><img src="https://avatars1.githubusercontent.com/u/6898493?v=4" title="TayHobbs" width="80" height="80"></a>
+<a href="https://github.com/exeto"><img src="https://avatars1.githubusercontent.com/u/4079046?v=4" title="exeto" width="80" height="80"></a>
+
+[//]: contributor-faces
+
 ## Installation
 
-* `git clone` this repository
+* `git clone <repository-url>` this repository
+* `cd ember-changeset-validations`
 * `npm install`
-* `bower install`
 
 ## Running
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ## Running Tests
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
@@ -478,4 +550,4 @@ Will render: `My special number must equal one, and also foo`.
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).

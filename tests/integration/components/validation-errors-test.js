@@ -1,49 +1,46 @@
-import Ember from 'ember';
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-moduleForComponent('foo-bar', 'Integration | Components | validation errors', {
-  integration: true
-});
+module('Integration | Components | validation errors', function(hooks) {
+  setupRenderingTest(hooks);
 
-test('will clear error messages independently by field', function(assert) {
-  this.render(hbs`
-    {{#foo-bar as |changeset|}}
-      <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
-      {{#if changeset.error.firstName}}
-      <ul class="firstNameErrors">
-      {{#each changeset.error.firstName.validation as |message|}}
-        <li>{{message}}</li>
-      {{/each}}
-      </ul>
-      {{/if}}
+  test('will clear error messages independently by field', async function(assert) {
+    await render(hbs`
+      <FooBar as |changeset|>
+        <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
+        {{#if changeset.error.firstName}}
+        <ul class="firstNameErrors">
+        {{#each changeset.error.firstName.validation as |message|}}
+          <li>{{message}}</li>
+        {{/each}}
+        </ul>
+        {{/if}}
 
-      <input class="lastName" value={{changeset.lastName}} oninput={{action (mut changeset.lastName) value="target.value"}}>
-      {{#if changeset.error.lastName}}
-      <ul class="lastNameErrors">
-      {{#each changeset.error.lastName.validation as |message|}}
-        <li>{{message}}</li>
-      {{/each}}
-      </ul>
-      {{/if}}
-    {{/foo-bar}}
-  `);
+        <input class="lastName" value={{changeset.lastName}} oninput={{action (mut changeset.lastName) value="target.value"}}>
+        {{#if changeset.error.lastName}}
+        <ul class="lastNameErrors">
+        {{#each changeset.error.lastName.validation as |message|}}
+          <li>{{message}}</li>
+        {{/each}}
+        </ul>
+        {{/if}}
+      </FooBar>
+    `);
 
-  assert.equal(this.$('ul.firstNameErrors').length, 0);
-  assert.equal(this.$('ul.lastNameErrors').length, 0);
+    assert.notOk(find('ul.firstNameErrors'), 'has no first name errors');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors');
 
-  Ember.run(() => {
-    this.$('input.firstName').val('a').trigger('input');
-    this.$('input.lastName').val('b').trigger('input');
+    await fillIn('input.firstName', 'a');
+    await fillIn('input.lastName', 'b');
+
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors');
+    assert.ok(find('ul.lastNameErrors li'), 'has last name errors');
+
+    await fillIn('input.lastName', 'bc');
+
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
   });
-
-  assert.equal(this.$('ul.firstNameErrors li').length, 1);
-  assert.equal(this.$('ul.lastNameErrors li').length, 1);
-
-  Ember.run(() => {
-    this.$('input.lastName').val('bc').trigger('input');
-  });
-
-  assert.equal(this.$('ul.firstNameErrors li').length, 1);
-  assert.equal(this.$('ul.lastNameErrors').length, 0);
 });

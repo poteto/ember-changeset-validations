@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-const assign = Ember.merge || Ember.assign;
+import { assign } from '@ember/polyfills';
 
 /**
  * Create a new object with defaults
