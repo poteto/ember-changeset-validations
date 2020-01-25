@@ -1,6 +1,6 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { validate } from 'ember-validators';
-import { assign } from 'ember-platform';
+import { assign } from '@ember/polyfills';
 
 
 export default function validateConfirmation(options = {}) {
