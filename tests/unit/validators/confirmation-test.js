@@ -61,3 +61,16 @@ module('Unit | Validator | confirmation', function() {
     assert.equal(validator(key, ''), true, 'Empty string is accepted');
   });
 });
+
+test('It looks for default values as well as "changes" values', function(assert) {
+  assert.expect(2);
+
+  let password = '1234567';
+  let content = { password };
+  let key = 'passwordConfirmation';
+  let opts = { on: 'password' };
+  let validator = validateConfirmation(opts);
+
+  assert.equal(validator(key, 'foo', undefined, {}, content), buildMessage(key, { type: 'confirmation', context: opts }));
+  assert.equal(validator(key, password, undefined, {}, content), true);
+});
