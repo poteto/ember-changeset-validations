@@ -172,8 +172,6 @@ Validates the length of a `String` or an `Array`.
 Validates various properties of a date. This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970.  Strings are currently not supported.  It is recommended
 you use use native JavaScript or you library of choice.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Date.html#method_validate)
-
 ```js
 {
   propertyName: validateDate({ before: new Date('3000-01-01') }), // must be before 1st Jan. 3000
