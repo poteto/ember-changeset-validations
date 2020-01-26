@@ -11,8 +11,7 @@ export default function toDate(argument) {
     argument instanceof Date ||
     (typeof argument === 'object' && argStr === '[object Date]')
   ) {
-    // Prevent the date to lose the milliseconds when passed to new Date() in IE10
-    return new Date(argument.getTime())
+    return argument;
   } else if (typeof argument === 'number' || argStr === '[object Number]') {
     return new Date(argument)
   } else {
