@@ -25,6 +25,23 @@ module('Unit | Validator | date', function() {
 
   test('it accepts valid values', function(assert) {
     const key = 'test_date';
+    const afterDate = new Date();
+    let options = { before: afterDate };
+    let validator = validateDate(options);
+
+    const startDate = new Date();
+    startDate.setHours(startDate.getHours() - 2);
+    assert.equal(validator(key, startDate), true, 'accepts Date object');
+
+    assert.equal(validator(key, Date.parse(startDate)), true, 'accepts milliseconds');
+
+    options = { before: Date.parse(afterDate) };
+    validator = validateDate(options);
+    assert.equal(validator(key, Date.parse(startDate)), true, 'accepts milliseconds with both args');
+  });
+
+  test('it rejects invalid values', function(assert) {
+    const key = 'test_date';
     const options = {};
     const validator = validateDate(options);
 
@@ -41,13 +58,6 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, '1992-03-30'),
       buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Test date must be a valid date'
     );
-  });
-
-  test('it rejectes invalid values', function(assert) {
-    const key = 'test_date';
-    const options = {};
-    const validator = validateDate(options);
-
     assert.equal(validator(key, 'not a date'),
       buildMessage(key, { type: 'date', value: 'not a date', context: options }), 'non-date string is not allowed'
     );
