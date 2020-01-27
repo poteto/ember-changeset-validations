@@ -169,7 +169,7 @@ Validates the length of a `String` or an `Array`.
 
 #### `date`
 
-Validates various properties of a date. This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970.  Strings are currently not supported.  It is recommended
+This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970.  Strings are currently not supported.  It is recommended
 you use use native JavaScript or you library of choice.
 
 ```js
