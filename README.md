@@ -167,6 +167,22 @@ Validates the length of a `String` or an `Array`.
 
 **[⬆️ back to top](#validator-api)**
 
+#### `date`
+
+This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970.  Strings are currently not supported.  It is recommended you use use native JavaScript or you library of choice to generate a date from your data.
+
+```js
+{
+  propertyName: validateDate({ before: new Date('3000-01-01') }), // must be before 1st Jan. 3000
+  propertyName: validateDate({ onOrBefore: Date.parse(new Date('3000-01-01')) }), // must be not after 1st Jan. 3000
+  propertyName: validateDate({ after: new Date('3000-01-01') }), // must be after 1st Jan. 3000
+  propertyName: validateDate({ onOrAfter: new Date('3000-01-01') }), // must be not before 1st Jan. 3000
+  propertyName: validateDate({ onOrAfter: '3000-01-01' }), // Error
+}
+```
+
+**[⬆️ back to top](#validator-api)**
+
 #### `number`
 
 Validates various properties of a number.
