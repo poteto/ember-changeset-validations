@@ -1,6 +1,13 @@
 # Change Log
 
-## [3.0.0](https://github.com/poteto/ember-changeset-validations/tree/v3.0.0-beta.0) (2019-11-27)
+## [3.0.0](https://github.com/poteto/ember-changeset-validations/tree/v3.0.0) (2020-02-02)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.0.0-beta.0...v3.0.0)
+
+- Supports only Ember 3.13 and above. No breaking changes other than ember-source >= 3.13 and >= Node 10
+- Add Date validator [#218](https://github.com/poteto/ember-changeset-validations/pull/218)
+- Minimum Node 10 [#212](https://github.com/poteto/ember-changeset-validations/pull/212)
+
+## [3.0.0-beta](https://github.com/poteto/ember-changeset-validations/tree/v3.0.0-beta.0) (2019-11-27)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v2.1.2...v3.0.0-beta.0)
 
 - [MAJOR]: 3.0.0 beta [#205](https://github.com/poteto/ember-changeset-validations/pull/205)
