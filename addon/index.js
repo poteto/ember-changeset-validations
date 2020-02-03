@@ -2,7 +2,7 @@ import { isEmpty } from '@ember/utils';
 import { isArray } from '@ember/array';
 import wrapInArray from 'ember-changeset-validations/utils/wrap';
 import handleMultipleValidations from 'ember-changeset-validations/utils/handle-multiple-validations';
-import isPromise from 'ember-changeset/utils/is-promise';
+import { isPromise } from 'validated-changeset';
 
 export default function lookupValidator(validationMap = {}) {
   return ({ key, newValue, oldValue, changes, content }) => {
