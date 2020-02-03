@@ -9,12 +9,24 @@ const rulez = {
   lastName: [
     validatePresence(true),
     validateLength({ min: 2 })
+  ],
+  'state.ny': [
+    validatePresence(true),
+    validateLength({ min: 2 })
+  ],
+  'state.wi': [
+    validatePresence(true),
+    validateLength({ min: 2 })
   ]
 };
 
 const schema = {
   firstName: null,
-  lastName: null
+  lastName: null,
+  state: {
+    ny: null,
+    wi: null
+  }
 };
 
 export default Component.extend({

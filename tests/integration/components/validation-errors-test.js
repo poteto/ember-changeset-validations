@@ -11,20 +11,20 @@ module('Integration | Components | validation errors', function(hooks) {
       <FooBar as |changeset|>
         <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
         {{#if changeset.error.firstName}}
-        <ul class="firstNameErrors">
-        {{#each changeset.error.firstName.validation as |message|}}
-          <li>{{message}}</li>
-        {{/each}}
-        </ul>
+          <ul class="firstNameErrors">
+          {{#each changeset.error.firstName.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
         {{/if}}
 
         <input class="lastName" value={{changeset.lastName}} oninput={{action (mut changeset.lastName) value="target.value"}}>
         {{#if changeset.error.lastName}}
-        <ul class="lastNameErrors">
-        {{#each changeset.error.lastName.validation as |message|}}
-          <li>{{message}}</li>
-        {{/each}}
-        </ul>
+          <ul class="lastNameErrors">
+          {{#each changeset.error.lastName.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
         {{/if}}
       </FooBar>
     `);
@@ -42,5 +42,51 @@ module('Integration | Components | validation errors', function(hooks) {
 
     assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
     assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+  });
+
+  test('works with nested fields', async function(assert) {
+    await render(hbs`
+      <FooBar as |changeset|>
+        <input
+          class="state-ny"
+          value={{changeset-get changeset "state.ny"}}
+          oninput={{action (changeset-set changeset "state.ny")
+          value="target.value"}}>
+        {{#if changeset.error.state.ny}}
+          <ul class="stateNyErrors">
+          {{#each changeset.error.state.ny.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
+        {{/if}}
+
+        <input
+          class="state-wi"
+          value={{changeset-get changeset "state.wi"}}
+          oninput={{action (changeset-set changeset "state.wi")
+          value="target.value"}}>
+        {{#if changeset.error.state.wi}}
+          <ul class="stateWiErrors">
+          {{#each changeset.error.state.wi.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
+        {{/if}}
+      </FooBar>
+    `);
+
+    assert.notOk(find('ul.stateNyErrors'), 'has no ny errors');
+    assert.notOk(find('ul.stateWiErrors'), 'has no wi errors');
+
+    await fillIn('input.state-ny', 'a');
+    await fillIn('input.state-wi', 'b');
+
+    assert.ok(find('ul.stateNyErrors li'), 'has ny errors');
+    assert.ok(find('ul.stateWiErrors li'), 'has wi errors');
+
+    await fillIn('input.state-wi', 'bc');
+
+    assert.ok(find('ul.stateNyErrors li'), 'has ny errors after wi input');
+    assert.notOk(find('ul.stateWiErrors'), 'has no wi errors after input');
   });
 });
