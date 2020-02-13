@@ -8,7 +8,7 @@ export default function validateConfirmation(options = {}) {
     // Combine the changes on top of the content so that we evaluate against both default values
     // and valid changes. `changes` only has valid changes that have been made and won't include
     // default values
-    let model = assign(content, changes);
+    let model = assign({}, content, changes);
 
     let result = validate('confirmation', newValue, options, model, key);
     return (result === true) ? true : buildMessage(key, result);
