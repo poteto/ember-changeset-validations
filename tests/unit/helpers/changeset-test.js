@@ -4,6 +4,7 @@ import { settled } from '@ember/test-helpers';
 import { changeset } from 'ember-changeset-validations/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
+import { reads } from '@ember/object/computed';
 
 function validateUnique() {
   return (_key, newValue) => {
@@ -78,6 +79,30 @@ module('Unit | Helper | changeset', function() {
     await settled();
     expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
     assert.deepEqual(changesetInstance.get('error').username, expectedError, 'username should error');
+  });
+
+  test('it allows to observe changes to validation results on error object', async function(assert) {
+    let user = EmberObject.extend({ name: null }).create();
+    let userValidations = {
+      name: [
+        validatePresence(true),
+      ],
+    };
+    let changesetInstance = changeset([user, userValidations]);
+
+    let hostObject = EmberObject.extend({
+      errorsForName: reads('changeset.error.name.validation'),
+    }).create({
+      changeset: changesetInstance,
+    });
+
+    changesetInstance.set('name', 'Max');
+    assert.equal(changesetInstance.get('error').name, undefined, 'get validation error directly');
+    assert.equal(hostObject.errorsForName, undefined, 'get validation error through alias on host object');
+
+    changesetInstance.set('name', null);
+    assert.deepEqual(changesetInstance.get('error').name.validation, ["[CUSTOM] Name can't be blank"], 'get validation error directly');
+    assert.deepEqual(hostObject.errorsForName, ["[CUSTOM] Name can't be blank"], 'get validation error through alias on host object');
   });
 
   test('it passes the original object into validators', async function(assert) {
