@@ -107,7 +107,7 @@ module('Unit | Helper | changeset', function() {
 
     assert.deepEqual(hostObject.errors, [], 'before validate');
 
-    changesetInstance.validate();
+    await changesetInstance.validate();
     assert.deepEqual(hostObject.errors, ["[CUSTOM] Name can't be blank"], 'after validate');
   });
 
