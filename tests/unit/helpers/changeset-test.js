@@ -1,10 +1,9 @@
-import EmberObject, { computed, defineProperty } from '@ember/object';
+import EmberObject, { computed } from '@ember/object';
 import { resolve } from 'rsvp';
 import { settled } from '@ember/test-helpers';
 import { changeset } from 'ember-changeset-validations/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
-import { A } from '@ember/array';
 
 function validateUnique() {
   return (_key, newValue) => {
@@ -82,33 +81,27 @@ module('Unit | Helper | changeset', function() {
   });
 
   test('it allows to observe changes to validation results on error object', async function(assert) {
-    let user = EmberObject.extend({ name: null }).create();
-    let userValidations = {
+    let Validations = {
       name: [
         validatePresence(true),
       ],
     };
-    let changesetInstance = changeset([user, userValidations]);
+    let changesetInstance = changeset([{ name: null }, Validations]);
 
     let hostObject = EmberObject.extend({
-      property: 'name',
-      init() {
-        this._super(...arguments);
-
-        let key = `model.error.${this.get('property')}.validation`;
-        defineProperty(this, 'errors', computed(`${key}.[]`, function() {
-          return A(this.get(key));
-        }));
-      }
+      errors: computed('changeset.error.name.validation.[]', function() {
+        return this.get('changeset.error.name.validation');
+      }),
     }).create({
-      model: changesetInstance,
-      name: null,
+      changeset: changesetInstance,
     });
 
-    assert.deepEqual(hostObject.errors, [], 'before validate');
+    // access computed property so that it's cached
+    hostObject.errors;
 
     await changesetInstance.validate();
-    assert.deepEqual(hostObject.errors, ["[CUSTOM] Name can't be blank"], 'after validate');
+    assert.deepEqual(changesetInstance.error.name.validation, ["[CUSTOM] Name can't be blank"], 'on changeset');
+    assert.deepEqual(hostObject.errors, ["[CUSTOM] Name can't be blank"], 'trough computed property');
   });
 
   test('it passes the original object into validators', async function(assert) {
