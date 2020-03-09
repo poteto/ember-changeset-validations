@@ -1,10 +1,10 @@
-import EmberObject from '@ember/object';
+import EmberObject, { computed, defineProperty } from '@ember/object';
 import { resolve } from 'rsvp';
 import { settled } from '@ember/test-helpers';
 import { changeset } from 'ember-changeset-validations/helpers/changeset';
 import { module, test } from 'qunit';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
-import { reads } from '@ember/object/computed';
+import { A } from '@ember/array';
 
 function validateUnique() {
   return (_key, newValue) => {
@@ -91,18 +91,24 @@ module('Unit | Helper | changeset', function() {
     let changesetInstance = changeset([user, userValidations]);
 
     let hostObject = EmberObject.extend({
-      errorsForName: reads('changeset.error.name.validation'),
+      property: 'name',
+      init() {
+        this._super(...arguments);
+
+        let key = `model.error.${this.get('property')}.validation`;
+        defineProperty(this, 'errors', computed(`${key}.[]`, function() {
+          return A(this.get(key));
+        }));
+      }
     }).create({
-      changeset: changesetInstance,
+      model: changesetInstance,
+      name: null,
     });
 
-    changesetInstance.set('name', 'Max');
-    assert.equal(changesetInstance.get('error').name, undefined, 'get validation error directly');
-    assert.equal(hostObject.errorsForName, undefined, 'get validation error through alias on host object');
+    assert.deepEqual(hostObject.errors, [], 'before validate');
 
-    changesetInstance.set('name', null);
-    assert.deepEqual(changesetInstance.get('error').name.validation, ["[CUSTOM] Name can't be blank"], 'get validation error directly');
-    assert.deepEqual(hostObject.errorsForName, ["[CUSTOM] Name can't be blank"], 'get validation error through alias on host object');
+    changesetInstance.validate();
+    assert.deepEqual(hostObject.errors, ["[CUSTOM] Name can't be blank"], 'after validate');
   });
 
   test('it passes the original object into validators', async function(assert) {
