@@ -133,6 +133,7 @@ Validates presence/absence of a value.
   propertyName: validatePresence(true), // must be present
   propertyName: validatePresence(false) // must be blank
   propertyName: validatePresence({ presence: true }) // alternative option syntax
+  propertyName: validatePresence({ presence: true, ignoreBlank: true }) // If ignoreBlank true, treats an empty or whitespace string as not present. 
 }
 ```
 
