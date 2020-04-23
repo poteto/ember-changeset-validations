@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, find, fillIn } from '@ember/test-helpers';
+import { render, find, fillIn, focus, blur } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Components | validation errors', function(hooks) {
@@ -42,6 +42,38 @@ module('Integration | Components | validation errors', function(hooks) {
 
     assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
     assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+  });
+
+  test('will mark a field invalid on focus out if it is required', async function(assert) {
+    await render(hbs`
+      <FooBar as |changeset|>
+        <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
+        {{#if changeset.error.firstName}}
+          <ul class="firstNameErrors">
+          {{#each changeset.error.firstName.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
+        {{/if}}
+
+        <input class="lastName" value={{changeset.lastName}} oninput={{action (mut changeset.lastName) value="target.value"}}>
+        {{#if changeset.error.lastName}}
+          <ul class="lastNameErrors">
+          {{#each changeset.error.lastName.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
+        {{/if}}
+      </FooBar>
+    `);
+
+    assert.notOk(find('ul.firstNameErrors'), 'has no first name errors');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors');
+
+    await focus('input.firstName');
+    await blur('input.firstName');
+
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors');
   });
 
   test('works with nested fields', async function(assert) {
