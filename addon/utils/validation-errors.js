@@ -6,7 +6,6 @@
 import { get } from '@ember/object';
 
 import { assert } from '@ember/debug';
-import { assign } from '@ember/polyfills';
 import config from 'ember-get-config';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
 
@@ -32,14 +31,14 @@ export default function buildMessage(key, result) {
       return builtMessage;
     }
 
-    return messages.formatMessage(message, assign({ description }, context));
+    return messages.formatMessage(message, Object.assign({ description }, context));
   }
 
   let message = get(messages, type);
   if (returnsRaw) {
-    context = assign({}, context, { description })
+    context = Object.assign({}, context, { description })
     return { value, type, message, context };
   } else {
-    return messages.formatMessage(message, assign({ description }, context));
+    return messages.formatMessage(message, Object.assign({ description }, context));
   }
 }

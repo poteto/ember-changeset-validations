@@ -1,7 +1,6 @@
 import { A as emberArray } from '@ember/array';
 import { all } from 'rsvp';
 import { get } from '@ember/object';
-import { typeOf } from '@ember/utils';
 import { isPromise } from 'validated-changeset';
 
 /**
@@ -14,7 +13,7 @@ import { isPromise } from 'validated-changeset';
  */
 function handleValidations(validations = []) {
   let rejectedValidations = emberArray(validations)
-    .reject((validation) => typeOf(validation) === 'boolean' && validation);
+    .reject((validation) => typeof validation === 'boolean' && validation);
 
   return get(rejectedValidations, 'length') === 0 || rejectedValidations;
 }
