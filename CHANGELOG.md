@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.2.0](https://github.com/poteto/ember-changeset-validations/tree/v3.2.0) (2020-04-25)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.1.1...v3.2.0)
+
+- Ensure validation for single results returns primitive instead of array [#241](https://github.com/poteto/ember-changeset-validations/pull/241)
+
 ## [3.0.0](https://github.com/poteto/ember-changeset-validations/tree/v3.0.0) (2020-02-02)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.0.0-beta.0...v3.0.0)
 
