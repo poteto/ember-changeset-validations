@@ -22,7 +22,7 @@ export default function validateDate(options = {}) {
     let date = toDate(value);
 
     if (!isValidDate(date)) {
-      return buildMessage(key, { type: 'date', value: message || 'not a date' });
+      return buildMessage(key, { type: 'date', value: 'not a date', message });
     }
 
     if (before) {
