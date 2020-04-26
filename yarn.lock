@@ -4261,15 +4261,15 @@ ember-auto-import@^1.5.2, ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-changeset@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.3.0.tgz#a36dc1ad0ce8c0b81041b73a2ecd80f7785bbc72"
-  integrity sha512-G25GEiss+hCQeQ/KJTy+sUPY7gkvPBUhqL1Z1ZUKURQ+LNHDycgM7+3QrbeboB/iU539hXd23Mp0O2ZUXQfi/g==
+ember-changeset@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.3.1.tgz#8e035d74d806110602016481788c1e2634a03303"
+  integrity sha512-AvTAhlec6Cz0eKfKPxAQm33nhp1zQ04p9OiyVL4IRbvBetQ/7Jq+7r4otXO+jecgCxPygzYIy8nAvCjJ3t30GA==
   dependencies:
     "@glimmer/tracking" "^1.0.0"
     ember-auto-import "^1.5.2"
     ember-cli-babel "^7.19.0"
-    validated-changeset "~0.4.0"
+    validated-changeset "~0.4.1"
 
 ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0:
   version "1.1.0"
@@ -10265,10 +10265,10 @@ validate-npm-package-name@^3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-validated-changeset@~0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/validated-changeset/-/validated-changeset-0.4.0.tgz#7f2b374f1fc445bc5890d36707449bb8d995457c"
-  integrity sha512-LnFTwC9ogwpzzeCJXovsubp/sETIoAJ6t4l8YY/BMNfBtfUacio1WTdYTB51k7tMOlumJouEP+WhWDHPB3q1lQ==
+validated-changeset@~0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/validated-changeset/-/validated-changeset-0.4.1.tgz#74208c439cb03b7ba69af6819c722768678fffeb"
+  integrity sha512-Q7pvZaWPdqn0Zo/Xpddp9zQ2abqXJLEyyiJbym+O2H2pH5KPOBTB/5UXBvkaQ7zvK6exWBjZnNzzoo1dBWeoAQ==
 
 vary@~1.1.2:
   version "1.1.2"

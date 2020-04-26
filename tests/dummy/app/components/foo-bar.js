@@ -10,14 +10,16 @@ const rulez = {
     validatePresence(true),
     validateLength({ min: 2 })
   ],
-  'state.ny': [
-    validatePresence(true),
-    validateLength({ min: 2 })
-  ],
-  'state.wi': [
-    validatePresence(true),
-    validateLength({ min: 2 })
-  ]
+  state: {
+    ny: [
+      validatePresence(true),
+      validateLength({ min: 2 })
+    ],
+    wi: [
+      validatePresence(true),
+      validateLength({ min: 2 })
+    ]
+  }
 };
 
 const schema = {
