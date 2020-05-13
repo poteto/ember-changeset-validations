@@ -78,8 +78,6 @@ module('Unit | Helper | changeset', function() {
     await settled();
     expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
     const result = JSON.parse(JSON.stringify(changesetInstance.get('error').username));
-    // eslint-disable-next-line no-console
-    console.warn(JSON.stringify(result), JSON.stringify(expectedError))
     assert.deepEqual(result, expectedError, 'username should error');
   });
 
