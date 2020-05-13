@@ -77,8 +77,7 @@ module('Unit | Helper | changeset', function() {
     changesetInstance.set('username', 'foo@bar.com');
     await settled();
     expectedError = { value: 'foo@bar.com', validation: ['is already taken'] };
-    const result = JSON.parse(JSON.stringify(changesetInstance.get('error').username));
-    assert.deepEqual(result, expectedError, 'username should error');
+    assert.deepEqual(JSON.parse(JSON.stringify(changesetInstance.get('error').username)), expectedError, 'username should error');
   });
 
   test('it passes the original object into validators', async function(assert) {
