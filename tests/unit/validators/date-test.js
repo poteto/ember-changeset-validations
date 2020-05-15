@@ -12,14 +12,20 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, undefined), true, 'undefined is allowed');
     assert.equal(validator(key, 123), true, 'number value is is allowed');
 
-    assert.equal(validator(key, '1992-03-30'),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Birth date must be a valid date'
+    assert.equal(
+      validator(key, '1992-03-30'),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'result: [CUSTOM] Birth date must be a valid date'
     );
-    assert.equal(validator(key, NaN),
-      buildMessage(key, { type: 'date', value: NaN, context: options }), 'NaN is not allowed'
+    assert.equal(
+      validator(key, NaN),
+      buildMessage(key, { type: 'date', value: NaN, context: options }),
+      'result: NaN is not allowed'
     );
-    assert.equal(validator(key, {}),
-      buildMessage(key, { type: 'date', value: {}, context: options }), 'empty object is not allowed'
+    assert.equal(
+      validator(key, {}),
+      buildMessage(key, { type: 'date', value: {}, context: options }),
+      'result: empty object is not allowed'
     );
   });
 
@@ -40,32 +46,59 @@ module('Unit | Validator | date', function() {
     assert.equal(validator(key, Date.parse(startDate)), true, 'accepts milliseconds with both args');
   });
 
+  test('it accepts custom message', function(assert) {
+    const key = 'test_date';
+    const options = { message: 'pity a fool' };
+    const validator = validateDate(options);
+
+    // assumes current moment
+    assert.equal(
+      validator(key, ''),
+      buildMessage(key, { type: 'date', value: 'pity a fool', context: options }),
+      'result: [CUSTOM] Test date must be a valid date'
+    );
+  });
+
   test('it rejects invalid values', function(assert) {
     const key = 'test_date';
     const options = {};
     const validator = validateDate(options);
 
     // assumes current moment
-    assert.equal(validator(key, ''),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Test date must be a valid date'
+    assert.equal(
+      validator(key, ''),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(validator(key, null),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Test date must be a valid date'
+    assert.equal(
+      validator(key, null),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(validator(key, undefined),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Test date must be a valid date'
+    assert.equal(
+      validator(key, undefined),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(validator(key, '1992-03-30'),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), '[CUSTOM] Test date must be a valid date'
+    assert.equal(
+      validator(key, '1992-03-30'),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(validator(key, 'not a date'),
-      buildMessage(key, { type: 'date', value: 'not a date', context: options }), 'non-date string is not allowed'
+    assert.equal(
+      validator(key, 'not a date'),
+      buildMessage(key, { type: 'date', value: 'not a date', context: options }),
+      'non-date string is not allowed'
     );
-    assert.equal(validator(key, NaN),
-      buildMessage(key, { type: 'date', value: NaN, context: options }), 'NaN is not allowed'
+    assert.equal(
+      validator(key, NaN),
+      buildMessage(key, { type: 'date', value: NaN, context: options }),
+      'NaN is not allowed'
     );
-    assert.equal(validator(key, {}),
-      buildMessage(key, { type: 'date', value: {}, context: options }), 'empty object is not allowed'
+    assert.equal(
+      validator(key, {}),
+      buildMessage(key, { type: 'date', value: {}, context: options }),
+      'empty object is not allowed'
     );
   });
 
