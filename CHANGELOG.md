@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.4.0](https://github.com/poteto/ember-changeset-validations/tree/v3.4.0) (2020-05-26)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.2.0...v3.4.0)
+
+- Implement recursive proxy solution in e-c [#249](https://github.com/poteto/ember-changeset-validations/pull/249)
+- Validate nested fields and various other improvements [#248](https://github.com/poteto/ember-changeset-validations/pull/248)
+- Allow message in Date validator [#247](https://github.com/poteto/ember-changeset-validations/pull/247)
+- Use validated-changeset lookup [#243](https://github.com/poteto/ember-changeset-validations/pull/243)
+
 ## [3.2.0](https://github.com/poteto/ember-changeset-validations/tree/v3.2.0) (2020-04-25)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.1.1...v3.2.0)
 
