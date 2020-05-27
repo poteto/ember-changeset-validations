@@ -74,7 +74,7 @@ export default {
 Then, you can use the POJO as a property on your Component or Controller and use it in the template:
 
 ```js
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import EmployeeValidations from '../validations/employee';
 import AdminValidations from '../validations/admin';
 
@@ -94,14 +94,14 @@ export default class EmployeeComponent extends Component {
 When creating the `Changeset` programmatically instead of using the `changeset` helper, you will have to apply the `lookupValidator` function to convert the POJO to a validator function as expected by `Changeset`:
 
 ```js
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import EmployeeValidations from '../validations/employee';
 import lookupValidator from 'ember-changeset-validations';
 import Changeset from 'ember-changeset';
 
 export default class ChangesetComponent extends Component {
-  init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
     this.changeset = new Changeset(this.model, lookupValidator(EmployeeValidations), EmployeeValidations);
   }
 }
@@ -133,7 +133,7 @@ Validates presence/absence of a value.
   propertyName: validatePresence(true), // must be present
   propertyName: validatePresence(false) // must be blank
   propertyName: validatePresence({ presence: true }) // alternative option syntax
-  propertyName: validatePresence({ presence: true, ignoreBlank: true }) // If ignoreBlank true, treats an empty or whitespace string as not present. 
+  propertyName: validatePresence({ presence: true, ignoreBlank: true }) // If ignoreBlank true, treats an empty or whitespace string as not present.
 }
 ```
 
