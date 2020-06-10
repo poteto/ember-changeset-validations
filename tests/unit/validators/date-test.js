@@ -205,4 +205,77 @@ module('Unit | Validator | date', function() {
       'date is "onOrAfter" date'
     );
   });
+
+  module('with custom message handler', function() {
+    const getCustomMessageHandler = () => (key, type) => {
+      return `custom message: ${type}`;
+    }
+
+    test('it accepts a `before` option', function(assert) {
+      const startDate = new Date();
+      const beforeDate = startDate
+
+      const key = 'test_date';
+      let options = { before: beforeDate, message: getCustomMessageHandler() };
+
+      let validator = validateDate(options);
+
+      assert.equal(
+        validator(key, startDate),
+        buildMessage(key, { message: 'custom message: before' }),
+        'date on or after the "before" date is not allowed'
+      );
+    });
+
+    test('it accepts an `onOrBefore` option', function(assert) {
+      const startDate = new Date();
+      startDate.setHours(startDate.getHours() + 3);
+      const onOrBeforeDate = new Date();
+
+      const key = 'test_date';
+      let options = { onOrBefore: onOrBeforeDate, message: getCustomMessageHandler() };
+
+      let validator = validateDate(options);
+
+      assert.equal(
+        validator(key, startDate),
+        buildMessage(key, { message: 'custom message: onOrBefore' }),
+        'date after the "onOrBefore" date is not allowed'
+      );
+    });
+
+    test('it accepts an `after` option', function(assert) {
+      const startDate = new Date();
+      startDate.setHours(startDate.getHours() - 4);
+      const afterDate = new Date();
+
+      const key = 'test_date';
+      let options = { after: afterDate, message: getCustomMessageHandler() };
+
+      let validator = validateDate(options);
+
+      assert.equal(
+        validator(key, startDate),
+        buildMessage(key, { message: 'custom message: after' }),
+        'date on or before the "after" date is not allowed'
+      );
+    });
+
+    test('it accepts an `onOrAfter` option', function(assert) {
+      const startDate = new Date();
+      startDate.setHours(startDate.getHours() - 5);
+      const onOrAfterDate = new Date();
+
+      const key = 'test_date';
+      let options = { onOrAfter: onOrAfterDate, message: getCustomMessageHandler() };
+
+      let validator = validateDate(options);
+
+      assert.equal(
+        validator(key, startDate),
+        buildMessage(key, { message: 'custom message: onOrAfter' }),
+        'date before the "onOrAfter" date is not allowed'
+      );
+    });
+  });
 });
