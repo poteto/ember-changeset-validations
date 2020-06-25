@@ -4261,9 +4261,10 @@ ember-auto-import@^1.5.2, ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-"ember-changeset@git://github.com/RuslanZavacky/ember-changeset.git#force-execute":
-  version "3.6.1"
-  resolved "git://github.com/RuslanZavacky/ember-changeset.git#522730e14dfe65ebaefbe910ba1bc62ed5bc3cfe"
+ember-changeset@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/ember-changeset/-/ember-changeset-3.7.0.tgz#4c1a319e1624e50a8f4481580914b5f14fc11540"
+  integrity sha512-o7aFtXRRtBldA0J4+YapGYd/xuY64bUnjT9RHIM0iyZ9VSn38Omsmn8gc8QBt53sNOn5W0xOmgEt+HCaonAVew==
   dependencies:
     "@glimmer/tracking" "^1.0.0"
     ember-auto-import "^1.5.2"
