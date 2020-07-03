@@ -461,7 +461,7 @@ import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 // validators/custom.js
 export default function validateIsOne(options) {
   return (key, newValue, oldValue, changes, content) => {
-    return newValue === 1 || buildMessage(key, 'isOne', newValue, options);
+    return newValue === 1 || buildMessage(key, { type: 'isOne', value: newValue, context: options });
   }
 }
 ```
