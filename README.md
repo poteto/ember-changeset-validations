@@ -91,6 +91,26 @@ export default class EmployeeComponent extends Component {
     @rollback={{action "rollback"}} />
 ```
 
+Moreover, as of 3.8.0, a validator can be an Object or Class with a `validate` function.
+
+```js
+import Validator from 'ember-changeset-validations/validator';
+import  { inject as service } from '@ember/service';
+
+export default class PersonalNoValidator extends Validator {
+  @service ajax;
+
+  async validate(key, newValue, oldValue, changes, content) {
+    try {
+      await this.ajax.post('/api/personal-no/validation', { data: newValue });
+      return true;
+    } catch (_) {
+      return 'Personal No is invalid';
+    }
+  }
+}
+```
+
 When creating the `Changeset` programmatically instead of using the `changeset` helper, you will have to apply the `lookupValidator` function to convert the POJO to a validator function as expected by `Changeset`:
 
 ```js
