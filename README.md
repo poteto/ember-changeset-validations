@@ -94,10 +94,9 @@ export default class EmployeeComponent extends Component {
 Moreover, as of 3.8.0, a validator can be an Object or Class with a `validate` function.
 
 ```js
-import Validator from 'ember-changeset-validations/validator';
 import  { inject as service } from '@ember/service';
 
-export default class PersonalNoValidator extends Validator {
+export default class PersonalNoValidator {
   @service ajax;
 
   async validate(key, newValue, oldValue, changes, content) {
