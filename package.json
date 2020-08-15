@@ -33,7 +33,7 @@
     "contributors": "npx contributor-faces -e \"(*-bot|*\\[bot\\]|*-tomster|homu|bors)\""
   },
   "dependencies": {
-    "ember-changeset": "^3.8.0",
+    "ember-changeset": "^3.8.2",
     "ember-cli-babel": "^7.8.0",
     "ember-cli-htmlbars": "^4.0.5",
     "ember-get-config": "^0.2.4",
