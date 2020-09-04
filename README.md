@@ -45,7 +45,7 @@ This addon updates the `changeset` helper by taking in a validation map as a 2nd
 A validation map is just a POJO (Plain Old JavaScript Object). Use the bundled validators from `ember-changeset-validations` to compose validations or write your own. For example:
 
 ```js
-// validations/employee.js
+// validators/employee.js
 import {
   validatePresence,
   validateLength,
