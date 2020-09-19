@@ -10,6 +10,6 @@ export default assign(Messages, {
   present: _Messages.blank,
 
   getDescriptionFor(key = '') {
-    return capitalize(dasherize(key).split(/[_-]/g).join(' '));
+    return capitalize(dasherize(key).split(/[._-]/g).join(' '));
   }
 });
