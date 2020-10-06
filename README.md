@@ -328,7 +328,7 @@ For example:
 ```js
 export default function validateUniqueness(opts) {
   return (key, newValue, oldValue, changes, content) => {
-    return new Ember.RSVP.Promise((resolve) => {
+    return new Promise((resolve) => {
       // validation logic
       // resolve with `true` if valid || error message string if invalid
       resolve(true);
