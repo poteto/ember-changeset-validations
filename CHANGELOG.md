@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.10.1](https://github.com/poteto/ember-changeset-validations/tree/v3.10.1) (2020-12-05)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.4.0...v3.10.1)
+
 ## [3.4.0](https://github.com/poteto/ember-changeset-validations/tree/v3.4.0) (2020-05-26)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.2.0...v3.4.0)
 
