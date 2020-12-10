@@ -1,7 +1,7 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { validate } from 'ember-validators';
 
-export default function validateInclusion(options = {}) {
+export default function validateExclusion(options = {}) {
   if (options.list) {
     options.in = options.list;
   }
