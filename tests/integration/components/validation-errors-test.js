@@ -26,11 +26,21 @@ module('Integration | Components | validation errors', function(hooks) {
           {{/each}}
           </ul>
         {{/if}}
+
+        <input type="number" class="age" value={{changeset.age}} oninput={{action (mut changeset.age) value="target.value"}}>
+        {{#if changeset.error.age}}
+          <ul class="ageErrors">
+          {{#each changeset.error.age.validation as |message|}}
+            <li>{{message}}</li>
+          {{/each}}
+          </ul>
+        {{/if}}
       </FooBar>
     `);
 
     assert.notOk(find('ul.firstNameErrors'), 'has no first name errors');
     assert.notOk(find('ul.lastNameErrors'), 'has no last name errors');
+    assert.notOk(find('ul.ageErrors'), 'has no age errors');
 
     await fillIn('input.firstName', 'a');
     await fillIn('input.lastName', 'b');
@@ -42,11 +52,19 @@ module('Integration | Components | validation errors', function(hooks) {
       '[CUSTOM] Last name is too short (minimum is 2 characters)',
       'has last name errors'
     );
+    assert.notOk(find('ul.ageErrors'), 'has no age errors');
 
     await fillIn('input.lastName', 'bc');
 
     assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
     assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.notOk(find('ul.ageErrors'), 'has no age errors');
+
+    await fillIn('input.age', '');
+
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.ok(find('ul.ageErrors'), 'has age errors after input');
   });
 
   test('works with nested fields', async function(assert) {

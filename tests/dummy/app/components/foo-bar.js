@@ -6,6 +6,7 @@ const rulez = {
     validatePresence(true),
     validateLength({ min: 2 })
   ],
+  age: validatePresence(true),
   lastName: [
     validatePresence(true),
     validateLength({ min: 2 })
@@ -23,6 +24,7 @@ const rulez = {
 };
 
 const schema = {
+  age: null,
   firstName: null,
   lastName: null,
   state: {
@@ -31,7 +33,7 @@ const schema = {
   }
 };
 
-export default Component.extend({
-  rulez,
-  schema
-});
+export default class FooBar extends Component {
+  rulez = rulez;
+  schema = schema;
+}
