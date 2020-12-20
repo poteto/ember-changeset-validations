@@ -2,11 +2,11 @@ import Component from '@ember/component';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
 
 const rulez = {
+  age: validatePresence(true),
   firstName: [
     validatePresence(true),
     validateLength({ min: 2 })
   ],
-  age: validatePresence(true),
   lastName: [
     validatePresence(true),
     validateLength({ min: 2 })

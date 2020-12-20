@@ -60,6 +60,12 @@ module('Integration | Components | validation errors', function(hooks) {
     assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
     assert.notOk(find('ul.ageErrors'), 'has no age errors');
 
+    await fillIn('input.age', '12');
+
+    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
+    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.notOk(find('ul.ageErrors'), 'has no age errors after input');
+
     await fillIn('input.age', '');
 
     assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
