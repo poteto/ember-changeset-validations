@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
 
 const rulez = {
+  age: validatePresence(true),
   firstName: [
     validatePresence(true),
     validateLength({ min: 2 })
@@ -23,6 +24,7 @@ const rulez = {
 };
 
 const schema = {
+  age: null,
   firstName: null,
   lastName: null,
   state: {
@@ -31,7 +33,7 @@ const schema = {
   }
 };
 
-export default Component.extend({
-  rulez,
-  schema
-});
+export default class FooBar extends Component {
+  rulez = rulez;
+  schema = schema;
+}
