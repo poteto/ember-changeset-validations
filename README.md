@@ -101,7 +101,14 @@ export default class PersonalNoValidator {
 
   async validate(key, newValue, oldValue, changes, content) {
     try {
-      await fetch('/api/personal-no/validation', body: JSON.stringify({ data: newValue }));
+      await fetch(
+        '/api/personal-no/validation', 
+        { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: newValue })
+        }
+      );
       
       return true;
     } catch (_) {
