@@ -101,9 +101,8 @@ export default class PersonalNoValidator {
 
   async validate(key, newValue, oldValue, changes, content) {
     try {
-      let response = await fetch('/api/personal-no/validation', body: JSON.stringify({ data: newValue }));
-      return response.json();
-    });
+      await fetch('/api/personal-no/validation', body: JSON.stringify({ data: newValue }));
+      
       return true;
     } catch (_) {
       return 'Personal No is invalid';
