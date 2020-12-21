@@ -95,13 +95,21 @@ Moreover, as of 3.8.0, a validator can be an Object or Class with a `validate` f
 
 ```js
 import  { inject as service } from '@ember/service';
+import fetch from 'fetch';
 
 export default class PersonalNoValidator {
-  @service ajax;
 
   async validate(key, newValue, oldValue, changes, content) {
     try {
-      await this.ajax.post('/api/personal-no/validation', { data: newValue });
+      await fetch(
+        '/api/personal-no/validation', 
+        { 
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: newValue })
+        }
+      );
+      
       return true;
     } catch (_) {
       return 'Personal No is invalid';
