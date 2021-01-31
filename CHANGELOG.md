@@ -1,5 +1,10 @@
 # Change Log
 
+## [3.11.0](https://github.com/poteto/ember-changeset-validations/tree/v3.11.0) (2021-01-30)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.10.3...v3.11.0)
+
+- Fix cyclical bug with ember data models
+
 ## [3.10.2](https://github.com/poteto/ember-changeset-validations/tree/v3.10.2) (2020-12-05)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.10.1...v3.10.2)
 
