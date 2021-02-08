@@ -119,6 +119,14 @@ module('Unit | Validator | date', function() {
       'date is after "before" date'
     );
 
+    options = { before: () => startDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, afterDate),
+      buildMessage(key, { afterDate, message: `[BEFORE] date is NOT before ${afterDate}` }),
+      'before accepts a function that returns a date'
+    );
+
     options = { before: afterDate };
     validator = validateDate(options);
     assert.equal(
@@ -143,6 +151,14 @@ module('Unit | Validator | date', function() {
       validator(key, afterDate),
       buildMessage(key, { afterDate, message: `[ON OR BEFORE] date is NOT on or before ${afterDate}` }),
       'date is after "onOrBefore" date'
+    );
+
+    options = { onOrBefore: () => startDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, afterDate),
+      buildMessage(key, { afterDate, message: `[ON OR BEFORE] date is NOT on or before ${afterDate}` }),
+      'onOrBefore accepts a function that returns a date'
     );
 
     options = { onOrBefore: afterDate };
@@ -171,6 +187,14 @@ module('Unit | Validator | date', function() {
       'date is after the "after" date'
     );
 
+    options = { after: () => afterDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, startDate),
+      buildMessage(key, { startDate, message: `[AFTER] date is NOT after ${startDate}` }),
+      "after accepts a function that returns a date"
+    );
+
     options = { after: startDate };
     validator = validateDate(options);
     assert.equal(
@@ -195,6 +219,14 @@ module('Unit | Validator | date', function() {
       validator(key, startDate),
       buildMessage(key, { onOrAfterDate, message: `[ON OR AFTER] date is NOT on or after ${startDate}` }),
       'date onOrAfter the "onOrAfter" date is not allowed'
+    );
+
+    options = { onOrAfter: () => onOrAfterDate };
+    validator = validateDate(options);
+    assert.equal(
+      validator(key, startDate),
+      buildMessage(key, { onOrAfterDate, message: `[ON OR AFTER] date is NOT on or after ${startDate}` }),
+      'onOrAfter accepts a function that returns a date'
     );
 
     options = { onOrAfter: startDate };

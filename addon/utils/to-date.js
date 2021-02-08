@@ -7,6 +7,10 @@
 export default function toDate(argument) {
   const argStr = Object.prototype.toString.call(argument)
 
+  if (typeof argument === "function") {
+    argument = argument()
+  }
+
   if (
     argument instanceof Date ||
     (typeof argument === 'object' && argStr === '[object Date]')
