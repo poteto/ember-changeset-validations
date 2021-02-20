@@ -94,7 +94,6 @@ export default class EmployeeComponent extends Component {
 Moreover, as of 3.8.0, a validator can be an Object or Class with a `validate` function.
 
 ```js
-import  { inject as service } from '@ember/service';
 import fetch from 'fetch';
 
 export default class PersonalNoValidator {
