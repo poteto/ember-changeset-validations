@@ -70,5 +70,19 @@ module('Unit | Utility | validation errors', function() {
     assert.equal(type, 'present', 'the type of the error is returned')
     assert.equal(value, 'testValue', 'the passed value is returned')
     set(config, 'changeset-validations', originalConfig); // reset the config
-  })
+  });
+
+  test('#buildMessage can return a raw data structure for a date', function(assert) {
+    let originalConfig = get(config, 'changeset-validations'); // enable the feature
+    set(config, 'changeset-validations', { rawOutput: true });
+    let d = new Date();
+    let result = buildMessage('firstName', { type: 'date', value: d, context: { foo: 'foo' }})
+    assert.ok(typeof result !== 'string', 'the return value is an object')
+    let { message, type, value, context: { description } } = result
+    assert.equal(message, "[CUSTOM] {description} must be a valid date", 'default message is given')
+    assert.equal(description, 'First name', 'description is returned')
+    assert.equal(type, 'date', 'the type of the error is returned')
+    assert.equal(value, d, 'the passed value is returned')
+    set(config, 'changeset-validations', originalConfig); // reset the config
+  });
 });
