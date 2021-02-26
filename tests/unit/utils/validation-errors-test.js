@@ -65,7 +65,7 @@ module('Unit | Utility | validation errors', function() {
     let result = buildMessage('firstName', { type: 'present', value: 'testValue', context: { foo: 'foo' }})
     assert.ok(typeof result !== 'string', 'the return value is an object')
     let { message, type, value, context: { description } } = result
-    assert.equal(message, "{description} can't be blank", 'default message is given')
+    assert.ok(message, "{description} can't be blank", 'default message is given')
     assert.equal(description, 'First name', 'description is returned')
     assert.equal(type, 'present', 'the type of the error is returned')
     assert.equal(value, 'testValue', 'the passed value is returned')
@@ -79,7 +79,7 @@ module('Unit | Utility | validation errors', function() {
     let result = buildMessage('firstName', { type: 'date', value: d, context: { foo: 'foo' }})
     assert.ok(typeof result !== 'string', 'the return value is an object')
     let { message, type, value, context: { description } } = result
-    assert.equal(message, "[CUSTOM] {description} must be a valid date", 'default message is given')
+    assert.ok(message, "[CUSTOM] {description} must be a valid date", 'default message is given')
     assert.equal(description, 'First name', 'description is returned')
     assert.equal(type, 'date', 'the type of the error is returned')
     assert.equal(value, d, 'the passed value is returned')
