@@ -22,6 +22,12 @@ export default function buildMessage(key, result) {
 
   let { type, value, context = {} } = result;
 
+  let message = get(messages, type);
+  if (returnsRaw) {
+    context = assign({}, context, { description })
+    return { value, type, message, context };
+  }
+
   if (context.message) {
     let message = context.message;
 
@@ -35,11 +41,5 @@ export default function buildMessage(key, result) {
     return messages.formatMessage(message, assign({ description }, context));
   }
 
-  let message = get(messages, type);
-  if (returnsRaw) {
-    context = assign({}, context, { description })
-    return { value, type, message, context };
-  } else {
-    return messages.formatMessage(message, assign({ description }, context));
-  }
+  return messages.formatMessage(message, assign({ description }, context));
 }
