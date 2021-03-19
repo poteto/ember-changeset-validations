@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "ember-changeset": "^3.13.1",
-    "ember-cli-babel": "^7.8.0",
+    "ember-cli-babel": "^7.11.1",
     "ember-cli-htmlbars": "^4.0.5",
     "ember-get-config": "^0.2.4",
     "ember-validators": "^3.0.1"

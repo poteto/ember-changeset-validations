@@ -101,14 +101,14 @@ export default class PersonalNoValidator {
   async validate(key, newValue, oldValue, changes, content) {
     try {
       await fetch(
-        '/api/personal-no/validation', 
-        { 
-          method: 'POST', 
+        '/api/personal-no/validation',
+        {
+          method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ data: newValue })
         }
       );
-      
+
       return true;
     } catch (_) {
       return 'Personal No is invalid';
@@ -520,7 +520,11 @@ internationalisation (i18n) for example, or finer-grained error output.
 To have `ember-changeset-validations` return such data structure, add the following to you `config/environment.js`
 
 ```
-ENV['changeset-validations'].rawOutput = true;
+let ENV = {
+  ...
+  'changeset-validations': { rawOutput: true }
+  ...
+}
 ```
 
 This will return an object with the following structure, that you can then pass to your applications's error processing:
