@@ -79,8 +79,8 @@ import EmployeeValidations from '../validations/employee';
 import AdminValidations from '../validations/admin';
 
 export default class EmployeeComponent extends Component {
-  EmployeeValidations;
-  AdminValidations;
+  EmployeeValidations = EmployeeValidations;
+  AdminValidations = AdminValidations;
 }
 ```
 
