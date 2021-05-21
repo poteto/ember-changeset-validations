@@ -1,5 +1,5 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
+import evValidateInclusion from 'ember-validators/inclusion';
 
 export default function validateInclusion(options = {}) {
   if (options.list) {
@@ -7,7 +7,7 @@ export default function validateInclusion(options = {}) {
   }
 
   return (key, value) => {
-    let result = validate('inclusion', value, options, null, key);
+    let result = evValidateInclusion(value, options, null, key);
     return (result === true) ? true : buildMessage(key, result);
   };
 }

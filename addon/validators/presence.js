@@ -1,5 +1,5 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
+import evValidatePresence from 'ember-validators/presence';
 
 export default function validatePresence(options) {
   let targets;
@@ -20,7 +20,7 @@ export default function validatePresence(options) {
       return true;
     }
 
-    let result = validate('presence', value, options, null, key);
+    let result = evValidatePresence(value, options, null, key);
 
     if (typeof result === 'boolean' || typeof result === 'string') {
       return result;

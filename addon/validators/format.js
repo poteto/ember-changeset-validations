@@ -1,6 +1,6 @@
 import { isEmpty } from '@ember/utils';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
+import evValidateFormat from 'ember-validators/format';
 
 export default function validateFormat(options = {}) {
   let hasOptions = !isEmpty(Object.keys(options));
@@ -10,7 +10,7 @@ export default function validateFormat(options = {}) {
       return true;
     }
 
-    let result = validate('format', value, options, null, key);
+    let result = evValidateFormat(value, options, null, key);
     return (result === true) ? true : buildMessage(key, result);
   };
 }
