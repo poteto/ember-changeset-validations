@@ -1,7 +1,6 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import { validate } from 'ember-validators';
+import evValidateConfirmation from 'ember-validators/confirmation';
 import { assign } from '@ember/polyfills';
-
 
 export default function validateConfirmation(options = {}) {
   return (key, newValue, _oldValue, changes , content = {}) => {
@@ -10,7 +9,7 @@ export default function validateConfirmation(options = {}) {
     // default values
     let model = assign({}, content, changes);
 
-    let result = validate('confirmation', newValue, options, model, key);
+    let result = evValidateConfirmation(newValue, options, model, key);
     return (result === true) ? true : buildMessage(key, result);
   };
 }
