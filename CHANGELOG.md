@@ -1,5 +1,11 @@
 # Change Log
 
+## [3.14.4](https://github.com/poteto/ember-changeset-validations/tree/v3.14.4) (2021-05-21)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.11.0...v3.14.4)
+
+- Embroider support
+- Various validated-changeset improvements and bugfixes
+
 ## [3.11.0](https://github.com/poteto/ember-changeset-validations/tree/v3.11.0) (2021-01-30)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.10.3...v3.11.0)
 
