@@ -1,5 +1,8 @@
 # Change Log
 
+## [3.14.7](https://github.com/poteto/ember-changeset-validations/tree/v3.14.7) (2021-06-07)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.5...v3.14.7)
+
 ## [3.14.4](https://github.com/poteto/ember-changeset-validations/tree/v3.14.4) (2021-05-21)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.11.0...v3.14.4)
 
