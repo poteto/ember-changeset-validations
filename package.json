@@ -38,7 +38,7 @@
     "ember-cli-htmlbars": "^4.0.5",
     "ember-get-config": "^0.3.0",
     "ember-validators": "^3.0.1",
-    "validated-changeset": "~0.14.8"
+    "validated-changeset": "~0.14.10"
   },
   "devDependencies": {
     "@ember/optional-features": "^1.0.0",
