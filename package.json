@@ -75,5 +75,8 @@
     "after": [
       "ember-changeset"
     ]
+  },
+  "volta": {
+    "node": "14.17.0"
   }
 }
