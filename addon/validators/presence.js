@@ -1,5 +1,6 @@
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import evValidatePresence from 'ember-validators/presence';
+import { get } from '@ember/object';
 
 export default function validatePresence(options) {
   let targets;
@@ -18,10 +19,10 @@ export default function validatePresence(options) {
   return (key, value, _oldValue, changes, content) => {
     if (
       targets &&
-      !targets.some(
-        (target) =>
-          changes[target] || (changes[target] === undefined && content[target])
-      )
+      !targets.some((target) => {
+        const change = get(changes, target);
+        return change || (change === undefined && get(content, target));
+      })
     ) {
       return true;
     }
