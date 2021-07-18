@@ -9,17 +9,21 @@ import { validatePresence } from 'ember-changeset-validations/validators';
 const validations = {
   name: validatePresence({
     presence: true,
-    message: 'Заполните поле'
-  })
+    message: 'Заполните поле',
+  }),
 };
 
 export default class AddressBookForm extends Component {
-  @tracked formChangeset = null
+  @tracked formChangeset = null;
 
   constructor() {
     super(...arguments);
 
-    this.formChangeset = new Changeset(this.args.model, lookupValidator(validations), validations);
+    this.formChangeset = new Changeset(
+      this.args.model,
+      lookupValidator(validations),
+      validations
+    );
   }
 
   @action

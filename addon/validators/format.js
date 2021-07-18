@@ -11,6 +11,6 @@ export default function validateFormat(options = {}) {
     }
 
     let result = evValidateFormat(value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return result === true ? true : buildMessage(key, result);
   };
 }

@@ -8,6 +8,6 @@ export default function validateExclusion(options = {}) {
 
   return (key, value) => {
     let result = evValidateExclusion(value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return result === true ? true : buildMessage(key, result);
   };
 }

@@ -11,5 +11,5 @@ export default assign(Messages, {
 
   getDescriptionFor(key = '') {
     return capitalize(dasherize(key).split(/[._-]/g).join(' '));
-  }
+  },
 });

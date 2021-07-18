@@ -1,26 +1,17 @@
-import Component from '@ember/component';
-import { validatePresence, validateLength } from 'ember-changeset-validations/validators';
+import Component from '@glimmer/component';
+import {
+  validatePresence,
+  validateLength,
+} from 'ember-changeset-validations/validators';
 
 const rulez = {
   age: validatePresence(true),
-  firstName: [
-    validatePresence(true),
-    validateLength({ min: 2 })
-  ],
-  lastName: [
-    validatePresence(true),
-    validateLength({ min: 2 })
-  ],
+  firstName: [validatePresence(true), validateLength({ min: 2 })],
+  lastName: [validatePresence(true), validateLength({ min: 2 })],
   state: {
-    ny: [
-      validatePresence(true),
-      validateLength({ min: 2 })
-    ],
-    wi: [
-      validatePresence(true),
-      validateLength({ min: 2 })
-    ]
-  }
+    ny: [validatePresence(true), validateLength({ min: 2 })],
+    wi: [validatePresence(true), validateLength({ min: 2 })],
+  },
 };
 
 const schema = {
@@ -29,8 +20,8 @@ const schema = {
   lastName: null,
   state: {
     ny: null,
-    wi: null
-  }
+    wi: null,
+  },
 };
 
 export default class FooBar extends Component {

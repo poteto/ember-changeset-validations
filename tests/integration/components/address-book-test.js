@@ -3,16 +3,18 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, find, fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | address-book', function(hooks) {
+module('Integration | Component | address-book', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     this.model = {};
-    this.onSave = function() {
+    this.onSave = function () {
       assert.step('save called');
       return Promise.resolve();
-    }
-    await render(hbs`<AddressBook @onSave={{this.onSave}} @model={{this.model}} />`);
+    };
+    await render(
+      hbs`<AddressBook @onSave={{this.onSave}} @model={{this.model}} />`
+    );
 
     await fillIn('#address-book-name', 'abcdef');
     assert.equal(find('#address-book-name').value, 'abcdef');

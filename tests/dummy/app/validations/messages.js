@@ -17,14 +17,17 @@ export default {
   after: '[CUSTOM] {description} must be after {after}',
   onOrAfter: '[CUSTOM] {description} must be on or after {onOrAfter}',
   wrongDateFormat: '[CUSTOM] {description} must be in the format of {format}',
-  wrongLength: '[CUSTOM] {description} is the wrong length (should be {is} characters)',
+  wrongLength:
+    '[CUSTOM] {description} is the wrong length (should be {is} characters)',
   notANumber: '[CUSTOM] {description} must be a number',
   notAnInteger: '[CUSTOM] {description} must be an integer',
   greaterThan: '[CUSTOM] {description} must be greater than {gt}',
-  greaterThanOrEqualTo: '[CUSTOM] {description} must be greater than or equal to {gte}',
+  greaterThanOrEqualTo:
+    '[CUSTOM] {description} must be greater than or equal to {gte}',
   equalTo: '[CUSTOM] {description} must be equal to {is}',
   lessThan: '[CUSTOM] {description} must be less than {lt}',
-  lessThanOrEqualTo: '[CUSTOM] {description} must be less than or equal to {lte}',
+  lessThanOrEqualTo:
+    '[CUSTOM] {description} must be less than or equal to {lte}',
   otherThan: '[CUSTOM] {description} must be other than {value}',
   odd: '[CUSTOM] {description} must be odd',
   even: '[CUSTOM] {description} must be even',
@@ -33,5 +36,5 @@ export default {
   email: '[CUSTOM] {description} must be a valid email address',
   phone: '[CUSTOM] {description} must be a valid phone number',
   url: '[CUSTOM] {description} must be a valid url',
-  custom: '[CUSTOM] This is a custom message'
+  custom: '[CUSTOM] This is a custom message',
 };

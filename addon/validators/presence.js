@@ -7,7 +7,7 @@ export default function validatePresence(options) {
     options = { presence: options };
   } else if (options && options.on !== undefined) {
     if (typeof options.on === 'string') {
-      targets = [ options.on ];
+      targets = [options.on];
     } else if (Array.isArray(options.on)) {
       targets = options.on;
     }
@@ -16,7 +16,13 @@ export default function validatePresence(options) {
   }
 
   return (key, value, _oldValue, changes, content) => {
-    if (targets && !targets.some((target) => changes[target] || (changes[target] === undefined && content[target]))) {
+    if (
+      targets &&
+      !targets.some(
+        (target) =>
+          changes[target] || (changes[target] === undefined && content[target])
+      )
+    ) {
       return true;
     }
 
