@@ -1,6 +1,5 @@
 import { A as emberArray } from '@ember/array';
 import { all } from 'rsvp';
-import { get } from '@ember/object';
 import { typeOf } from '@ember/utils';
 import { isPromise } from 'validated-changeset';
 
@@ -13,10 +12,11 @@ import { isPromise } from 'validated-changeset';
  * @return {Boolean|Any}
  */
 function handleValidations(validations = []) {
-  let rejectedValidations = emberArray(validations)
-    .reject((validation) => typeOf(validation) === 'boolean' && validation);
+  let rejectedValidations = emberArray(validations).reject(
+    (validation) => typeOf(validation) === 'boolean' && validation
+  );
 
-  return get(rejectedValidations, 'length') === 0 || rejectedValidations;
+  return rejectedValidations.length === 0 || rejectedValidations;
 }
 
 /**
@@ -32,9 +32,15 @@ function handleValidations(validations = []) {
  * @param  {Object} options.content
  * @return {Promise|Boolean|Any}
  */
-export default function handleMultipleValidations(validators, { key, newValue, oldValue, changes, content }) {
-  let validations = emberArray(validators
-    .map((validator) => validator(key, newValue, oldValue, changes, content)));
+export default function handleMultipleValidations(
+  validators,
+  { key, newValue, oldValue, changes, content }
+) {
+  let validations = emberArray(
+    validators.map((validator) =>
+      validator(key, newValue, oldValue, changes, content)
+    )
+  );
 
   if (emberArray(validations).any(isPromise)) {
     return all(validations).then(handleValidations);

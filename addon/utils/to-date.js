@@ -5,10 +5,10 @@
  * @throws {TypeError} 1 argument required
  */
 export default function toDate(argument) {
-  const argStr = Object.prototype.toString.call(argument)
+  const argStr = Object.prototype.toString.call(argument);
 
-  if (typeof argument === "function") {
-    argument = argument()
+  if (typeof argument === 'function') {
+    argument = argument();
   }
 
   if (
@@ -17,19 +17,17 @@ export default function toDate(argument) {
   ) {
     return argument;
   } else if (typeof argument === 'number' || argStr === '[object Number]') {
-    return new Date(argument)
+    return new Date(argument);
   } else {
     if (
       (typeof argument === 'string' || argStr === '[object String]') &&
       typeof console !== 'undefined'
     ) {
       // eslint-disable-next-line no-console
-      console.warn(
-        'Please use `Date.parse` to parse strings.'
-      )
+      console.warn('Please use `Date.parse` to parse strings.');
       // eslint-disable-next-line no-console
-      console.warn(new Error().stack)
+      console.warn(new Error().stack);
     }
-    return new Date(NaN)
+    return new Date(NaN);
   }
 }

@@ -1,4 +1,4 @@
 /* eslint-env node */
 module.exports = {
-  description: 'Generates a changeset validator'
+  description: 'Generates a changeset validator',
 };

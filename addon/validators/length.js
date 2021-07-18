@@ -7,6 +7,6 @@ export default function validateLength(options = {}) {
 
   return (key, value) => {
     let result = evValidateLength(value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return result === true ? true : buildMessage(key, result);
   };
 }

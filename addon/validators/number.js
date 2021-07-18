@@ -11,6 +11,6 @@ export default function validateNumber(options = {}) {
 
   return (key, value) => {
     let result = evValidateNumber(value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return result === true ? true : buildMessage(key, result);
   };
 }

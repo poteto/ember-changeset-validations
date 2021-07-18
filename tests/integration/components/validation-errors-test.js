@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Components | validation errors', function(hooks) {
+module('Integration | Components | validation errors', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('will clear error messages independently by field', async function(assert) {
+  test('will clear error messages independently by field', async function (assert) {
     await render(hbs`
       <FooBar as |changeset|>
         <input class="firstName" value={{changeset.firstName}} oninput={{action (mut changeset.firstName) value="target.value"}}>
@@ -56,24 +56,42 @@ module('Integration | Components | validation errors', function(hooks) {
 
     await fillIn('input.lastName', 'bc');
 
-    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
-    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.ok(
+      find('ul.firstNameErrors li'),
+      'has first name errors after last name input'
+    );
+    assert.notOk(
+      find('ul.lastNameErrors'),
+      'has no last name errors after input'
+    );
     assert.notOk(find('ul.ageErrors'), 'has no age errors');
 
     await fillIn('input.age', '12');
 
-    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
-    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.ok(
+      find('ul.firstNameErrors li'),
+      'has first name errors after last name input'
+    );
+    assert.notOk(
+      find('ul.lastNameErrors'),
+      'has no last name errors after input'
+    );
     assert.notOk(find('ul.ageErrors'), 'has no age errors after input');
 
     await fillIn('input.age', '');
 
-    assert.ok(find('ul.firstNameErrors li'), 'has first name errors after last name input');
-    assert.notOk(find('ul.lastNameErrors'), 'has no last name errors after input');
+    assert.ok(
+      find('ul.firstNameErrors li'),
+      'has first name errors after last name input'
+    );
+    assert.notOk(
+      find('ul.lastNameErrors'),
+      'has no last name errors after input'
+    );
     assert.ok(find('ul.ageErrors'), 'has age errors after input');
   });
 
-  test('works with nested fields', async function(assert) {
+  test('works with nested fields', async function (assert) {
     await render(hbs`
       <FooBar as |changeset|>
         <input

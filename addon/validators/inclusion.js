@@ -8,6 +8,6 @@ export default function validateInclusion(options = {}) {
 
   return (key, value) => {
     let result = evValidateInclusion(value, options, null, key);
-    return (result === true) ? true : buildMessage(key, result);
+    return result === true ? true : buildMessage(key, result);
   };
 }

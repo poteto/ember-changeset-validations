@@ -2,23 +2,35 @@ import validateConfirmation from 'ember-changeset-validations/validators/confirm
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 
-module('Unit | Validator | confirmation', function() {
-  test('it accepts an `on` option', function(assert) {
+module('Unit | Validator | confirmation', function () {
+  test('it accepts an `on` option', function (assert) {
     let changes = { password: '1234567' };
     let key = 'passwordConfirmation';
     let opts = { on: 'password' };
     let validator = validateConfirmation(opts);
 
-    assert.equal(validator(key, undefined, undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
-    assert.equal(validator(key, null, undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
-    assert.equal(validator(key, '', undefined, changes), buildMessage(key, { type: 'confirmation', context: opts }));
-    assert.equal(validator(key, '1234567', undefined, changes), true);
+    assert.equal(
+      validator(key, undefined, undefined, changes),
+      buildMessage(key, { type: 'confirmation', context: opts })
+    );
+    assert.equal(
+      validator(key, null, undefined, changes),
+      buildMessage(key, { type: 'confirmation', context: opts })
+    );
+    assert.equal(
+      validator(key, '', undefined, changes),
+      buildMessage(key, { type: 'confirmation', context: opts })
+    );
+    assert.true(validator(key, '1234567', undefined, changes));
   });
 
-  test('it can output custom message string', function(assert) {
+  test('it can output custom message string', function (assert) {
     let changes = { password: '1234567' };
     let key = 'passwordConfirmation';
-    let opts = { on: 'password', message: '{description} is not equal to {on}' };
+    let opts = {
+      on: 'password',
+      message: '{description} is not equal to {on}',
+    };
     let validator = validateConfirmation(opts);
 
     assert.equal(
@@ -28,7 +40,7 @@ module('Unit | Validator | confirmation', function() {
     );
   });
 
-  test('it can output with custom message function', function(assert) {
+  test('it can output with custom message function', function (assert) {
     assert.expect(5);
 
     let changes = { password: '1234567' };
@@ -42,7 +54,7 @@ module('Unit | Validator | confirmation', function() {
         assert.equal(context.on, opts.on);
 
         return 'some test message';
-      }
+      },
     };
     let validator = validateConfirmation(opts);
 
@@ -53,16 +65,16 @@ module('Unit | Validator | confirmation', function() {
     );
   });
 
-  test('it accepts an `allowBlank` option', function(assert) {
+  test('it accepts an `allowBlank` option', function (assert) {
     let key = 'email';
     let options = { allowBlank: true, on: 'foo' };
     let validator = validateConfirmation(options);
 
-    assert.equal(validator(key, ''), true, 'Empty string is accepted');
+    assert.true(validator(key, ''), 'Empty string is accepted');
   });
 });
 
-test('It looks for default values as well as "changes" values', function(assert) {
+test('It looks for default values as well as "changes" values', function (assert) {
   assert.expect(2);
 
   let password = '1234567';
@@ -71,6 +83,9 @@ test('It looks for default values as well as "changes" values', function(assert)
   let opts = { on: 'password' };
   let validator = validateConfirmation(opts);
 
-  assert.equal(validator(key, 'foo', undefined, {}, content), buildMessage(key, { type: 'confirmation', context: opts }));
-  assert.equal(validator(key, password, undefined, {}, content), true);
+  assert.equal(
+    validator(key, 'foo', undefined, {}, content),
+    buildMessage(key, { type: 'confirmation', context: opts })
+  );
+  assert.true(validator(key, password, undefined, {}, content));
 });

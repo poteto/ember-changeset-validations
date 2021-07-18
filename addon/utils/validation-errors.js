@@ -24,7 +24,7 @@ export default function buildMessage(key, result) {
 
   let message = get(messages, type);
   if (returnsRaw) {
-    context = assign({}, context, { description })
+    context = assign({}, context, { description });
     return { value, type, message, context };
   }
 
@@ -33,7 +33,10 @@ export default function buildMessage(key, result) {
 
     if (typeof message === 'function') {
       let builtMessage = message(key, type, value, context);
-      assert('Custom message function must return a string', typeof builtMessage === 'string');
+      assert(
+        'Custom message function must return a string',
+        typeof builtMessage === 'string'
+      );
 
       return builtMessage;
     }
