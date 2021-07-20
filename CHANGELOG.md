@@ -1,5 +1,15 @@
 # Change Log
 
+## [3.15.2](https://github.com/poteto/ember-changeset-validations/tree/v3.15.2) (2021-07-20)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.8...v3.15.2)
+
+## [3.14.8](https://github.com/poteto/ember-changeset-validations/tree/v3.14.8) (2021-07-08)
+[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.7...v3.14.8)
+
+Bump ember-validators to 4.0.0.  This was a major breaking change so ensure your app does not accidentally bump to ember-validators 4.0.0.
+
+https://github.com/poteto/ember-changeset-validations/pull/308
+
 ## [3.14.7](https://github.com/poteto/ember-changeset-validations/tree/v3.14.7) (2021-06-07)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.5...v3.14.7)
 
