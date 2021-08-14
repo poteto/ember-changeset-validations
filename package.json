@@ -34,7 +34,7 @@
     "contributors": "npx contributor-faces -e \"(*-bot|*\\[bot\\]|*-tomster|homu|bors)\""
   },
   "dependencies": {
-    "ember-changeset": "^3.14.1",
+    "ember-changeset": "^3.15.0",
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
     "ember-get-config": "^0.3.0",
@@ -86,6 +86,6 @@
     ]
   },
   "volta": {
-    "node": "10.22.0"
+    "node": "14.17.3"
   }
 }
