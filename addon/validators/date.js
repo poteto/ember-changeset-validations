@@ -1,3 +1,5 @@
+import { isEmpty } from '@ember/utils';
+
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import withDefaults from 'ember-changeset-validations/utils/with-defaults';
 import toDate from 'ember-changeset-validations/utils/to-date';
@@ -19,7 +21,7 @@ export default function validateDate(options = {}) {
     let { before, onOrBefore, after, onOrAfter, message } = options;
     let type = 'date';
 
-    if (allowBlank && (typeof value === 'undefined' || value === null)) {
+    if (allowBlank && isEmpty(value)) {
       return true;
     }
 

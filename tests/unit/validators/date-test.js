@@ -10,7 +10,8 @@ module('Unit | Validator | date', function () {
 
     assert.true(validator(key, null), 'null is allowed');
     assert.true(validator(key, undefined), 'undefined is allowed');
-    assert.true(validator(key, 123), 'number value is is allowed');
+    assert.true(validator(key, ''), 'empty string is allowed');
+    assert.true(validator(key, 123), 'number value is allowed');
 
     assert.equal(
       validator(key, '1992-03-30'),
