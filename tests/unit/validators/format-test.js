@@ -16,7 +16,9 @@ module('Unit | Validator | format', function () {
     let options = { allowBlank: true };
     let validator = validateFormat(options);
 
-    assert.true(validator(key, ''));
+    assert.true(validator(key, null), 'null is accepted');
+    assert.true(validator(key, undefined), 'undefined is accepted');
+    assert.true(validator(key, ''), 'empty string is accepted');
   });
 
   test('it accepts a `type` option', function (assert) {
