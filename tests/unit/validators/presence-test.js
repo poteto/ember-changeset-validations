@@ -7,12 +7,18 @@ module('Unit | Validator | presence', function () {
     let key = 'firstName';
     let validator = validatePresence(true);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined),
       buildMessage(key, { type: 'present' })
     );
-    assert.equal(validator(key, null), buildMessage(key, { type: 'present' }));
-    assert.equal(validator(key, ''), buildMessage(key, { type: 'present' }));
+    assert.strictEqual(
+      validator(key, null),
+      buildMessage(key, { type: 'present' })
+    );
+    assert.strictEqual(
+      validator(key, ''),
+      buildMessage(key, { type: 'present' })
+    );
     assert.true(validator(key, 'a'));
   });
 
@@ -23,19 +29,28 @@ module('Unit | Validator | presence', function () {
     assert.true(validator(key, undefined));
     assert.true(validator(key, null));
     assert.true(validator(key, ''));
-    assert.equal(validator(key, 'a'), buildMessage(key, { type: 'blank' }));
+    assert.strictEqual(
+      validator(key, 'a'),
+      buildMessage(key, { type: 'blank' })
+    );
   });
 
   test('it accepts a true `presence` option', function (assert) {
     let key = 'firstName';
     let validator = validatePresence({ presence: true });
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined),
       buildMessage(key, { type: 'present' })
     );
-    assert.equal(validator(key, null), buildMessage(key, { type: 'present' }));
-    assert.equal(validator(key, ''), buildMessage(key, { type: 'present' }));
+    assert.strictEqual(
+      validator(key, null),
+      buildMessage(key, { type: 'present' })
+    );
+    assert.strictEqual(
+      validator(key, ''),
+      buildMessage(key, { type: 'present' })
+    );
     assert.true(validator(key, 'a'));
   });
 
@@ -46,7 +61,10 @@ module('Unit | Validator | presence', function () {
     assert.true(validator(key, undefined));
     assert.true(validator(key, null));
     assert.true(validator(key, ''));
-    assert.equal(validator(key, 'a'), buildMessage(key, { type: 'blank' }));
+    assert.strictEqual(
+      validator(key, 'a'),
+      buildMessage(key, { type: 'blank' })
+    );
   });
 
   function presenceOnTests(assert, options) {
@@ -147,7 +165,7 @@ module('Unit | Validator | presence', function () {
     };
     let validator = validatePresence(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       'First name should be present',
       'custom message string is generated correctly'
@@ -161,9 +179,9 @@ module('Unit | Validator | presence', function () {
     let options = {
       presence: false,
       message: function (_key, type, value, context) {
-        assert.equal(_key, key);
-        assert.equal(type, 'blank');
-        assert.equal(value, 'test');
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'blank');
+        assert.strictEqual(value, 'test');
         assert.false(context.presence);
 
         return 'some test message';
@@ -171,7 +189,7 @@ module('Unit | Validator | presence', function () {
     };
     let validator = validatePresence(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'test'),
       'some test message',
       'custom message function is returned correctly'

@@ -9,15 +9,15 @@ module('Unit | Validator | confirmation', function () {
     let opts = { on: 'password' };
     let validator = validateConfirmation(opts);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined, undefined, changes),
       buildMessage(key, { type: 'confirmation', context: opts })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, null, undefined, changes),
       buildMessage(key, { type: 'confirmation', context: opts })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, '', undefined, changes),
       buildMessage(key, { type: 'confirmation', context: opts })
     );
@@ -33,7 +33,7 @@ module('Unit | Validator | confirmation', function () {
     };
     let validator = validateConfirmation(opts);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined, undefined, changes),
       'Password confirmation is not equal to password',
       'custom message string is generated correctly'
@@ -48,17 +48,17 @@ module('Unit | Validator | confirmation', function () {
     let opts = {
       on: 'password',
       message: function (_key, type, value, context) {
-        assert.equal(_key, key);
-        assert.equal(type, 'confirmation');
-        assert.equal(value, 'testValue');
-        assert.equal(context.on, opts.on);
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'confirmation');
+        assert.strictEqual(value, 'testValue');
+        assert.strictEqual(context.on, opts.on);
 
         return 'some test message';
       },
     };
     let validator = validateConfirmation(opts);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'testValue', undefined, changes),
       'some test message',
       'custom message function is returned correctly'
@@ -83,7 +83,7 @@ test('It looks for default values as well as "changes" values', function (assert
   let opts = { on: 'password' };
   let validator = validateConfirmation(opts);
 
-  assert.equal(
+  assert.strictEqual(
     validator(key, 'foo', undefined, {}, content),
     buildMessage(key, { type: 'confirmation', context: opts })
   );

@@ -8,14 +8,14 @@ const messages = getMessages();
 
 module('Unit | Utility | validation errors', function () {
   test('#getDescriptionFor formats a key into a description', function (assert) {
-    assert.equal(messages.getDescriptionFor('firstName'), 'First name');
-    assert.equal(messages.getDescriptionFor('first name'), 'First name');
-    assert.equal(messages.getDescriptionFor('first_name'), 'First name');
-    assert.equal(messages.getDescriptionFor('first-name'), 'First name');
+    assert.strictEqual(messages.getDescriptionFor('firstName'), 'First name');
+    assert.strictEqual(messages.getDescriptionFor('first name'), 'First name');
+    assert.strictEqual(messages.getDescriptionFor('first_name'), 'First name');
+    assert.strictEqual(messages.getDescriptionFor('first-name'), 'First name');
   });
 
   test('#formatMessage formats a blank message', function (assert) {
-    assert.equal(
+    assert.strictEqual(
       messages.formatMessage('{foo} is {bar}', { foo: 'foo', bar: 'bar' }),
       'foo is bar'
     );
@@ -31,7 +31,7 @@ module('Unit | Utility | validation errors', function () {
   });
 
   test('#buildMessage builds a custom message if custom message is string', function (assert) {
-    assert.equal(
+    assert.strictEqual(
       buildMessage('firstName', {
         type: 'custom',
         value: 'testValue',
@@ -47,12 +47,12 @@ module('Unit | Utility | validation errors', function () {
 
   test('#buildMessage returns correct defaults for "blank" and "present"', function (assert) {
     assert.expect(2);
-    assert.equal(
+    assert.strictEqual(
       buildMessage('firstName', { type: 'present' }),
       "First name can't be blank",
       '"present" message is correct'
     );
-    assert.equal(
+    assert.strictEqual(
       buildMessage('firstName', { type: 'blank' }),
       'First name must be blank',
       '"blank" message is correct'
@@ -63,15 +63,15 @@ module('Unit | Utility | validation errors', function () {
     assert.expect(5);
 
     function message(key, type, value, context) {
-      assert.equal(key, 'firstName');
-      assert.equal(type, 'custom');
-      assert.equal(value, 'testValue');
-      assert.equal(context.foo, 'foo');
+      assert.strictEqual(key, 'firstName');
+      assert.strictEqual(type, 'custom');
+      assert.strictEqual(value, 'testValue');
+      assert.strictEqual(context.foo, 'foo');
 
       return 'some test message';
     }
 
-    assert.equal(
+    assert.strictEqual(
       buildMessage('firstName', {
         type: 'custom',
         value: 'testValue',
@@ -102,9 +102,9 @@ module('Unit | Utility | validation errors', function () {
       context: { description },
     } = result;
     assert.ok(message, "{description} can't be blank");
-    assert.equal(description, 'First name', 'description is returned');
-    assert.equal(type, 'present', 'the type of the error is returned');
-    assert.equal(value, 'testValue', 'the passed value is returned');
+    assert.strictEqual(description, 'First name', 'description is returned');
+    assert.strictEqual(type, 'present', 'the type of the error is returned');
+    assert.strictEqual(value, 'testValue', 'the passed value is returned');
     set(config, 'changeset-validations', originalConfig); // reset the config
   });
 
@@ -129,9 +129,9 @@ module('Unit | Utility | validation errors', function () {
       context: { description },
     } = result;
     assert.ok(message, '[CUSTOM] {description} must be a valid date');
-    assert.equal(description, 'First name', 'description is returned');
-    assert.equal(type, 'date', 'the type of the error is returned');
-    assert.equal(value, d, 'the passed value is returned');
+    assert.strictEqual(description, 'First name', 'description is returned');
+    assert.strictEqual(type, 'date', 'the type of the error is returned');
+    assert.strictEqual(value, d, 'the passed value is returned');
     set(config, 'changeset-validations', originalConfig); // reset the config
   });
 });
