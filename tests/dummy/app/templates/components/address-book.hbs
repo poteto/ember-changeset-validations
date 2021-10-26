@@ -10,7 +10,7 @@
         class="form-control form-control_small {{if (get this.formChangeset.error.name 'validation') 'is-invalid' ''}}"
         @type="text"
         @value={{this.formChangeset.name}}
-        @focus-out={{action "onBlur" "name"}}
+        {{on "focusout" (fn this.onBlur "name")}}
       />
 
       <span class="invalid-feedback">
@@ -20,6 +20,7 @@
   </fieldset>
 
   <button
+    type="button"
     data-test-submit
     class="btn btn-primary"
     disabled={{@isSubmitting}}
