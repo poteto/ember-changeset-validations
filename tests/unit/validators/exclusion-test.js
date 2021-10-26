@@ -10,7 +10,7 @@ module('Unit | Validator | exclusion', function () {
 
     assert.true(validator(key, ''));
     assert.true(validator(key, 'Executive'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'Manager'),
       buildMessage(key, {
         type: 'exclusion',
@@ -27,7 +27,7 @@ module('Unit | Validator | exclusion', function () {
 
     assert.true(validator(key, ''));
     assert.true(validator(key, 61));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 21),
       buildMessage(key, { type: 'exclusion', value: 21, context: options })
     );
@@ -41,7 +41,7 @@ module('Unit | Validator | exclusion', function () {
     };
     let validator = validateExclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 20),
       'Your Age is invalid, should not be within 18,60',
       'custom message string generated correctly'
@@ -55,16 +55,16 @@ module('Unit | Validator | exclusion', function () {
     let options = {
       list: ['Test'],
       message: function (_key, type, value) {
-        assert.equal(_key, key);
-        assert.equal(type, 'exclusion');
-        assert.equal(value, 'Test');
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'exclusion');
+        assert.strictEqual(value, 'Test');
 
         return 'some test message';
       },
     };
     let validator = validateExclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'Test'),
       'some test message',
       'custom message function is returned correctly'

@@ -8,11 +8,11 @@ module('Unit | Validator | inclusion', function () {
     let options = { list: ['Manager', 'VP', 'Director'] };
     let validator = validateInclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, { type: 'inclusion', value: '', context: options })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'Executive'),
       buildMessage(key, {
         type: 'inclusion',
@@ -28,11 +28,11 @@ module('Unit | Validator | inclusion', function () {
     let options = { range: [18, 60] };
     let validator = validateInclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, { type: 'inclusion', value: '', context: options })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, 61),
       buildMessage(key, { type: 'inclusion', value: 61, context: options })
     );
@@ -47,7 +47,7 @@ module('Unit | Validator | inclusion', function () {
     };
     let validator = validateInclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 92),
       'Your Age is invalid, should be within 18,60',
       'custom message string is generated correctly'
@@ -61,16 +61,16 @@ module('Unit | Validator | inclusion', function () {
     let options = {
       list: ['Something'],
       message: function (_key, type, value) {
-        assert.equal(_key, key);
-        assert.equal(type, 'inclusion');
-        assert.equal(value, 'Test');
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'inclusion');
+        assert.strictEqual(value, 'Test');
 
         return 'some test message';
       },
     };
     let validator = validateInclusion(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'Test'),
       'some test message',
       'custom message function is returned correctly'

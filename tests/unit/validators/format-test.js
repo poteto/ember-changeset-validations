@@ -25,7 +25,7 @@ module('Unit | Validator | format', function () {
     let validator = validateFormat(options);
 
     assert.true(validator(key, 'http://lauren.com'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'somevalue'),
       buildMessage(key, { type: options.type })
     );
@@ -37,7 +37,7 @@ module('Unit | Validator | format', function () {
     let validator = validateFormat(options);
 
     assert.true(validator(key, 'secretword'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'fail'),
       buildMessage(key, { type: 'invalid' })
     );
@@ -48,7 +48,7 @@ module('Unit | Validator | format', function () {
     let options = { type: 'email', inverse: true };
     let validator = validateFormat(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'test@example.com'),
       buildMessage(key, { type: 'email' }),
       'email fails format test'
@@ -61,7 +61,7 @@ module('Unit | Validator | format', function () {
     let options = { regex: /^customregex$/, inverse: true };
     let validator = validateFormat(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'customregex'),
       buildMessage(key, { type: 'invalid' }),
       'matching regex fails format test'
@@ -80,7 +80,7 @@ module('Unit | Validator | format', function () {
     };
     let validator = validateFormat(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'notaurl'),
       'Url should be of type url',
       'custom message string is generated correctly'
@@ -94,17 +94,17 @@ module('Unit | Validator | format', function () {
     let options = {
       type: 'url',
       message: function (key, type, value, context) {
-        assert.equal(key, 'URL');
-        assert.equal(type, 'url');
-        assert.equal(value, 'notaurl');
-        assert.equal(context.type, 'url');
+        assert.strictEqual(key, 'URL');
+        assert.strictEqual(type, 'url');
+        assert.strictEqual(value, 'notaurl');
+        assert.strictEqual(context.type, 'url');
 
         return 'some test message';
       },
     };
     let validator = validateFormat(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'notaurl'),
       'some test message',
       'custom message function is returned correctly'

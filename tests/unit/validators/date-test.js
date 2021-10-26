@@ -12,7 +12,7 @@ module('Unit | Validator | date', function () {
     assert.true(validator(key, undefined), 'undefined is allowed');
     assert.true(validator(key, 123), 'number value is is allowed');
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '1992-03-30'),
       buildMessage(key, {
         type: 'date',
@@ -21,12 +21,12 @@ module('Unit | Validator | date', function () {
       }),
       'result: [CUSTOM] Birth date must be a valid date'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, NaN),
       buildMessage(key, { type: 'date', value: NaN, context: options }),
       'result: NaN is not allowed'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, {}),
       buildMessage(key, { type: 'date', value: {}, context: options }),
       'result: empty object is not allowed'
@@ -59,7 +59,7 @@ module('Unit | Validator | date', function () {
     const validator = validateDate(options);
 
     // assumes current moment
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, {
         type: 'date',
@@ -76,7 +76,7 @@ module('Unit | Validator | date', function () {
     const validator = validateDate(options);
 
     // assumes current moment
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, {
         type: 'date',
@@ -85,7 +85,7 @@ module('Unit | Validator | date', function () {
       }),
       'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, null),
       buildMessage(key, {
         type: 'date',
@@ -94,7 +94,7 @@ module('Unit | Validator | date', function () {
       }),
       'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined),
       buildMessage(key, {
         type: 'date',
@@ -103,7 +103,7 @@ module('Unit | Validator | date', function () {
       }),
       'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, '1992-03-30'),
       buildMessage(key, {
         type: 'date',
@@ -112,7 +112,7 @@ module('Unit | Validator | date', function () {
       }),
       'result: [CUSTOM] Test date must be a valid date'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'not a date'),
       buildMessage(key, {
         type: 'date',
@@ -121,12 +121,12 @@ module('Unit | Validator | date', function () {
       }),
       'non-date string is not allowed'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, NaN),
       buildMessage(key, { type: 'date', value: NaN, context: options }),
       'NaN is not allowed'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, {}),
       buildMessage(key, { type: 'date', value: {}, context: options }),
       'empty object is not allowed'
@@ -144,7 +144,7 @@ module('Unit | Validator | date', function () {
     let validator = validateDate(options);
 
     // Testing with before date in the future
-    assert.equal(
+    assert.strictEqual(
       validator(key, afterDate),
       buildMessage(key, {
         afterDate,
@@ -155,7 +155,7 @@ module('Unit | Validator | date', function () {
 
     options = { before: () => startDate };
     validator = validateDate(options);
-    assert.equal(
+    assert.strictEqual(
       validator(key, afterDate),
       buildMessage(key, {
         afterDate,
@@ -180,7 +180,7 @@ module('Unit | Validator | date', function () {
     let validator = validateDate(options);
 
     // Testing with onOrBefore date in the future
-    assert.equal(
+    assert.strictEqual(
       validator(key, afterDate),
       buildMessage(key, {
         afterDate,
@@ -191,7 +191,7 @@ module('Unit | Validator | date', function () {
 
     options = { onOrBefore: () => startDate };
     validator = validateDate(options);
-    assert.equal(
+    assert.strictEqual(
       validator(key, afterDate),
       buildMessage(key, {
         afterDate,
@@ -216,7 +216,7 @@ module('Unit | Validator | date', function () {
     let validator = validateDate(options);
 
     // Testing with after date in the future
-    assert.equal(
+    assert.strictEqual(
       validator(key, startDate),
       buildMessage(key, {
         startDate,
@@ -227,7 +227,7 @@ module('Unit | Validator | date', function () {
 
     options = { after: () => afterDate };
     validator = validateDate(options);
-    assert.equal(
+    assert.strictEqual(
       validator(key, startDate),
       buildMessage(key, {
         startDate,
@@ -252,7 +252,7 @@ module('Unit | Validator | date', function () {
     let validator = validateDate(options);
 
     // Testing with onOrAfter date in the future
-    assert.equal(
+    assert.strictEqual(
       validator(key, startDate),
       buildMessage(key, {
         onOrAfterDate,
@@ -263,7 +263,7 @@ module('Unit | Validator | date', function () {
 
     options = { onOrAfter: () => onOrAfterDate };
     validator = validateDate(options);
-    assert.equal(
+    assert.strictEqual(
       validator(key, startDate),
       buildMessage(key, {
         onOrAfterDate,
@@ -291,7 +291,7 @@ module('Unit | Validator | date', function () {
 
       let validator = validateDate(options);
 
-      assert.equal(
+      assert.strictEqual(
         validator(key, startDate),
         buildMessage(key, { message: 'custom message: before' }),
         'date on or after the "before" date is not allowed'
@@ -311,7 +311,7 @@ module('Unit | Validator | date', function () {
 
       let validator = validateDate(options);
 
-      assert.equal(
+      assert.strictEqual(
         validator(key, startDate),
         buildMessage(key, { message: 'custom message: onOrBefore' }),
         'date after the "onOrBefore" date is not allowed'
@@ -328,7 +328,7 @@ module('Unit | Validator | date', function () {
 
       let validator = validateDate(options);
 
-      assert.equal(
+      assert.strictEqual(
         validator(key, startDate),
         buildMessage(key, { message: 'custom message: after' }),
         'date on or before the "after" date is not allowed'
@@ -348,7 +348,7 @@ module('Unit | Validator | date', function () {
 
       let validator = validateDate(options);
 
-      assert.equal(
+      assert.strictEqual(
         validator(key, startDate),
         buildMessage(key, { message: 'custom message: onOrAfter' }),
         'date before the "onOrAfter" date is not allowed'

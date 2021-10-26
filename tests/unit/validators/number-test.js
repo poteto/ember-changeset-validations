@@ -13,7 +13,7 @@ module('Unit | Validator | number', function () {
     assert.true(validator(key, undefined), 'undefined is allowed');
     assert.true(validator(key, '6'), 'numeric string is allowed');
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'not a number'),
       buildMessage(key, {
         type: 'notANumber',
@@ -22,7 +22,7 @@ module('Unit | Validator | number', function () {
       }),
       'non-numeric string is not allowed'
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, NaN),
       buildMessage(key, { type: 'notANumber', value: NaN, context: options }),
       'NaN is not allowed'
@@ -34,7 +34,7 @@ module('Unit | Validator | number', function () {
     let options = {};
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'not a number'),
       buildMessage(key, {
         type: 'notANumber',
@@ -51,7 +51,10 @@ module('Unit | Validator | number', function () {
     let options = {};
     let validator = validateNumber(options);
 
-    assert.equal(validator(key, ''), buildMessage(key, { type: 'notANumber' }));
+    assert.strictEqual(
+      validator(key, ''),
+      buildMessage(key, { type: 'notANumber' })
+    );
     assert.true(validator(key, '7'));
   });
 
@@ -60,11 +63,11 @@ module('Unit | Validator | number', function () {
     let options = {};
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, null),
       buildMessage(key, { type: 'notANumber' })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, undefined),
       buildMessage(key, { type: 'notANumber' })
     );
@@ -75,7 +78,7 @@ module('Unit | Validator | number', function () {
     let options = { integer: true };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '8.5'),
       buildMessage(key, {
         type: 'notAnInteger',
@@ -91,7 +94,7 @@ module('Unit | Validator | number', function () {
     let options = { is: 12 };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '8.5'),
       buildMessage(key, { type: 'equalTo', value: '8.5', context: options })
     );
@@ -103,11 +106,11 @@ module('Unit | Validator | number', function () {
     let options = { lt: 12 };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '15'),
       buildMessage(key, { type: 'lessThan', value: '15', context: options })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, '12'),
       buildMessage(key, { type: 'lessThan', value: '12', context: options })
     );
@@ -119,7 +122,7 @@ module('Unit | Validator | number', function () {
     let options = { lte: 12 };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '15'),
       buildMessage(key, {
         type: 'lessThanOrEqualTo',
@@ -137,11 +140,11 @@ module('Unit | Validator | number', function () {
     let validator = validateNumber(options);
 
     assert.true(validator(key, '15'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, '12'),
       buildMessage(key, { type: 'greaterThan', value: '12', context: options })
     );
-    assert.equal(
+    assert.strictEqual(
       validator(key, '4'),
       buildMessage(key, { type: 'greaterThan', value: '4', context: options })
     );
@@ -154,7 +157,7 @@ module('Unit | Validator | number', function () {
 
     assert.true(validator(key, '15'));
     assert.true(validator(key, '12'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, '4'),
       buildMessage(key, {
         type: 'greaterThanOrEqualTo',
@@ -170,7 +173,7 @@ module('Unit | Validator | number', function () {
     let validator = validateNumber(options);
 
     assert.true(validator(key, '15'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, '-12'),
       buildMessage(key, { type: 'positive', value: '-12', context: options })
     );
@@ -182,7 +185,7 @@ module('Unit | Validator | number', function () {
     let validator = validateNumber(options);
 
     assert.true(validator(key, '15'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, '34'),
       buildMessage(key, { type: 'odd', value: '34', context: options })
     );
@@ -193,7 +196,7 @@ module('Unit | Validator | number', function () {
     let options = { even: true };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '15'),
       buildMessage(key, { type: 'even', value: '15', context: options })
     );
@@ -205,7 +208,7 @@ module('Unit | Validator | number', function () {
     let options = { multipleOf: 17 };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, '15'),
       buildMessage(key, { type: 'multipleOf', value: '15', context: options })
     );
@@ -217,7 +220,7 @@ module('Unit | Validator | number', function () {
     let options = { even: true, message: 'Even {description} is wrong' };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 33),
       'Even Age is wrong',
       'custom message string is generated correctly'
@@ -231,9 +234,9 @@ module('Unit | Validator | number', function () {
     let options = {
       even: true,
       message: function (_key, type, value, context) {
-        assert.equal(_key, key);
-        assert.equal(type, 'even');
-        assert.equal(value, 33);
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'even');
+        assert.strictEqual(value, 33);
         assert.true(context.even);
 
         return 'some test message';
@@ -241,7 +244,7 @@ module('Unit | Validator | number', function () {
     };
     let validator = validateNumber(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 33),
       'some test message',
       'custom message function is returned correctly'

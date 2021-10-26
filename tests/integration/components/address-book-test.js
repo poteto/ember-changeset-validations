@@ -17,16 +17,16 @@ module('Integration | Component | address-book', function (hooks) {
     );
 
     await fillIn('#address-book-name', 'abcdef');
-    assert.equal(find('#address-book-name').value, 'abcdef');
+    assert.strictEqual(find('#address-book-name').value, 'abcdef');
 
     await fillIn('#address-book-name', '');
-    assert.equal(find('#address-book-name').value, '');
+    assert.strictEqual(find('#address-book-name').value, '');
 
     await fillIn('#address-book-name', 'abcdef');
-    assert.equal(find('#address-book-name').value, 'abcdef');
+    assert.strictEqual(find('#address-book-name').value, 'abcdef');
 
     await click('[data-test-submit]');
-    assert.equal(find('#address-book-name').value, 'abcdef');
+    assert.strictEqual(find('#address-book-name').value, 'abcdef');
 
     assert.verifySteps(['save called']);
   });

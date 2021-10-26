@@ -8,7 +8,7 @@ module('Unit | Validator | length', function () {
     let options = { min: 1 };
     let validator = validateLength(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, { type: 'tooShort', value: '', context: options })
     );
@@ -22,7 +22,7 @@ module('Unit | Validator | length', function () {
 
     assert.true(validator(key, ''));
     assert.true(validator(key, 'a'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'ab'),
       buildMessage(key, { type: 'tooLong', value: 'ab', context: options })
     );
@@ -33,14 +33,14 @@ module('Unit | Validator | length', function () {
     let options = { min: 1, max: 3 };
     let validator = validateLength(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, ''),
       buildMessage(key, { type: 'between', value: '', context: options })
     );
     assert.true(validator(key, 'a'));
     assert.true(validator(key, 'ab'));
     assert.true(validator(key, 'abc'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'abcd'),
       buildMessage(key, { type: 'between', value: '', context: options })
     );
@@ -51,12 +51,12 @@ module('Unit | Validator | length', function () {
     let options = { is: 2 };
     let validator = validateLength(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'a'),
       buildMessage(key, { type: 'wrongLength', value: '', context: options })
     );
     assert.true(validator(key, 'ab'));
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'abc'),
       buildMessage(key, { type: 'wrongLength', value: '', context: options })
     );
@@ -78,7 +78,7 @@ module('Unit | Validator | length', function () {
     let options = { is: 2, message: '{description} should be length {is}' };
     let validator = validateLength(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'abc'),
       'First name should be length 2',
       'custom messsage string is generated correctly'
@@ -92,17 +92,17 @@ module('Unit | Validator | length', function () {
     let options = {
       is: 2,
       message: function (_key, type, value, context) {
-        assert.equal(_key, key);
-        assert.equal(type, 'wrongLength');
-        assert.equal(value, 'abc');
-        assert.equal(context.is, 2);
+        assert.strictEqual(_key, key);
+        assert.strictEqual(type, 'wrongLength');
+        assert.strictEqual(value, 'abc');
+        assert.strictEqual(context.is, 2);
 
         return 'some test message';
       },
     };
     let validator = validateLength(options);
 
-    assert.equal(
+    assert.strictEqual(
       validator(key, 'abc'),
       'some test message',
       'custom message function is returned correctly'
