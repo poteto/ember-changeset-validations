@@ -1,7 +1,54 @@
 # Change Log
 
-## [3.15.2](https://github.com/poteto/ember-changeset-validations/tree/v3.15.2) (2021-07-20)
-[Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.8...v3.15.2)
+
+## v4.0.0-beta.1 (2021-10-27)
+
+#### :boom: Breaking Change
+* [#326](https://github.com/poteto/ember-changeset-validations/pull/326) Breaking: Remove changeset template helper re-export ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :rocket: Enhancement
+* [#326](https://github.com/poteto/ember-changeset-validations/pull/326) Breaking: Remove changeset template helper re-export ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 1
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
+
+## v4.0.0-beta.0 (2021-10-27)
+
+#### :boom: Breaking Change
+* [#324](https://github.com/poteto/ember-changeset-validations/pull/324) Breaking: Upgrade ember-auto-import to v2 and move it to dependencies ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#321](https://github.com/poteto/ember-changeset-validations/pull/321) Breaking: Drop Node.js v10 support ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### :rocket: Enhancement
+* [#327](https://github.com/poteto/ember-changeset-validations/pull/327) Allow v0.3, v0.4 and v0.5 of ember-get-config ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#325](https://github.com/poteto/ember-changeset-validations/pull/325) Run ember-cli-update to v3.28.3 and enable Ember v4/embroider scenarios ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#323](https://github.com/poteto/ember-changeset-validations/pull/323) Internal: Update eslint-plugin-ember, fix lint, run blueprint tests in CI ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#322](https://github.com/poteto/ember-changeset-validations/pull/322) Internal: Update ember-template-lint and fix lint issues ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#320](https://github.com/poteto/ember-changeset-validations/pull/320) Internal: Upgrade eslint-plugin-qunit to v7 ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 2
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+
+
+## v3.15.2 (2021-07-20)
+
+#### :bug: Bug Fix
+* [#305](https://github.com/poteto/ember-changeset-validations/pull/305) fix(presence on): allow for nested keys to be used in `validatePresence` -> `on` ([@velrest](https://github.com/velrest))
+
+#### Committers: 2
+- Jonas Cosandey ([@velrest](https://github.com/velrest))
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
+
+
+## v3.15.1 (2021-07-15)
+
+#### :bug: Bug Fix
+* [#312](https://github.com/poteto/ember-changeset-validations/pull/312) Bugfix: validate on render without backtracking Ember assertion ([@snewcomer](https://github.com/snewcomer))
+  [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.8...v3.15.1)
+
+#### Committers: 1
+- Scott Newcomer ([@snewcomer](https://github.com/snewcomer))
 
 ## [3.14.8](https://github.com/poteto/ember-changeset-validations/tree/v3.14.8) (2021-07-08)
 [Full Changelog](https://github.com/poteto/ember-changeset-validations/compare/v3.14.7...v3.14.8)
