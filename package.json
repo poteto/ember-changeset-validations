@@ -38,7 +38,7 @@
     "ember-changeset": "^3.15.0",
     "ember-cli-babel": "^7.26.6",
     "ember-cli-htmlbars": "^5.7.1",
-    "ember-get-config": "^0.3.0",
+    "ember-get-config": "^0.3.0 || ^0.4.0 || ^0.5.0",
     "ember-validators": "~4.0.0",
     "validated-changeset": "~1.0.0"
   },
