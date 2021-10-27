@@ -1,7 +1,7 @@
 import EmberObject from '@ember/object';
 import { resolve } from 'rsvp';
 import { settled } from '@ember/test-helpers';
-import { changeset } from 'ember-changeset-validations/helpers/changeset';
+import { changeset } from 'ember-changeset/helpers/changeset';
 import { module, test } from 'qunit';
 import {
   validatePresence,
