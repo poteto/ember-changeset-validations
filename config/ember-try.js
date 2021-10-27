@@ -69,6 +69,9 @@ module.exports = async function () {
           }),
         },
         npm: {
+          devDependencies: {
+            'ember-source': '~3.28.4',
+          },
           ember: {
             edition: 'classic',
           },
