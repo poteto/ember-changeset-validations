@@ -19,11 +19,7 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {
-    'ember/no-get': 0,
-    'ember/no-classic-classes': 0,
-    'no-undef': 0,
-  },
+  rules: {},
   overrides: [
     // node files
     {
@@ -37,6 +33,7 @@ module.exports = {
         'blueprints/*/index.js',
         'config/**/*.js',
         'tests/dummy/config/**/*.js',
+        'node-test/**/*.js',
       ],
       excludedFiles: [
         'addon/**',

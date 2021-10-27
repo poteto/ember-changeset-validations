@@ -2,7 +2,6 @@ import getMessages from 'ember-changeset-validations/utils/get-messages';
 import buildMessage from 'ember-changeset-validations/utils/validation-errors';
 import { module, test } from 'qunit';
 import config from 'ember-get-config';
-import { get, set } from '@ember/object';
 
 const messages = getMessages();
 
@@ -83,8 +82,8 @@ module('Unit | Utility | validation errors', function () {
   });
 
   test('#buildMessage can return a raw data structure', function (assert) {
-    let originalConfig = get(config, 'changeset-validations'); // enable the feature
-    set(config, 'changeset-validations', { rawOutput: true });
+    let originalConfig = config['changeset-validations']; // enable the feature
+    config['changeset-validations'] = { rawOutput: true };
     let result = buildMessage('firstName', {
       type: 'present',
       value: 'testValue',
@@ -105,12 +104,12 @@ module('Unit | Utility | validation errors', function () {
     assert.strictEqual(description, 'First name', 'description is returned');
     assert.strictEqual(type, 'present', 'the type of the error is returned');
     assert.strictEqual(value, 'testValue', 'the passed value is returned');
-    set(config, 'changeset-validations', originalConfig); // reset the config
+    config['changeset-validations'] = originalConfig; // reset the config
   });
 
   test('#buildMessage can return a raw data structure for a date', function (assert) {
-    let originalConfig = get(config, 'changeset-validations'); // enable the feature
-    set(config, 'changeset-validations', { rawOutput: true });
+    let originalConfig = config['changeset-validations']; // enable the feature
+    config['changeset-validations'] = { rawOutput: true };
     let d = new Date();
     let result = buildMessage('firstName', {
       type: 'date',
@@ -132,6 +131,6 @@ module('Unit | Utility | validation errors', function () {
     assert.strictEqual(description, 'First name', 'description is returned');
     assert.strictEqual(type, 'date', 'the type of the error is returned');
     assert.strictEqual(value, d, 'the passed value is returned');
-    set(config, 'changeset-validations', originalConfig); // reset the config
+    config['changeset-validations'] = originalConfig; // reset the config
   });
 });

@@ -11,7 +11,7 @@ import config from 'ember-get-config';
 import getMessages from 'ember-changeset-validations/utils/get-messages';
 
 export default function buildMessage(key, result) {
-  let returnsRaw = get(config, 'changeset-validations.rawOutput') || false;
+  let returnsRaw = config['changeset-validations']?.rawOutput || false;
   let messages = getMessages();
 
   let description = messages.getDescriptionFor(key);
