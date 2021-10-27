@@ -1,6 +1,6 @@
 {
   "name": "ember-changeset-validations",
-  "version": "3.16.0",
+  "version": "4.0.0-beta.0",
   "description": "Validations for ember-changeset",
   "keywords": [
     "ember-addon",
