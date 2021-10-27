@@ -22,10 +22,10 @@ function validateContent() {
 
 module('Unit | Helper | changeset', function () {
   test('it composes validations and uses custom validation messages', async function (assert) {
-    let User = EmberObject.extend({
-      firstName: null,
-      lastName: null,
-    });
+    let User = class extends EmberObject {
+      firstName = null;
+      lastName = null;
+    };
     let user = User.create();
     let userValidations = {
       firstName: [validatePresence(true), validateLength({ min: 1, max: 8 })],
@@ -71,10 +71,10 @@ module('Unit | Helper | changeset', function () {
   });
 
   test('it works with async validators', async function (assert) {
-    let User = EmberObject.extend({
-      username: null,
-      email: null,
-    });
+    let User = class extends EmberObject {
+      firstName = null;
+      lastName = null;
+    };
     let user = User.create();
     let userValidations = {
       email: validateUnique(),
@@ -113,10 +113,10 @@ module('Unit | Helper | changeset', function () {
   });
 
   test('it passes the original object into validators', async function (assert) {
-    let User = EmberObject.extend({
-      firstName: null,
-      lastName: null,
-    });
+    let User = class extends EmberObject {
+      firstName = null;
+      lastName = null;
+    };
     let user = User.create();
     let userValidations = {
       firstName: validateContent(),
@@ -138,10 +138,10 @@ module('Unit | Helper | changeset', function () {
   });
 
   test('it works with models that are promises', async function (assert) {
-    let User = EmberObject.extend({
-      firstName: null,
-      lastName: null,
-    });
+    let User = class extends EmberObject {
+      firstName = null;
+      lastName = null;
+    };
     let user = resolve(User.create());
     let userValidations = {
       firstName: validatePresence(true),
@@ -169,10 +169,10 @@ module('Unit | Helper | changeset', function () {
   });
 
   test('it passes through options to the changeset object', async function (assert) {
-    let User = EmberObject.extend({
-      firstName: null,
-      lastName: null,
-    });
+    let User = class extends EmberObject {
+      firstName = null;
+      lastName = null;
+    };
     let userValidations = {
       firstName: validatePresence(true),
       lastName: validatePresence(true),
