@@ -1,7 +1,7 @@
 <h1 align="center"><br><br><img alt="ember-changeset-validations: Validations for ember-changeset" src="assets/title.svg" width="350px"><br><br><br></h1>
 
 [![Download count all time](https://img.shields.io/npm/dt/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
-[![TravisCI Build Status](https://img.shields.io/travis/poteto/ember-changeset-validations/master.svg)](https://travis-ci.org/poteto/ember-changeset-validations)
+[![GitHub Actions Build Status](https://img.shields.io/github/workflow/status/poteto/ember-changeset-validations/CI/master)](https://github.com/poteto/ember-changeset-validations/actions/workflows/ci.yml?query=branch%3Amaster)
 [![npm version](https://badge.fury.io/js/ember-changeset-validations.svg)](https://badge.fury.io/js/ember-changeset-validations)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-changeset-validations.svg)](https://emberobserver.com/addons/ember-changeset-validations)
 
