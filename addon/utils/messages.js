@@ -1,10 +1,9 @@
 import _Messages from 'ember-validators/messages';
-import { assign } from '@ember/polyfills';
 import { capitalize, dasherize } from '@ember/string';
 
-const Messages = assign({}, _Messages);
+const Messages = Object.assign({}, _Messages);
 
-export default assign(Messages, {
+export default Object.assign(Messages, {
   // Blank and present are flipped in ember-validators. Need to flip them back here
   blank: _Messages.present,
   present: _Messages.blank,

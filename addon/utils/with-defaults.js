@@ -1,5 +1,3 @@
-import { assign } from '@ember/polyfills';
-
 /**
  * Create a new object with defaults
  *
@@ -9,5 +7,5 @@ import { assign } from '@ember/polyfills';
  * @return {Object}
  */
 export default function withDefaults(obj = {}, defaults = {}) {
-  return assign(assign({}, defaults), obj);
+  return Object.assign(Object.assign({}, defaults), obj);
 }
