@@ -34,17 +34,17 @@
     "contributors": "npx contributor-faces -e \"(*-bot|*\\[bot\\]|*-tomster|homu|bors)\""
   },
   "dependencies": {
-    "ember-auto-import": "^2.2.3",
-    "ember-changeset": "^4.0.0-beta.1",
+    "ember-auto-import": "^2.4.0",
+    "ember-changeset": "^4.0.0-beta.2",
     "ember-cli-babel": "^7.26.6",
-    "ember-get-config": "^0.3.0 || ^0.4.0 || ^0.5.0 || ^1.0.0",
-    "ember-validators": "~4.0.0",
+    "ember-get-config": "^0.3.0 || ^0.4.0 || ^0.5.0 || ^1.0.2",
+    "ember-validators": "~4.1.0",
     "validated-changeset": "~1.1.0"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.5.0",
-    "@embroider/test-setup": "^0.43.5",
+    "@embroider/test-setup": "^1.0.0",
     "@glimmer/component": "^1.0.4",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
