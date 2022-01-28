@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "ember-auto-import": "^2.4.0",
-    "ember-changeset": "^4.0.0-beta.2",
     "ember-cli-babel": "^7.26.6",
     "ember-get-config": "^0.3.0 || ^0.4.0 || ^0.5.0 || ^1.0.2",
     "ember-validators": "~4.1.0",
@@ -48,6 +47,7 @@
     "@glimmer/component": "^1.0.4",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "ember-changeset": "^4.0.0-beta.2",
     "ember-cli": "~3.28.3",
     "ember-cli-blueprint-test-helpers": "^0.19.2",
     "ember-cli-dependency-checker": "^3.2.0",

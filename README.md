@@ -7,7 +7,7 @@
 
 `ember-changeset-validations` is a companion validation library to [`ember-changeset`](https://github.com/poteto/ember-changeset). It's really simple to use and understand, and there are no CPs or observers anywhere – it's mostly just functions.
 
-Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to use changesets.
+Since `ember-changeset` is required to use this addon, please see [documentation](https://github.com/poteto/ember-changeset/blob/master/README.md) there on how to install and use changesets.
 
 To install if your app is on ember-source >= 3.13:
 
@@ -21,7 +21,7 @@ To install if your app is on ember-source < 3.13:
 ember install ember-changeset-validations@v2.2.1
 ```
 
-This will also install `ember-changeset`.
+Starting with v4 this addon does not install `ember-changeset` so make sure to list it in your devDependencies (for apps) or dependencies (for addons).
 
 Watch [a 6-part video series on ember-changeset and ember-changeset-validations](https://www.emberscreencasts.com/tags/editing-and-validating-forms-with-ember-changeset) presented by EmberScreencasts.
 
