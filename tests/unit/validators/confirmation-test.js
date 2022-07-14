@@ -89,3 +89,27 @@ test('It looks for default values as well as "changes" values', function (assert
   );
   assert.true(validator(key, password, undefined, {}, content));
 });
+
+test('It handles ember data models when looking for default values as well as "changes" values', function (assert) {
+  assert.expect(2);
+
+  let password = '1234567';
+  let content = {
+    _internalModel: {
+      createSnapshot: () => ({
+        attributes: () => ({
+          password,
+        }),
+      }),
+    },
+  };
+  let key = 'passwordConfirmation';
+  let opts = { on: 'password' };
+  let validator = validateConfirmation(opts);
+
+  assert.strictEqual(
+    validator(key, 'foo', undefined, {}, content),
+    buildMessage(key, { type: 'confirmation', context: opts })
+  );
+  assert.true(validator(key, password, undefined, {}, content));
+});
