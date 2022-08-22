@@ -144,7 +144,7 @@ export default class ChangesetComponent extends Component {
 
 ## Validator API
 
-`ember-changeset-validations` utilizes [`ember-validators`](https://github.com/offirgolan/ember-validators) as a core set of validators.
+`ember-changeset-validations` utilizes [`ember-validators`](https://github.com/rwwagner90/ember-validators) as a core set of validators.
 
 All validators take a [custom message option](#custom-validation-messages).
 
@@ -152,7 +152,7 @@ All validators take a [custom message option](#custom-validation-messages).
 
 Validates presence/absence of a value.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Presence.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Presence.html#method_validate)
 
 ```js
 {
@@ -180,7 +180,7 @@ Only validates for presence if any of the other values are present
 
 Validates the length of a `String` or an `Array`.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Length.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Length.html#method_validate)
 
 ```js
 {
@@ -215,7 +215,7 @@ This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970, 
 
 Validates various properties of a number.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Number.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Number.html#method_validate)
 
 ```js
 {
@@ -239,7 +239,7 @@ Validates various properties of a number.
 
 Validates that a value is a member of some list or range.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Inclusion.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Inclusion.html#method_validate)
 
 ```js
 {
@@ -255,7 +255,7 @@ Validates that a value is a member of some list or range.
 
 Validates that a value is a not member of some list or range.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Exclusion.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Exclusion.html#method_validate)
 
 ```js
 {
@@ -271,7 +271,7 @@ Validates that a value is a not member of some list or range.
 
 Validates a `String` based on a regular expression.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Format.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Format.html#method_validate)
 
 ```js
 {
@@ -290,7 +290,7 @@ Validates a `String` based on a regular expression.
 
 Validates that a field has the same value as another.
 
-👉 [All Options](https://offirgolan.github.io/ember-validators/docs/classes/Confirmation.html#method_validate)
+👉 [All Options](https://rwwagner90.github.io/ember-validators/docs/classes/Confirmation.html#method_validate)
 
 ```js
 {
@@ -566,7 +566,7 @@ We're grateful to these wonderful contributors who've contributed to `ember-chan
 <a href="https://github.com/michaellee"><img src="https://avatars1.githubusercontent.com/u/1329644?v=4" title="michaellee" width="80" height="80"></a>
 <a href="https://github.com/cibernox"><img src="https://avatars2.githubusercontent.com/u/265339?v=4" title="cibernox" width="80" height="80"></a>
 <a href="https://github.com/nickschot"><img src="https://avatars1.githubusercontent.com/u/334789?v=4" title="nickschot" width="80" height="80"></a>
-<a href="https://github.com/offirgolan"><img src="https://avatars2.githubusercontent.com/u/575938?v=4" title="offirgolan" width="80" height="80"></a>
+<a href="https://github.com/rwwagner90"><img src="https://avatars2.githubusercontent.com/u/575938?v=4" title="rwwagner90" width="80" height="80"></a>
 <a href="https://github.com/patrickberkeley"><img src="https://avatars0.githubusercontent.com/u/8364?v=4" title="patrickberkeley" width="80" height="80"></a>
 <a href="https://github.com/scottkidder"><img src="https://avatars1.githubusercontent.com/u/136984?v=4" title="scottkidder" width="80" height="80"></a>
 <a href="https://github.com/simonihmig"><img src="https://avatars0.githubusercontent.com/u/1325249?v=4" title="simonihmig" width="80" height="80"></a>
