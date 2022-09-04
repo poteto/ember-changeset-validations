@@ -1,5 +1,8 @@
 # Change Log
 
+## v4.1.0 (2022-04-19)
+
+Update ember-changeset 4.1.0
 
 ## v4.0.0-beta.1 (2021-10-27)
 
