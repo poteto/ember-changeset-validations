@@ -484,7 +484,7 @@ export default {
 In the message body, any text wrapped in single braces will be replaced with their appropriate values that were passed in as options to the validator. For example:
 
 ```js
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 // validators/custom.js
 export default function validateIsOne(options) {
   return (key, newValue, oldValue, changes, content) => {

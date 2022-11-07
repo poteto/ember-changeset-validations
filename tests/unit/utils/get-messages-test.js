@@ -1,5 +1,7 @@
-import getMessages from 'ember-changeset-validations/utils/get-messages';
-import defaultMessages from 'ember-changeset-validations/utils/messages';
+import {
+  getMessages,
+  defaultMessages,
+} from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | get messages', function () {

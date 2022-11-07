@@ -7,7 +7,7 @@ import { get } from '@ember/object';
 
 import { assert } from '@ember/debug';
 import config from 'ember-get-config';
-import getMessages from 'ember-changeset-validations/utils/get-messages';
+import { getMessages } from 'ember-changeset-validations/utils';
 
 export default function buildMessage(key, result) {
   let returnsRaw = config['changeset-validations']?.rawOutput || false;

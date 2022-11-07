@@ -1,5 +1,5 @@
 import validateInclusion from 'ember-changeset-validations/validators/inclusion';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Validator | inclusion', function () {

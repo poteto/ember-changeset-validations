@@ -1,5 +1,4 @@
-import getMessages from 'ember-changeset-validations/utils/get-messages';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { getMessages, buildMessage } from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 import config from 'ember-get-config';
 
