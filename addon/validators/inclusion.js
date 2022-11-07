@@ -1,4 +1,4 @@
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import evValidateInclusion from 'ember-validators/inclusion';
 
 export default function validateInclusion(options = {}) {

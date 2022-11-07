@@ -1,4 +1,4 @@
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import evValidatePresence from 'ember-validators/presence';
 import { get } from '@ember/object';
 

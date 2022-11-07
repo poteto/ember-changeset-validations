@@ -1,6 +1,8 @@
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
-import withDefaults from 'ember-changeset-validations/utils/with-defaults';
-import toDate from 'ember-changeset-validations/utils/to-date';
+import {
+  buildMessage,
+  withDefaults,
+  toDate,
+} from 'ember-changeset-validations/utils';
 
 const errorFormat = 'MMM Do, YYYY';
 

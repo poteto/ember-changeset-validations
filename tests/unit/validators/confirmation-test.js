@@ -1,5 +1,5 @@
 import validateConfirmation from 'ember-changeset-validations/validators/confirmation';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Validator | confirmation', function () {

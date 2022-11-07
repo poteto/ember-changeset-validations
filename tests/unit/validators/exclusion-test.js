@@ -1,5 +1,5 @@
 import validateExclusion from 'ember-changeset-validations/validators/exclusion';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Validator | exclusion', function () {

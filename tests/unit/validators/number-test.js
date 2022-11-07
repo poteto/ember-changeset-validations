@@ -1,5 +1,5 @@
 import validateNumber from 'ember-changeset-validations/validators/number';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import { module, test } from 'qunit';
 
 module('Unit | Validator | number', function () {

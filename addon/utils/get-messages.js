@@ -3,8 +3,10 @@ import { A as emberArray } from '@ember/array';
 
 import { isPresent } from '@ember/utils';
 import config from 'ember-get-config';
-import defaultMessages from 'ember-changeset-validations/utils/messages';
-import withDefaults from 'ember-changeset-validations/utils/with-defaults';
+import {
+  defaultMessages,
+  withDefaults,
+} from 'ember-changeset-validations/utils';
 
 const { keys } = Object;
 const moduleName = `${config.modulePrefix}/validations/messages`;

@@ -1,5 +1,5 @@
 import { isEmpty } from '@ember/utils';
-import buildMessage from 'ember-changeset-validations/utils/validation-errors';
+import { buildMessage } from 'ember-changeset-validations/utils';
 import evValidateFormat from 'ember-validators/format';
 
 export default function validateFormat(options = {}) {
