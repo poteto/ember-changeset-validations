@@ -70,7 +70,9 @@ module('Unit | Validator | confirmation', function () {
     let options = { allowBlank: true, on: 'foo' };
     let validator = validateConfirmation(options);
 
-    assert.true(validator(key, ''), 'Empty string is accepted');
+    assert.true(validator(key, null), 'null is accepted');
+    assert.true(validator(key, undefined), 'undefined is accepted');
+    assert.true(validator(key, ''), 'empty string is accepted');
   });
 });
 

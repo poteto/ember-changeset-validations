@@ -200,6 +200,7 @@ This API accepts valid Date objects or a Date in milliseconds since Jan 1 1970, 
 
 ```js
 {
+  propertyName: validateDate({ allowBlank: true }) // can be blank
   propertyName: validateDate({ before: new Date('3000-01-01') }), // must be before 1st Jan. 3000
   propertyName: validateDate({ onOrBefore: Date.parse(new Date('3000-01-01')) }), // must be not after 1st Jan. 3000
   propertyName: validateDate({ after: new Date('3000-01-01') }), // must be after 1st Jan. 3000

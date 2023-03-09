@@ -76,6 +76,8 @@ module('Unit | Validator | exclusion', function () {
     let options = { allowBlank: true };
     let validator = validateExclusion(options);
 
-    assert.true(validator(key, ''), 'Empty string is accepted');
+    assert.true(validator(key, null), 'null is accepted');
+    assert.true(validator(key, undefined), 'undefined is accepted');
+    assert.true(validator(key, ''), 'empty string is accepted');
   });
 });

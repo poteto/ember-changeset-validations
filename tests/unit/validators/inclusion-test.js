@@ -82,6 +82,8 @@ module('Unit | Validator | inclusion', function () {
     let options = { allowBlank: true };
     let validator = validateInclusion(options);
 
-    assert.true(validator(key, ''), 'Empty string is accepted');
+    assert.true(validator(key, null), 'null is accepted');
+    assert.true(validator(key, undefined), 'undefined is accepted');
+    assert.true(validator(key, ''), 'empty string is accepted');
   });
 });
