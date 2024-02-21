@@ -13,13 +13,12 @@ export default function buildMessage(key, result) {
   let returnsRaw = config['changeset-validations']?.rawOutput || false;
   let messages = getMessages();
 
-  let description = messages.getDescriptionFor(key);
-
   if (result.message) {
     return result.message;
   }
 
   let { type, value, context = {} } = result;
+  let description = context?.description ?? messages.getDescriptionFor(key);
 
   let message = get(messages, type);
   if (returnsRaw) {
